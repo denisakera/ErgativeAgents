@@ -129,3 +129,16 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - This project utilizes OpenAI models via the OpenRouter API for analysis
 - Streamlit for the interactive web interface
 - The open-source community for various visualization and NLP tools 
+
+## Research Motivation
+
+This project emerged from an interest in how ergative languages like Basque, when compared to nominative-accusative Indo-European languages like English, might reveal different understandings of values, responsibility, and agency in LLM simulations. 
+
+Ergative languages structure sentences differently, with unique grammatical treatment of subjects and objects that can fundamentally alter how concepts of action, causation, and responsibility are expressed. By running parallel simulations across these linguistic structures, this research aims to:
+
+1. Identify how grammatical structures might influence AI reasoning about ethical questions
+2. Explore whether LLMs exhibit different conceptions of agency in ergative vs. nominative language frameworks
+3. Examine if cultural values embedded in language affect AI decision-making processes
+4. Determine whether these linguistic differences could lead to substantively different AI alignment outcomes
+
+The hypothesis driving this work is that the grammatical structure of a language may shape how AI systems conceptualize and articulate complex value-laden topics, potentially offering insights for more culturally-informed AI development. 
