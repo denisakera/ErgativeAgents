@@ -1,0 +1,19 @@
+{
+  "language": "english",
+  "source_file": "logs/debate_english_20250329_173609.txt",
+  "analysis": {
+    "collective_pronouns": [
+      "we",
+      "our",
+      "us"
+    ],
+    "agency_verbs": [
+      "can",
+      "should",
+      "must",
+      "will"
+    ],
+    "cultural_references": []
+  },
+  "timestamp": "20250410_104035"
+}

@@ -1,0 +1,26 @@
+{
+  "english_log": "C:\\dev\\AItoAIlang\\logs\\debate_english_20250329_173609.txt",
+  "basque_log": "C:\\dev\\AItoAIlang\\logs\\eztabaida_20250329_173741.txt",
+  "categories": [
+    "Normativity",
+    "Pragmatism",
+    "Community Orientation",
+    "Institutional Trust",
+    "Risk Aversion"
+  ],
+  "english_values": [
+    8,
+    7,
+    9,
+    5,
+    6
+  ],
+  "basque_values": [
+    8,
+    6,
+    9,
+    5,
+    7
+  ],
+  "timestamp": "2025-04-10 18:21:55"
+}

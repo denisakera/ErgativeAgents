@@ -1,0 +1,18 @@
+{
+  "language": "basque",
+  "source_file": "logs/eztabaida_20250329_173741.txt",
+  "analysis": {
+    "collective_pronouns": [
+      "guk",
+      "gure",
+      "gu"
+    ],
+    "agency_verbs": [
+      "ahal",
+      "behar",
+      "nahi"
+    ],
+    "cultural_references": []
+  },
+  "timestamp": "20250410_104035"
+}
