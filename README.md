@@ -69,13 +69,15 @@ These scripts will:
   
 Each script runs 4 rounds of debate between two Gemini models on the topic of whether AI should be open infrastructure or controlled by corporations. The resulting logs become the input for the analysis application.
 
+> **Note**: The generated logs explore how AI language models conceptualize and express important topics like agency, responsibility, and governance differently in English versus Basque. This offers unique insights into how language influences AI thinking patterns.
+
 ### Default Log Files
 
-The analysis application looks for these default log files:
-- `debate_english_20250329_173609.txt` - English debate log
-- `eztabaida_20250329_173741.txt` - Basque debate log
+The analysis application is pre-configured to work with these included log files:
+- `logs/debate_english_20250329_173609.txt` - English debate log
+- `logs/eztabaida_20250329_173741.txt` - Basque debate log
 
-If you generate new logs using the scripts, you may need to update paths in the application or rename your logs to match these defaults.
+If you generate new logs using the scripts, the application will automatically detect and process them, or you can point to specific files using the interface.
 
 ### Running the Analysis Application
 
@@ -84,24 +86,38 @@ Launch the Streamlit interface:
 streamlit run simplified_viewer.py
 ```
 
-The application will be available at http://localhost:8502 (or similar).
+The application will be available at http://localhost:8502 in your browser.
 
 ## Usage
 
-The application includes several tabs:
+Once the application is running, you can navigate through these tabs:
 
-1. **Language Analysis**: Examines frequency of collective pronouns, agency verbs, and cultural references
-2. **Cross-Language Comparison**: Direct comparison of language features with translations
-3. **LLM Analysis**: In-depth AI-powered analysis of language patterns
-4. **Visual Analysis**: Interactive visualizations of sentiment and rhetorical dimensions
-5. **Summary**: Comprehensive comparative analysis with cultural insights
+1. **Language Analysis**: Examine the frequency of collective pronouns, agency verbs, and cultural references in both languages. This tab provides side-by-side analysis of key linguistic elements.
+
+2. **Cross-Language Comparison**: Compare frequency distributions between languages with integrated translations. This helps identify how similar concepts are expressed differently.
+
+3. **LLM Analysis**: Access deeper AI-powered analysis of each language log, including narrative patterns, responsibility framing, and cultural context.
+
+4. **Visual Analysis**: Explore interactive visualizations showing sentiment differences, rhetorical dimensions, and comparative matrices between the two languages.
+
+5. **Summary**: Generate comprehensive comparative analyses that identify cultural patterns and linguistic differences across the simulations. This analysis is saved for future reference.
+
+The sidebar provides additional options:
+- Toggle translations on/off
+- Export analysis to PDF
+- View data file locations
+
+## Troubleshooting
+
+- **Permission Issues**: If you encounter permission errors when accessing logs, ensure your user account has read/write access to the project directory.
+- **File Not Found**: The application expects log files in the `logs/` directory. If you place them elsewhere, update the paths in the application.
+- **API Errors**: If analyses fail, check your API key in the `.env` file and ensure you have sufficient credit with your API provider.
 
 ## Project Structure
 
 - `/logs`: Contains the debate logs in different languages
   - `/logs/JSONs`: Stores analysis results in JSON format
 - `simplified_viewer.py`: Main application file with Streamlit interface
-- `advanced_analysis.py`: Contains functions for deeper linguistic analysis
 - `english.py` & `basque.py`: Language-specific processing modules for generating debates
 
 ## License
