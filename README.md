@@ -16,7 +16,6 @@ AItoAIlang provides a suite of analytical tools to examine how language and cult
 - **Log Analysis**: Processes conversation logs to extract key linguistic markers
 - **Cross-Language Comparison**: Side-by-side analysis of English and Basque conversations
 - **Advanced LLM Analysis**: Uses AI models to extract deeper cultural and rhetorical patterns
-- **Visual Analysis**: Interactive charts and visualizations to highlight differences
 - **Summary Analysis**: Generates comprehensive comparative reports on language differences
 
 ## Getting Started
@@ -98,9 +97,7 @@ Once the application is running, you can navigate through these tabs:
 
 3. **LLM Analysis**: Access deeper AI-powered analysis of each language log, including narrative patterns, responsibility framing, and cultural context.
 
-4. **Visual Analysis**: Explore interactive visualizations showing sentiment differences, rhetorical dimensions, and comparative matrices between the two languages.
-
-5. **Summary**: Generate comprehensive comparative analyses that identify cultural patterns and linguistic differences across the simulations. This analysis is saved for future reference.
+4. **Summary**: Generate comprehensive comparative analyses that identify cultural patterns and linguistic differences across the simulations. This analysis is saved for future reference.
 
 The sidebar provides additional options:
 - Toggle translations on/off
