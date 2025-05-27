@@ -1,6 +1,6 @@
 # AItoAIlang - Cross-Language AI Simulation Analysis
 
-A specialized tool for analyzing and comparing language patterns and cultural factors in AI simulations across English and Basque languages.
+A specialized tool for analyzing and comparing language patterns and cultural factors in AI simulations across English and Basque languages, with support for multiple AI models.
 
 ## Overview
 
@@ -10,6 +10,7 @@ AItoAIlang provides a suite of analytical tools to examine how language and cult
 - Rhetorical strategies and emphasis variations
 - Agency expression and responsibility attribution
 - Comparative visualization of sentiment and rhetorical dimensions
+- Model comparison between GPT-4o and Llama3
 
 ## Features
 
@@ -17,13 +18,15 @@ AItoAIlang provides a suite of analytical tools to examine how language and cult
 - **Cross-Language Comparison**: Side-by-side analysis of English and Basque conversations
 - **Advanced LLM Analysis**: Uses AI models to extract deeper cultural and rhetorical patterns
 - **Summary Analysis**: Generates comprehensive comparative reports on language differences
+- **Multi-Model Support**: Compare outputs from different AI models (GPT-4o vs. Llama3)
 
 ## Getting Started
 
 ### Prerequisites
 
 - Python 3.8+
-- OpenAI API key or OpenRouter API key
+- OpenAI API key
+- Ollama server (optional, for Llama3 model support)
 
 ### Installation
 
@@ -38,84 +41,233 @@ AItoAIlang provides a suite of analytical tools to examine how language and cult
    pip install -r requirements.txt
    ```
 
+   If you encounter missing module errors, install the specific packages:
+   ```
+   pip install streamlit pandas plotly altair openai python-dotenv pyyaml
+   ```
+
 3. Create a `.env` file with your API keys:
    ```
    OPENAI_API_KEY=your_key_here
-   # or
-   OPENROUTER_API_KEY=your_key_here
    ```
 
 ## Generating Debate Logs
 
-The project includes two scripts to generate AI debates in English and Basque:
+The project includes multiple scripts to generate AI debates in English and Basque using different models:
 
-1. **Generate English debate logs**:
+1. **Generate English debate logs with GPT-4o**:
    ```bash
-   python english.py
+   python english.py       # Standard version
+   python newenglish.py    # Enhanced version
    ```
 
-2. **Generate Basque debate logs**:
+2. **Generate Basque debate logs with GPT-4o**:
    ```bash
-   python basque.py
+   python basque.py        # Standard version
+   python newbasque.py     # Enhanced version
+   ```
+
+3. **Generate Basque debate logs with Llama3 (via Ollama)**:
+   ```bash
+   python basquemodel.py
    ```
 
 These scripts will:
-- Connect to the OpenRouter API using your API key
-- Generate a simulated debate between two AI models (both using Google's Gemini Pro)
-- Save the debate transcripts to the `logs/` directory with timestamped filenames:
-  - English: `debate_english_YYYYMMDD_HHMMSS.txt`
-  - Basque: `eztabaida_YYYYMMDD_HHMMSS.txt`
+- Connect to the OpenAI API (for GPT-4o models) or Ollama server (for Llama3 models)
+- Generate a simulated debate between two AI models
+- Save the debate transcripts to the `logs2025/` directory with timestamped filenames:
+  - English GPT-4o: `english_YYYYMMDD_HHMMSS.jsonl` or `newenglish_YYYYMMDD_HHMMSS.jsonl`
+  - Basque GPT-4o: `basque_YYYYMMDD_HHMMSS.jsonl` or `newbasque_YYYYMMDD_HHMMSS.jsonl`
+  - Basque Llama3: `basquemodel_YYYYMMDD_HHMMSS.jsonl`
   
-Each script runs 4 rounds of debate between two Gemini models on the topic of whether AI should be open infrastructure or controlled by corporations. The resulting logs become the input for the analysis application.
+Each script runs 10 rounds of debate on the topic of whether AI should be open infrastructure or controlled by corporations. The resulting logs become the input for the analysis applications.
 
-> **Note**: The generated logs explore how AI language models conceptualize and express important topics like agency, responsibility, and governance differently in English versus Basque. This offers unique insights into how language influences AI thinking patterns.
+> **Note**: The generated logs explore how AI language models conceptualize and express important topics like agency, responsibility, and governance differently in English versus Basque, and between different AI models. This offers unique insights into how language and model architecture influence AI thinking patterns.
 
-### Default Log Files
+### Running the Analysis Applications
 
-The analysis application is pre-configured to work with these included log files:
-- `logs/debate_english_20250329_173609.txt` - English debate log
-- `logs/eztabaida_20250329_173741.txt` - Basque debate log
+The project includes two different Streamlit interfaces for analysis:
 
-If you generate new logs using the scripts, the application will automatically detect and process them, or you can point to specific files using the interface.
+1. **Simplified Viewer** - A comprehensive general-purpose analysis tool:
+   ```
+   streamlit run simplified_viewer.py
+   ```
 
-### Running the Analysis Application
+2. **Advanced Viewer** - A specialized cross-linguistic analysis tool:
+   ```
+   streamlit run advanced_viewer.py
+   ```
 
-Launch the Streamlit interface:
-```
-streamlit run simplified_viewer.py
-```
+The applications will be available at http://localhost:8501 in your browser.
 
-The application will be available at http://localhost:8502 in your browser.
+## Viewer Comparison
+
+### Simplified Viewer
+
+The simplified_viewer.py offers a comprehensive set of general analysis tools with rich visualizations:
+
+- **7 Analysis Tabs**: Log Generation, Debate Overview, Language Analysis, LLM-Powered Insights, Summary & Comparison, Advanced Analysis, and Responsibility Heatmap
+- **Rich Visualizations**: Interactive charts using Altair and Plotly
+- **Detailed Data Exploration**: Sentiment analysis, word frequency, and more
+- **Step-by-Step Workflow**: Designed for analyzing one language at a time with comparison features
+
+### Advanced Viewer
+
+The advanced_viewer.py is specialized for cross-linguistic analysis with a focus on cultural patterns:
+
+- **5 Analysis Tabs**: Debate Generation, Debate Overview, Advanced Analysis, LLM Analysis, and Bilingual Analysis
+- **Specialized Bilingual Analysis**: Three types of cross-linguistic analysis (General, Responsibility Attribution, Normative Proposal)
+- **Model Comparison**: Support for comparing GPT-4o and Llama3 outputs
+- **Customizable Analysis**: Uses YAML-defined prompts for flexible analysis
 
 ## Usage
 
-Once the application is running, you can navigate through these tabs:
+Once either application is running, you can:
 
-1. **Language Analysis**: Examine the frequency of collective pronouns, agency verbs, and cultural references in both languages. This tab provides side-by-side analysis of key linguistic elements.
+1. **Generate or Select Logs**: Use the Log Generation tab to create new debate logs or select existing ones
+2. **View Debates**: Read the full conversation transcripts in the Debate Overview tab
+3. **Run Analyses**: Perform various types of analysis on the selected logs
+4. **Compare Results**: Examine differences between languages and models
+5. **Save Findings**: Export analysis results for future reference
 
-2. **Cross-Language Comparison**: Compare frequency distributions between languages with integrated translations. This helps identify how similar concepts are expressed differently.
+The sidebar provides additional options for log selection and other settings.
 
-3. **LLM Analysis**: Access deeper AI-powered analysis of each language log, including narrative patterns, responsibility framing, and cultural context.
+### Understanding Analysis Results
 
-4. **Summary**: Generate comprehensive comparative analyses that identify cultural patterns and linguistic differences across the simulations. This analysis is saved for future reference.
+The analysis tools generate structured reports that examine various aspects of the debates. Here's how to interpret and work with these results:
 
-The sidebar provides additional options:
-- Toggle translations on/off
-- Export analysis to PDF
-- View data file locations
+#### Analysis Structure
+
+Analysis results are typically organized into these categories:
+
+- **Agency Expression**: How agency and action are attributed in the text
+- **Responsibility Framing**: How responsibility is assigned and discussed
+- **Values and Norms**: Cultural and ethical values expressed in the debate
+- **Decision-Making Patterns**: How decisions and choices are framed
+- **Cultural and Institutional Markers**: References to institutions and cultural concepts
+
+#### Improving Readability
+
+For better readability, you can:
+
+1. **Copy to a Markdown Editor**: Copy analysis results to a markdown editor or note-taking app that supports formatting
+2. **Add Proper Headings**: Use heading levels (# for main categories, ## for subcategories)
+3. **Format Bullet Points**: Ensure proper spacing and indentation for bullet points
+4. **Add Line Breaks**: Insert additional line breaks between sections
+
+#### Example of Well-Formatted Results
+
+Here's how analysis results could be formatted for better readability:
+
+```markdown
+# Analysis Results
+
+## Agency Expression
+- The text articulates agency through both centralized and decentralized models, discussing "a few companies" versus "independent researchers, smaller companies, and communities."
+- Pronouns like "we" and "our" suggest a collective agency, particularly in phrases like "we ensure AI develops to serve diverse needs."
+- The voice shifts from active to passive when describing the potential negative outcomes of centralization, e.g., "centralization risks monopolistic practices."
+
+## Responsibility Framing
+- Responsibility is framed as both a moral and strategic imperative, with emphasis on "ethical standards," "global frameworks," and "public accountability."
+- Linguistic forms expressing obligation include "must answer," "ensures accountability," and "can be mitigated."
+- It is implicitly assumed that both corporations and global communities bear responsibility, as seen in references to "corporate overreach" and "global collaboration."
+
+## Values and Norms
+- Ethical values are asserted through terms like "safety," "transparency," "equity," and "innovation."
+- Metaphors such as "monopolistic practices" reflect cultural ideals that warn against over-concentration of power.
+- These values reveal norms favoring democratized innovation and caution against the concentration of technological control.
+
+## Decision-Making Patterns
+- Decisions are depicted through consensus and negotiation, as in "open infrastructure democratizes AI development."
+- Forms of participation involve "diverse stakeholders" and "global collaboration," suggesting a decentralized, inclusive approach.
+- Choices are justified by necessity and ethical duty, with phrases like "balance innovation with ethical safeguards" and "ensuring the technology evolves responsibly."
+
+## Cultural and Institutional Markers
+- Institutions like "a few companies" and "international frameworks" are referenced, indicating key players in the AI landscape.
+- Idiomatic expressions such as "corporate overreach" and "balance power distribution" capture context-bound concerns over power dynamics.
+- Concepts like "open-source licensing" and "equitable growth" resist direct translation, rooted in specific economic and technological models.
+```
+
+This formatted version is easier to read and navigate, with clear section headings and properly spaced bullet points.
+
+## Using Ollama for Llama3 Models
+
+This project supports using Ollama to run Llama3 models locally for Basque language debates. Here's how to set it up:
+
+### Installing Ollama
+
+1. Download and install Ollama from [ollama.ai](https://ollama.ai)
+2. Follow the installation instructions for your operating system
+3. Verify installation by running `ollama --version` in your terminal
+
+### Setting Up Llama3 for Basque
+
+1. Pull the Basque-tuned Llama3 model:
+   ```bash
+   ollama pull xabi/llama3-eus
+   ```
+   
+   If this specific model isn't available, you can use a standard Llama3 model:
+   ```bash
+   ollama pull llama3
+   ```
+
+2. Start the Ollama server:
+   ```bash
+   ollama serve
+   ```
+
+### Configuring basquemodel.py
+
+The basquemodel.py script is pre-configured to connect to an Ollama server. You may need to update the server URL in the script:
+
+```python
+# Configure OpenAI client to use Ollama's OpenAI-compatible endpoint
+self.client = OpenAI(
+    api_key="ollama",  # This is a placeholder, not a real API key
+    base_url="http://192.168.68.104:11434/v1"  # Update this to your Ollama server address
+)
+```
+
+For local installations, change the base_url to:
+```
+base_url="http://localhost:11434/v1"
+```
+
+### Running Basque Debates with Llama3
+
+Once Ollama is set up, you can generate Basque debates using Llama3:
+
+```bash
+python basquemodel.py
+```
+
+The script will:
+1. Connect to your Ollama server
+2. Generate a debate using the specified Llama3 model
+3. Save the results to logs2025/basquemodel_[timestamp].jsonl
+
+### Analyzing Llama3 Outputs
+
+Both the simplified_viewer.py and advanced_viewer.py can analyze logs generated by Llama3. This allows you to compare how different model architectures (GPT-4o vs. Llama3) handle Basque language debates.
 
 ## Troubleshooting
 
 - **Permission Issues**: If you encounter permission errors when accessing logs, ensure your user account has read/write access to the project directory.
-- **File Not Found**: The application expects log files in the `logs/` directory. If you place them elsewhere, update the paths in the application.
+- **File Not Found**: The applications expect log files in the `logs2025/` directory. If you place them elsewhere, update the paths in the application.
 - **API Errors**: If analyses fail, check your API key in the `.env` file and ensure you have sufficient credit with your API provider.
+- **Ollama Connection**: For basquemodel.py, ensure your Ollama server is running and accessible at the URL specified in the script. The default port is 11434.
 
 ## Project Structure
 
-- `/logs`: Contains the debate logs in different languages
-  - `/logs/JSONs`: Stores analysis results in JSON format
-- `simplified_viewer.py`: Main application file with Streamlit interface
-- `english.py` & `basque.py`: Language-specific processing modules for generating debates
+- `/logs2025`: Contains the debate logs in different languages and from different models
+- `/analysis_results`: Stores NLP and LLM analysis results
+- `/advanced_analysis_results`: Stores advanced cross-linguistic analysis results
+- `simplified_viewer.py`: Comprehensive analysis application with Streamlit interface
+- `advanced_viewer.py`: Specialized cross-linguistic analysis application
+- `english.py` & `basque.py`: GPT-4o-based debate generation scripts
+- `newenglish.py` & `newbasque.py`: Enhanced GPT-4o debate generation scripts
+- `basquemodel.py`: Llama3-based Basque debate generation script (via Ollama)
 
 ## License
 
@@ -123,9 +275,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgements
 
-- This project utilizes OpenAI models via the OpenRouter API for analysis
-- Streamlit for the interactive web interface
-- The open-source community for various visualization and NLP tools 
+- This project utilizes OpenAI's GPT-4o models for analysis and debate generation
+- Ollama and Llama3 for local model inference
+- Streamlit for the interactive web interfaces
+- The open-source community for various visualization and NLP tools
 
 ## Research Motivation
 
@@ -137,5 +290,6 @@ Ergative languages structure sentences differently, with unique grammatical trea
 2. Explore whether LLMs exhibit different conceptions of agency in ergative vs. nominative language frameworks
 3. Examine if cultural values embedded in language affect AI decision-making processes
 4. Determine whether these linguistic differences could lead to substantively different AI alignment outcomes
+5. Compare how different model architectures (GPT-4o vs. Llama3) handle these linguistic differences
 
-The hypothesis driving this work is that the grammatical structure of a language may shape how AI systems conceptualize and articulate complex value-laden topics, potentially offering insights for more culturally-informed AI development. 
+The hypothesis driving this work is that the grammatical structure of a language may shape how AI systems conceptualize and articulate complex value-laden topics, potentially offering insights for more culturally-informed AI development. Additionally, comparing different model architectures helps identify which aspects of these differences are inherent to the language and which might be artifacts of specific training methodologies.

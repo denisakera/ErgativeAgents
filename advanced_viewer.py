@@ -303,7 +303,7 @@ with tab_overview:
                         round_num = entry.get('round', 'N/A')
                         utterance = entry.get('utterance_text', '')
                         st.markdown(f"**Round {round_num} - {speaker} ({model})**")
-                        st.text_area("", value=utterance, height=100, key=f"eng_{round_num}_{speaker}")
+                        st.text_area("Utterance text", value=utterance, height=100, key=f"eng_{round_num}_{speaker}", label_visibility="collapsed")
                         st.markdown("---")
         else:
             st.info("No English log selected. Please choose a log file from the sidebar.")
@@ -324,7 +324,7 @@ with tab_overview:
                         round_num = entry.get('round', 'N/A')
                         utterance = entry.get('utterance_text', '')
                         st.markdown(f"**Round {round_num} - {speaker} ({model})**")
-                        st.text_area("", value=utterance, height=100, key=f"bas_{round_num}_{speaker}")
+                        st.text_area("Utterance text", value=utterance, height=100, key=f"bas_{round_num}_{speaker}", label_visibility="collapsed")
                         st.markdown("---")
         else:
             st.info("No Basque log selected. Please choose a log file from the sidebar.")
@@ -456,7 +456,7 @@ with tab_llm:
                 
                 if selected_log:
                     with st.spinner(f"Extracting themes from {log_name}..."):
-                        themes_result = llm_analyzer.extract_themes_log(selected_log, language=language)
+                        themes_result = llm_analyzer.extract_themes_log(selected_log, language_name=language)
                         st.session_state.llm_analysis_result = {
                             "type": "themes",
                             "language": language,
@@ -653,4 +653,4 @@ with tab_bilingual:
 
 # Footer
 st.sidebar.markdown("---")
-st.sidebar.info("Advanced Cross-Linguistic Analysis Tool v1.0") 
+st.sidebar.info("Advanced Cross-Linguistic Analysis Tool v1.0")
