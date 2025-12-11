@@ -55,14 +55,14 @@ class SyntacticAnalyzer:
         if SPACY_AVAILABLE:
             try:
                 self.nlp = spacy.load(model)
-                print(f"✓ spaCy model '{model}' loaded successfully")
+                print(f"[OK] spaCy model '{model}' loaded successfully")
             except OSError:
-                print(f"✗ spaCy model '{model}' not found. Download with: python -m spacy download {model}")
-                print(f"  Falling back to pattern-based analysis")
+                print(f"[!] spaCy model '{model}' not found. Download with: python -m spacy download {model}")
+                print(f"    Falling back to pattern-based analysis")
                 self.nlp = None
         else:
-            print("✗ spaCy not installed. Install with: pip install spacy")
-            print("  Falling back to pattern-based analysis")
+            print("[!] spaCy not installed. Install with: pip install spacy")
+            print("    Falling back to pattern-based analysis")
     
     
     def parse_utterances(self, utterances: List[str]) -> List[Any]:

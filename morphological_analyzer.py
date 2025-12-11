@@ -404,7 +404,7 @@ class MorphologicalAnalyzer:
         responsibility_contexts = defaultdict(lambda: {'ergative': 0, 'absolutive': 0, 'dative': 0})
         
         for i, token in enumerate(tokens):
-            lemma = token.get('lemma', '').lower()
+            lemma = (token.get('lemma') or '').lower()
             
             # Check if this is a responsibility term
             if any(term.lower() in lemma for term in responsibility_terms):

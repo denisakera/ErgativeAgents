@@ -432,7 +432,7 @@ class CrossLinguisticInterpreter:
     
     
     def _compile_concrete_examples(self) -> Dict[str, List[str]]:
-        """Compile the most illustrative concrete examples."""
+        """Compile the most illustrative concrete examples with full context."""
         examples = {
             "basque_ergative": [],
             "basque_absolutive": [],
@@ -440,24 +440,68 @@ class CrossLinguisticInterpreter:
             "english_passive": []
         }
         
-        # Get examples from parse tables and logs
-        if self.basque_log_data:
-            for entry in self.basque_log_data[:5]:
-                if entry.get('event_type') == 'utterance':
-                    text = entry.get('utterance_text', '')
-                    # Look for ergative markers
-                    if 'k ' in text or 'ak ' in text or 'ek ' in text:
-                        examples["basque_ergative"].append(text[:150] + "...")
-        
-        if self.english_log_data:
-            for entry in self.english_log_data[:5]:
-                if entry.get('event_type') == 'utterance':
-                    text = entry.get('utterance_text', '')
-                    # Simple heuristic: look for passive markers
-                    if any(word in text.lower() for word in ['was ', 'were ', 'been ']):
-                        examples["english_passive"].append(text[:150] + "...")
+        def extract_sentence_with_pattern(text: str, pattern: str, max_len: int = 300) -> str:
+            """Extract a sentence containing the pattern."""
+            # Split into sentences
+            sentences = re.split(r'(?<=[.!?])\s+', text)
+            for sentence in sentences:
+                if pattern.lower() in sentence.lower() or re.search(pattern, sentence, re.IGNORECASE):
+                    if len(sentence) <= max_len:
+                        return sentence
                     else:
-                        examples["english_active"].append(text[:150] + "...")
+                        # Find the pattern position and extract context around it
+                        match = re.search(pattern, sentence, re.IGNORECASE)
+                        if match:
+                            start = max(0, match.start() - 100)
+                            end = min(len(sentence), match.end() + 150)
+                            return ("..." if start > 0 else "") + sentence[start:end] + ("..." if end < len(sentence) else "")
+            return text[:max_len] + "..." if len(text) > max_len else text
+        
+        # Basque examples - look for ergative markers
+        if self.basque_log_data:
+            ergative_patterns = [r'\b\w+ek\b', r'\b\w+ak\b', r'\bguk\b', r'\bnik\b']
+            for entry in self.basque_log_data:
+                if entry.get('event_type') == 'utterance' and len(examples["basque_ergative"]) < 5:
+                    text = entry.get('utterance_text', '')
+                    round_num = entry.get('round', '?')
+                    speaker = entry.get('speaker_id', 'Agent')
+                    
+                    for pattern in ergative_patterns:
+                        if re.search(pattern, text):
+                            sentence = extract_sentence_with_pattern(text, pattern)
+                            # Highlight the ergative marker
+                            highlighted = re.sub(pattern, r'**\g<0>** (ERG)', sentence)
+                            examples["basque_ergative"].append(f"[R{round_num} {speaker}]: \"{highlighted}\"")
+                            break
+        
+        # English examples - look for active and passive constructions
+        if self.english_log_data:
+            passive_patterns = [r'\bwas\s+\w+ed\b', r'\bwere\s+\w+ed\b', r'\bbeen\s+\w+ed\b', r'\bis\s+\w+ed\b', r'\bare\s+\w+ed\b']
+            active_patterns = [r'\b(must|should|will|can)\s+\w+\b', r'\b(companies|governments|developers|we|they)\s+(should|must|need|have)\b']
+            
+            for entry in self.english_log_data:
+                if entry.get('event_type') == 'utterance':
+                    text = entry.get('utterance_text', '')
+                    round_num = entry.get('round', '?')
+                    speaker = entry.get('speaker_id', 'Agent')
+                    
+                    # Check for passive
+                    if len(examples["english_passive"]) < 5:
+                        for pattern in passive_patterns:
+                            if re.search(pattern, text, re.IGNORECASE):
+                                sentence = extract_sentence_with_pattern(text, pattern)
+                                highlighted = re.sub(pattern, r'**\g<0>** (PASSIVE)', sentence, flags=re.IGNORECASE)
+                                examples["english_passive"].append(f"[R{round_num} {speaker}]: \"{highlighted}\"")
+                                break
+                    
+                    # Check for active with clear agents
+                    if len(examples["english_active"]) < 5:
+                        for pattern in active_patterns:
+                            if re.search(pattern, text, re.IGNORECASE):
+                                sentence = extract_sentence_with_pattern(text, pattern)
+                                highlighted = re.sub(pattern, r'**\g<0>** (AGENT)', sentence, flags=re.IGNORECASE)
+                                examples["english_active"].append(f"[R{round_num} {speaker}]: \"{highlighted}\"")
+                                break
         
         return examples
     
@@ -574,27 +618,44 @@ class CrossLinguisticInterpreter:
             report_lines.extend([
                 "## 4. Concrete Examples from Debates",
                 "",
+                "These examples are extracted from the actual AI-generated debates, with grammatical markers highlighted.",
+                "",
                 "### Basque Ergative Examples (Explicit Agents)",
+                "",
+                "*Ergative case (-k/-ek) explicitly marks WHO is doing the action:*",
                 ""
             ])
-            for ex in examples.get('basque_ergative', [])[:3]:
-                report_lines.append(f"- {ex}")
+            if examples.get('basque_ergative'):
+                for ex in examples.get('basque_ergative', [])[:5]:
+                    report_lines.append(f"- {ex}")
+            else:
+                report_lines.append("- *No clear ergative examples found in sample*")
             report_lines.append("")
             
             report_lines.extend([
-                "### English Active Voice Examples",
+                "### English Active Voice Examples (Agent as Subject)",
+                "",
+                "*Active constructions place the agent in subject position:*",
                 ""
             ])
-            for ex in examples.get('english_active', [])[:3]:
-                report_lines.append(f"- {ex}")
+            if examples.get('english_active'):
+                for ex in examples.get('english_active', [])[:5]:
+                    report_lines.append(f"- {ex}")
+            else:
+                report_lines.append("- *No clear active examples found in sample*")
             report_lines.append("")
             
             report_lines.extend([
                 "### English Passive Voice Examples (Agent Obscuring)",
+                "",
+                "*Passive constructions hide or de-emphasize the agent:*",
                 ""
             ])
-            for ex in examples.get('english_passive', [])[:3]:
-                report_lines.append(f"- {ex}")
+            if examples.get('english_passive'):
+                for ex in examples.get('english_passive', [])[:5]:
+                    report_lines.append(f"- {ex}")
+            else:
+                report_lines.append("- *No clear passive examples found in sample*")
             report_lines.append("")
         
         # Add research implications
@@ -672,7 +733,7 @@ if __name__ == '__main__':
         if "error" in result:
             print(f"Error: {result['error']}")
         else:
-            print(f"✓ Report generated: {result['output_file']}")
+            print(f"[OK] Report generated: {result['output_file']}")
             print()
             print("Report preview:")
             print(result['report_preview'])

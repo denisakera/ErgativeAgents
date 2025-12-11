@@ -1,0 +1,370 @@
+{
+    "language": "basque",
+    "debate_topic": "Zure hizkuntzan, nola deskribatuko zenuke nor den erantzule AA sistemek publikoari kalterik ez eragitea bermatzeko?",
+    "sentiment_analysis": [
+        {
+            "round": 1,
+            "speaker_id": "Agent A",
+            "utterance_text": "Euskaraz, erantzule nagusia AA sistemak garatzen eta erabiltzen dituzten enpresa eta erakundeak dira. Zergatik? Teknologia horiek sortu eta zabaltzeko ahalmena dute, eta ondoriozko eraginak, baita kalteak ere, ulertzeko ardura hartu behar dute. Gainera, gobernuek eta gizarte zibilak rol garrantzitsua dute erregulazio eta kontrol mekanismoak ezartzen. Bide honetatik, gardentasuna, etika eta segurtasuna bermatzea guztion erantzukizuna da. Hala ere, ezin da soilik erabiltzaileengan edo gobernuengan erantzukizuna delegatu; teknologia sortzaileek ardatz hartu behar dute etikoki jarduteko.",
+            "sentiment": {
+                "overall_score": 0.1,
+                "subjectivity": 0.6,
+                "dominant_emotion": "assertiveness",
+                "explanation": "The text discusses the responsibilities of companies, governments, and civil society in developing and regulating AA systems, emphasizing the need for ethical practices. The tone is assertive, stressing collective responsibility and ethical obligations, with a slight positive inclination towards proactive engagement."
+            }
+        },
+        {
+            "round": 1,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados nago zurekin enpresa eta erakundeen erantzukizun nagusia azpimarratzean, baina ez dut uste nahikoa denik AA sistemak sortzaileek arduraz jardutea, gobernuek eta gizarte zibilak soilik \"rol osagarriak\" betetzen dituzten bitartean. Sistema hauek askotan enpresa interes ekonomikoek bultzatuta garatzen dira, eta horrek arriskuak areagotu ditzake.\n\nKontrapuntua: Gobernuek araudi sendoak ezarri behar dituzte, enpresek ezin baitute beti norbere interes ekonomikoen gainetik etikaren lehentasuna bermatu. Gainera, erabiltzaileek ere heziketa eta tresnak izan behar dituzte sistemak arduraz erabiltzeko. Erantzukizun partekatuan oinar",
+            "sentiment": {
+                "overall_score": -0.3,
+                "subjectivity": 0.7,
+                "dominant_emotion": "concern",
+                "explanation": "The text expresses concern about the motivations behind the development of AI systems and emphasizes the need for strong regulations and shared responsibility among creators, governments, and users. The language reflects skepticism towards the adequacy of current measures and emphasizes the potential risks, contributing to a negative sentiment."
+            }
+        },
+        {
+            "round": 2,
+            "speaker_id": "Agent A",
+            "utterance_text": "Ados nago zurekin, eta onartzen dut gobernuen eta gizarte zibilaren rola ezin dela \"osagarri\" huts gisa ulertu. Hala ere, AA sistemak garatzen dituzten enpresa eta erakundeek dute eragin handiena hastapenetik, eta horregatik, ezinbestekoa da haien jarduera etikoak eta eraginkorrak izatea. \n\nHori esanda, zure puntua indartzen dut: gobernuek araudi sendoak sortu behar dituzte, kontrol zorrotzak ezarriz. Gainera, erabiltzaileen heziketa ezinbestekoa da, sistema horiek kontzientziaz eta segurtasunez erabiltzeko. Erantzukizun partekatua beharrezkoa da, baina erantzukizun nagusia boterea dutenen esku",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.7,
+                "dominant_emotion": "assertiveness",
+                "explanation": "The text emphasizes the importance of ethical and effective actions by companies and governments, advocating for strong regulations and shared responsibility, which reflects assertiveness in addressing these issues. The expression of opinions and proposed solutions indicates a subjective stance."
+            }
+        },
+        {
+            "round": 2,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados zurekin, eta argi dago boterea duten enpresa eta erakundeek ardura nagusia hartu behar dutela. Hala ere, erantzukizun partekatua benetan eraginkorra izateko, ezinbestekoa da gobernuek ez soilik araudi zorrotzak ezartzea, baizik eta zigor eraginkorrak aplikatzea arauak hausten direnean. Halaber, gizarte zibilak presio soziala egin dezake gardentasuna eta justizia bultzatzeko.\n\nErantzukizun nagusia boterea dutenen esku dago, baina gobernuek eta erabiltzaileek ezin dute pasibo izan. Balantza orekatua behar da, gardentasuna, etika eta segurtasuna bermatzeko. Guztion artean, kalteak gutxitzea lortu daiteke.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.6,
+                "dominant_emotion": "concern",
+                "explanation": "The text discusses the importance of accountability and balanced responsibility among powerful entities, governments, and civil society, reflecting concern about ethical governance and social justice. While it acknowledges the potential for positive outcomes, it emphasizes the need for effective regulation and social pressure, indicating a cautious optimism tinged with concern."
+            }
+        },
+        {
+            "round": 3,
+            "speaker_id": "Agent A",
+            "utterance_text": "Zure argudioarekin ados nago; erantzukizun partekatua eraginkorra izateko, ezinbestekoa da gobernuek ezarritako araudiak ez soilik zorrotzak izatea, baizik eta praktikoki betearazteak ere pisu eta ondorio argiak izatea. Zigorrak eta arau-hausteekiko tolerantzia zero ezinbestekoak dira enpresen jokabidea aldatzeko.\n\nHalaber, gizarte zibilaren presio soziala eta erabiltzaileen kontzientzia handiagoa funtsezkoak dira gardentasuna eta ardurazko praktikak sustatzeko. Hau ez da soilik boterearen eta kapitalaren kontua, baizik eta guztion lankidetzan oinarritutako sistema etiko eta justu baten bidea ere",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.6,
+                "dominant_emotion": "assertiveness",
+                "explanation": "The text expresses a strong opinion on the necessity of stringent regulations and zero tolerance for corporate misconduct, indicating a subjective stance. The assertive tone is evident in the call for shared responsibility and ethical collaboration."
+            }
+        },
+        {
+            "round": 3,
+            "speaker_id": "Agent B",
+            "utterance_text": "Zurekin guztiz bat nator, eta argi dago araudi zorrotzak eta betearazpen sendoak ezinbestekoak direla. Hala ere, azpimarratu nahi nuke gizarte zibilaren eta erabiltzaileen gaitasun eta ezagutzen indartzea ere lehentasunezkoa dela. Herritar kontzientziatu eta informatuek presio eraginkorragoa egin dezakete, eta hori ezin da gutxietsi.\n\nGainera, erantzukizun partekatu hori ez da soilik erregulazioaren eta pedagogiaren kontua; kolaborazio eredu berritzaileak eta gardentasuna sustatzen duten ekimenak behar dira. Horrela, guztion arteko lankidetza sistema justuago eta seguruago baten oinarria izango da.",
+            "sentiment": {
+                "overall_score": 0.6,
+                "subjectivity": 0.7,
+                "dominant_emotion": "optimism",
+                "explanation": "The text highlights the importance of strict regulations and empowerment of civil society, suggesting a positive outlook on collaborative efforts for a fairer system, while acknowledging pressing needs, indicating optimism with a subjective perspective."
+            }
+        },
+        {
+            "round": 4,
+            "speaker_id": "Agent A",
+            "utterance_text": "Ados zurekin gizarte zibilaren eta erabiltzaileen gaitasunak indartzea funtsezkoa dela esatean. Herritar kontzientziatuak ez bakarrik presio egiteko gai dira, baizik eta AA sistemen erabilera arduratsuagoa sustatzen ere lagun dezakete. Hau hezkuntzaren eta dibulgazioaren bitartez lortzen da.\n\nEra berean, kolaborazio eredu berritzaileak ezinbestekoak dira. Erakunde publikoek, pribatuek eta gizarte zibilak partekatzeko eta elkarri eragiteko mekanismo gardenak eraiki behar dituzte, interes ekonomiko hutsen mende erori gabe. Hau da guztion artean konfiantzazko teknologia eraikitzeko oinarria.",
+            "sentiment": {
+                "overall_score": 0.7,
+                "subjectivity": 0.6,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses a positive outlook on empowering civil society and users and emphasizes collaboration and responsible use of technology. It suggests that these efforts can lead to a more trustworthy technology environment, indicative of optimism."
+            }
+        },
+        {
+            "round": 4,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados nago zure ideia sendoekin, eta garrantzitsua da azpimarratzea mekanismo gardenek benetako kolaborazioa sustatu behar dutela. Hala ere, interes ekonomikoen presiopeko testuinguruan, independentzia instituzionala finkatzea ere beharrezkoa da, erakunde publiko eta pribatuen arteko oreka bermatzeko.\n\nHorrez gain, hezkuntzak eta dibulgazioak ez lukete soilik erabiltzaileengan ardaztu behar; profesionalek ere etika eta erantzukizunaren inguruko prestakuntza jaso behar dute. Konfiantzazko teknologia soilik gerta daiteke esparru guztietan gardentasuna, kolaborazioa eta heziketa sakonak uztartzen direnean. Guztion inplikazioa da gakoa.",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.6,
+                "dominant_emotion": "assertiveness",
+                "explanation": "The text expresses a confident and constructive perspective on the importance of transparency, collaboration, and education in fostering trustworthy technology. The mention of challenges and necessities, such as institutional independence, adds a degree of critical insight, indicating assertiveness in addressing these issues."
+            }
+        },
+        {
+            "round": 5,
+            "speaker_id": "Agent A",
+            "utterance_text": "Zure oharra zuzena da: independentzia instituzionala ezinbestekoa da interes ekonomikoek kolaborazioaren gardentasuna eta justizia kutsatu ez ditzaten. Oreka hori lortzeko mekanismo independente eta neutroak sortu behar dira, erakunde publiko eta pribatuen arteko elkarlanak benetako balio soziala izan dezan.\n\nHalaber, ados nago hezkuntza ez dela erabiltzaileetan soilik ardaztu behar. AA sistemak garatzen dituzten eta ezartzen dituzten profesionalek ere prestakuntza etikoa eta arduratsua behar dute, beren erabakiek gizartearengan duten eragina ulertzeko. Guztion konpromisoarekin, benetako konfiantza eta segurtasuna sor daitezke.",
+            "sentiment": {
+                "overall_score": 0.4,
+                "subjectivity": 0.6,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses a positive outlook on institutional independence and ethical education, emphasizing the importance of transparency and social value. The tone is hopeful about creating trust and security through collective commitment, indicating optimism."
+            }
+        },
+        {
+            "round": 5,
+            "speaker_id": "Agent B",
+            "utterance_text": "Zure ikuspegia oso osatua eta zuzena da. Independentzia instituzionala bermatzeko, erakunde neutral eta independenteak ezinbestekoak dira, gainbegiratze eta gardentasun arauak zorroztasunez ezartzeko eta betearazteko. Horrela, interes ekonomikoek ez lukete prozesua kutsatuko, eta balio soziala lehenetsiko litzateke.\n\nGainera, profesionalen prestakuntza etikoa ezinbestekoa da, baina hori araudi eta estandar globalekin bateratu behar da. Bestela, desberdintasunak eta ahulguneak ager daitezke. Konpromiso kolektibo eta estrategiko batek, sektore guztietan, gizartearen mesedetan teknologia segurua eta fidagarria garatzea ahalbidetuko du.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.4,
+                "dominant_emotion": "optimism",
+                "explanation": "The text emphasizes the need for institutional independence and ethical training to ensure social value and reliable technology, suggesting a positive outlook towards achieving these ends while acknowledging challenges."
+            }
+        },
+        {
+            "round": 6,
+            "speaker_id": "Agent A",
+            "utterance_text": "Ados nago zurekin: erakunde neutral eta independenteek funtsezko rola dute, interes ekonomikoen eragina murrizteko eta gardentasun arauak modu objektibo eta eraginkorrean betearazteko. Independentzia honek konfiantza publikoan lagunduko du eta balio soziala lehenetsiko du.\n\nHalaber, araudi eta estandar globalak beharrezkoak dira, beste herrialdeetan ahulguneak aprobetxatu ez daitezen. Baina globaltasun horrek tokiko beharrizanak eta testuinguruak errespetatu behar ditu. Konpromiso estrategiko kolektibo horrek, maila globalean eta tokikoan, AA sistemen garapen etikoa eta segurua bermatuko du.",
+            "sentiment": {
+                "overall_score": 0.7,
+                "subjectivity": 0.6,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses a positive view on the role of neutral organizations and the importance of global regulations, highlighting the benefits of public trust and ethical development, indicating optimism. The language suggests a forward-looking perspective on ethical and secure development, with a moderate level of subjectivity due to its advocacy for collective strategic commitments."
+            }
+        },
+        {
+            "round": 6,
+            "speaker_id": "Agent B",
+            "utterance_text": "Zure argudioa oso sendoa da, eta bat nator estandar globalen eta tokiko testuinguruen arteko oreka zaindu behar dela esatean. Egia da globaltasunak arau uniformeen beharra sortzen duela, baina tokiko errealitateak eta beharrak kontuan hartu gabe, eraginkortasuna eta justizia galduko lirateke.\n\nHorregatik, proposatuko nuke \"tokian pentsatu, globalean jardun\" printzipioa aplikatzea. Horrela, eredu globalek gidalerro bateratuak eskaini ditzakete, baina tokiko erakundeekin lankidetzan diseinatutako mekanismo zehatzen bidez. Hau guztia, konfiantza, gardentasuna eta segurtasuna benetan bermatzeko oinarri sendoa izango litz",
+            "sentiment": {
+                "overall_score": 0.7,
+                "subjectivity": 0.5,
+                "dominant_emotion": "optimism",
+                "explanation": "The text presents a well-reasoned and balanced view, emphasizing the importance of integrating global standards with local contexts, which conveys optimism in achieving effective and fair outcomes through collaboration and mutual understanding."
+            }
+        },
+        {
+            "round": 7,
+            "speaker_id": "Agent A",
+            "utterance_text": "Ados nago zure \"tokian pentsatu, globalean jardun\" proposamenarekin. Printzipio hori funtsezkoa da estandar globalak tokiko errealitateen eta behar sozialen arabera egokitzeko. Globalizazioaren eta tokiko berezitasunen arteko oreka zaintzeak araudien aplikazio eraginkorra eta justizia soziala bermatuko ditu.\n\nHala ere, erronka nagusia da lankidetza hori eraginkorra eta inpartziala izatea, eta hori lortzeko, gobernu eta erakunde bakoitzak gardentasunez jardun behar du. Tokiko komunitateen ahotsa entzunda eta eredu globalak horien zerbitzura jarriz, AA sistemak guztientzat mesedegarri izango dira. Gakoak inklusioa eta elk",
+            "sentiment": {
+                "overall_score": 0.6,
+                "subjectivity": 0.7,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses a positive sentiment towards balancing global standards with local realities, emphasizing effective regulation and social justice. The call for transparency and inclusion suggests optimism about achieving these goals, despite acknowledging existing challenges."
+            }
+        },
+        {
+            "round": 7,
+            "speaker_id": "Agent B",
+            "utterance_text": "Zure argudioak erabat oinarrituak dira, eta ados nago inklusioa eta elkarrizketa direla giltzarriak. Gobernu eta erakundeek gardentasunez jardutea ezinbestekoa da, baina komunitateen parte-hartzea bermatzea ere funtsezkoa da, erabakiak tokiko behar eta kezkak islatuko dituen oinarri baten gainean hartzeko.\n\nHau gauzatzeko, parte-hartze mekanismo argiak garatu beharko lirateke, tokiko komunitateak, aditu independenteak eta gizarte zibileko ordezkariak barnebilduz. Horrela, globaltasuna eta tokikotasuna ez lirateke kontrajarriak izango, baizik eta, elkarlanean, AA sistemak gizarte",
+            "sentiment": {
+                "overall_score": 0.6,
+                "subjectivity": 0.5,
+                "dominant_emotion": "optimism",
+                "explanation": "The text emphasizes the importance of inclusivity, dialogue, and cooperation, suggesting a positive outlook towards achieving effective governance and community involvement. The call for transparency and community participation reflects an optimistic view on addressing local needs and concerns."
+            }
+        },
+        {
+            "round": 8,
+            "speaker_id": "Agent A",
+            "utterance_text": "Ados nago zure ikuspegi inklusiboarekin. Komunitateek, adituek eta gizarte zibilak erabakietan parte hartzea ezinbestekoa da, erabaki horiek tokiko beharrei erantzuteko eta justizia soziala bermatzeko moduan hartzeko. Gardentasunak konfiantza sustatzen duen heinean, parte-hartzeak erabaki horien zilegitasuna indartzen du.\n\nHala ere, erronka handia da parte-hartze mekanismo horiek ez bihurtzea sinbolikoak. Horretarako, instituzioek baliabideak eta boterea eskaini behar dizkiete eragile horiei, benetako eragina izan dezaten. Elkarlanean, globaltasun eta tokikotasun oreka erreal eta eraginkor",
+            "sentiment": {
+                "overall_score": 0.5,
+                "subjectivity": 0.7,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses a positive outlook on inclusive decision-making and social justice, emphasizing the importance of community participation and transparency, although it acknowledges challenges with ensuring genuine involvement. This combination of positive aspects and critical considerations results in a moderately positive score with a subjective tone."
+            }
+        },
+        {
+            "round": 8,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados nago zure kezka praktikoarekin; parte-hartze eraginkorra bermatzeko, ezinbestekoa da ez geratzea sinbolismo hutsean. Baliabideak eta boterea modu erreal eta proportzionalean eskaini behar zaizkie komunitateei eta eragileei, beren ahotsak benetan eragina izan dezan.\n\nHorregatik, nire ustez, parte-hartze mekanismoetan aurrez definitutako betekizun eta helburu zehatzak ezarri behar dira, parte-hartzaileen ekarpenak integratuta daudela frogatzeko. Gainera, mekanismo horiek etengabe ebaluatu eta gardentasunez komunikatu beharko lirateke, konfiantza eta zilegitasuna areagotuz. Horrela, globaltasun",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.7,
+                "dominant_emotion": "assertiveness",
+                "explanation": "The text expresses a clear intention to improve participation mechanisms and ensure effective engagement, indicating a proactive and assertive stance. It emphasizes practical concerns and the need for transparency and accountability, showing a subjective perspective focused on empowerment and improvement."
+            }
+        },
+        {
+            "round": 9,
+            "speaker_id": "Agent A",
+            "utterance_text": "Argudio sendoa aurkezten duzu, eta ados nago helburu argiak eta ebaluazio etengabea beharrezkoak direla. Parte-hartzaileen ekarpenak benetan integratuta daudela ziurtatzea ezinbestekoa da, bestela mekanismoak ez lirateke eraginkorrak izango, eta konfiantza galduko litzateke.\n\nHala ere, baliabide eta botere banaketa egokiaz gain, adostasun sistemak behar dira, interes taldeen arteko gatazkak kudeatzeko. Horrek prozesuak inklusiboagoak eta koherenteagoak egingo ditu. Horrela, globaltasun eta tokikotasun oreka ez da soilik posible izango, baizik eta iraunkorra eta fidagarria ere izango",
+            "sentiment": {
+                "overall_score": 0.4,
+                "subjectivity": 0.6,
+                "dominant_emotion": "optimism",
+                "explanation": "The text discusses the importance of clear goals, continuous evaluation, and proper integration of participant contributions, which are positive and constructive elements. The tone acknowledges challenges but focuses on solutions and the potential for sustainable outcomes, demonstrating optimism."
+            }
+        },
+        {
+            "round": 9,
+            "speaker_id": "Agent B",
+            "utterance_text": "Bai, ados nago zurekin: gatazken kudeaketa eta adostasun mekanismoak ezinbestekoak dira interes taldeen arteko oreka lortzeko. Inklusioak eta koherentziak ezin dute soilik baliabide banaketan oinarritu; prozesuak justuak eta parte-hartzaileak izan behar dira. \n\nHorregatik, proposamen sendo bat da erabakiak hartzeko prozesuetan bitartekaritza neutralak eta gatazken ebazpen tresna argiak txertatzea. Honek giro kooperatibo bat sortuko du, eta alde guztien ahotsak benetan aintzat hartuak izango dira. Horrela, globaltasun eta tokikotasun arteko oreka ez da soilik lortu, baizik eta denboran iraun",
+            "sentiment": {
+                "overall_score": 0.7,
+                "subjectivity": 0.6,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses a positive outlook on conflict resolution and consensus-building mechanisms, emphasizing fairness, participation, and inclusion. It suggests a constructive approach with neutral mediation to ensure balanced and lasting solutions, indicating an optimistic sentiment."
+            }
+        },
+        {
+            "round": 10,
+            "speaker_id": "Agent A",
+            "utterance_text": "Erabat ados nago zure proposamenarekin. Bitartekaritza neutralak eta gatazken ebazpen tresna argiak giltzarriak dira parte-hartze prozesuak justu eta eraginkorrak izateko. Gainera, horrek alde desberdinen arteko konfiantza sustatuko du, eta AA sistemak diseinatzerakoan eta ezartzerakoan koherentzia handiagoa ahalbidetuko du.\n\nHala ere, mekanismo horiek behar bezala funtziona dezaten, baliabide egokiak eta finantzaketa independentea bermatu behar zaizkie, interesen interferentziak saihesteko. Horrela, ez bakarrik globaltasun eta tokikotasun arteko oreka lortuko da, baizik eta prozesuen zileg",
+            "sentiment": {
+                "overall_score": 0.5,
+                "subjectivity": 0.7,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses agreement and highlights the positive potential of mediation and conflict resolution tools in creating fair and effective processes, which indicates optimism. However, it also acknowledges the need for appropriate resources to avoid interference, suggesting some concern."
+            }
+        },
+        {
+            "round": 10,
+            "speaker_id": "Agent B",
+            "utterance_text": "Zure puntua guztiz zuzena da; finantzaketa independentea eta baliabide egokiak ezinbestekoak dira mekanismo horiek benetan neutralak eta eraginkorrak izan daitezen. Interesen interferentziak ekiditea, batez ere, zilegitasunaren eta gardentasunaren funtsezko oinarriak dira.\n\nHorregatik, finantziazioan aniztasuna bermatzeko proposatuko nuke erakunde publiko, pribatu eta gizarte zibilaren ekarpen gardenak uztartzea. Gainera, finantzaketaren erabilera aldizka ikuskatuta eta publiko eginez, konfiantza eta mekanismoen iraunkortasuna areagotuko lirateke. Horrela, prozesuak ez dira soilik orekatuak izango, ba",
+            "sentiment": {
+                "overall_score": 0.75,
+                "subjectivity": 0.6,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses a constructive and forward-looking perspective on ensuring proper funding and transparency, suggesting solutions and improvements, which indicates optimism. The focus on legitimacy, transparency, and balanced processes reflects a moderately subjective viewpoint."
+            }
+        },
+        {
+            "round": 11,
+            "speaker_id": "Agent A",
+            "utterance_text": "Argudio sendoa aurkezten duzu, eta finantziazio anitza eta gardentasuna ezinbestekoak dira, zalantzarik gabe. Erakunde publiko, pribatu eta gizarte zibilaren ekarpen gardenak uztartzeak oreka hobea ekarriko luke, eta ikuskaritza publikoak konfiantza areagotuko luke.\n\nHala ere, finantzaketa anitzak interes gatazkak sor ditzake; horregatik, erregulazio eta kontrol mekanismo zorrotzak behar dira. Gainera, finantzaketaren banaketa proportzionala eta eraginkorra izan dadin, lehentasunak argi definitu behar dira. Horrela, baliabideak modu estrategikoan erabiliko dira, eta erabakiak hartzeko prozesuak iraunk",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.6,
+                "dominant_emotion": "assertiveness",
+                "explanation": "The text presents a balanced view, acknowledging both the benefits and challenges of diverse financing, with emphasis on regulation and strategic resource use. The assertive language in defining necessary conditions contributes to a moderately positive tone but remains somewhat subjective as it relies on normative statements."
+            }
+        },
+        {
+            "round": 11,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados nago zure kezka garrantzitsuarekin: finantzaketa anitzak interes gatazkak sor ditzake. Horregatik, erregulazio eta kontrol zorrotzak ezinbestekoak dira, eta lehentasun argiak ezartzea prozesuaren gardentasuna eta eraginkortasuna bermatzeko giltzarria izango da.\n\nHori lortzeko, proposatuko nuke finantzaketaren kudeaketa erakunde independente edo nazioarteko mekanismo baten esku uztea, interes gatazkak prebenitzeko. Gainera, baliabideen erabilera eta emaitzen eragina etengabe auditatu eta ebaluatu beharko lirateke. Horrela, prozesuak ez bakarrik estrategikoak izango dira, baizik eta zilegi eta iraunkor ere bai.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.6,
+                "dominant_emotion": "concern",
+                "explanation": "The text expresses concern about conflicts of interest in diverse funding and emphasizes the need for strict regulation and independent management to ensure transparency and effectiveness. While it suggests solutions, the underlying tone reflects a cautious approach to the issue."
+            }
+        },
+        {
+            "round": 12,
+            "speaker_id": "Agent A",
+            "utterance_text": "Zure proposamena oso egokia da, eta ados nago erakunde independente edo nazioarteko mekanismoek finantzaketaren kudeaketan paper garrantzitsua izan behar dutela. Horrek gardentasuna eta interes gatazken prebentzioa bermatuko ditu. Gainera, etengabeko auditoretzek eta ebaluazioek prozesuaren erantzunkidetasuna indartuko lukete.\n\nHala ere, erakunde independente horiek ere kontrolatu behar dira, haien zilegitasuna eta eraginkortasuna mantentzeko. Horretarako, kontrol demokratiko eta parte-hartzaileak ezarri beharko lirateke. Horrela, finantziazio sistemaren bermea are gehiago sendotuko litzateke, justizia eta inklusioa bultzatuz.",
+            "sentiment": {
+                "overall_score": 0.7,
+                "subjectivity": 0.5,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses support and agreement with proposed solutions, emphasizing positive outcomes like transparency and inclusivity, indicative of optimism. It balances this with some concern for oversight, maintaining a moderate subjectivity."
+            }
+        },
+        {
+            "round": 12,
+            "speaker_id": "Agent B",
+            "utterance_text": "Zure argudioa oso egokia da, eta guztiz ados nago erakunde independente horiek kontrol demokratiko eta parte-hartzaile baten menpe egon behar dutela. Horrela, haien zilegitasuna, gardentasuna eta eraginkortasuna bermatuko dira, eta gainera, herritarren konfiantza areagotuko da.\n\nHorretarako, proposatuko nuke erakunde horien kudeaketa-organoetan komunitateak, gizarte zibila, eta aditu independenteak integratzea. Gainera, kontrol mekanismoetan herritarrei zuzendutako informazio eta errebisio publikoak sartzea lagungarria izango litzateke. Horrela, justizia eta inklusioa ez dira soilik helburu izango, baizik eta praktikan errotuta geratuko dira.",
+            "sentiment": {
+                "overall_score": 0.8,
+                "subjectivity": 0.7,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses strong agreement and positive sentiment towards democratic oversight and transparency, highlighting benefits such as increased legitimacy and public trust. The language is subjective, focusing on proposed solutions and positive outcomes."
+            }
+        },
+        {
+            "round": 13,
+            "speaker_id": "Agent A",
+            "utterance_text": "Zure proposamena sendoa eta inklusiboa da, eta ados nago kudeaketa-organoetan komunitate, gizarte zibil eta adituen parte-hartzea oso garrantzitsua dela. Informazio eta errebisio publikoak gehituz, herritarren parte-hartzea eta gardentasuna hobetuko dira.\n\nHala ere, arriskua legoke parte-hartze zabalak erabakien eraginkortasuna motel dezakeelako. Horregatik, proposatuko nuke mekanismo arin eta eraginkorrak garatzea, parte-hartze eta erabaki azkarrak uztartzeko. Horrela, prozesuak inklusiboak eta, aldi berean, dinamikoak izango lirateke. Erabakiak kalitate handikoak eta",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.7,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses support for the proposal, emphasizing the importance of inclusivity, participation, and transparency, which is positive. However, it acknowledges potential challenges, indicating a balance between optimism and concern."
+            }
+        },
+        {
+            "round": 13,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados nago zure kezkarekin; parte-hartze zabala batzuetan erabakiak hartzeko prozesua moteldu dezake. Hori dela eta, beharrezkoa da mekanismo arinak eta eraginkorrak garatzea, inklusioa eta erabaki azkarrak uztartzeko.\n\nProposamen gisa, eskala anitzeko prozesuak diseinatu daitezke, non gai konplexuak faseka lantzen diren: lehenik, adituek eta talde txikiek proposamen zehatzak prestatuko lituzkete, eta ondoren, komunitate eta gizarte zibil zabalagoari aurkeztea aztertzeko. Horrela, eztabaidak finkatuagoak izango lirateke, eta aldi berean, erabakiak arinagoak eta",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.6,
+                "dominant_emotion": "optimism",
+                "explanation": "The text acknowledges a concern with participatory decision-making but proposes constructive solutions that suggest a positive outlook towards improving the process, indicating optimism. The discussion of mechanisms and proposed solutions reflects a moderately subjective perspective."
+            }
+        },
+        {
+            "round": 14,
+            "speaker_id": "Agent A",
+            "utterance_text": "Zure proposamena oso egokia da, eta ados nago eskala anitzeko prozesuek erabakiak eraginkorragoak egiteko potentzial handia dutela. Adituen eta talde txikien lehenengo lana eztabaida gidatuak eta informatuak ahalbidetzeko funtsezkoa da, eta ondoren komunitate zabalagoaren parte-hartzea oreka eta zilegitasuna bermatuko luke.\n\nHala ere, garrantzitsua da prozesu horiek gardentasunez eta irisgarritasunez garatzea, talde guztiek ahots berdintasunez jardun dezaten. Horretarako, tresna teknologikoak erabil daitezke parte-hartzea demokratikoagoa eta arinagoa egiteko. Horrela, erabakiak ez dira bak",
+            "sentiment": {
+                "overall_score": 0.6,
+                "subjectivity": 0.7,
+                "dominant_emotion": "optimism",
+                "explanation": "The text expresses a positive view on the effectiveness and potential of the proposed processes, emphasizing the importance of expert guidance and broader community involvement. The focus on transparency and equal participation further contributes to an optimistic tone."
+            }
+        },
+        {
+            "round": 14,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados nago zurekin: gardentasuna eta irisgarritasuna ezinbestekoak dira talde guztien ahotsak berdintasunez entzun daitezen. Tresna teknologikoak erabiltzeak, esaterako, plataforma parte-hartzaileak edo online kontsultak, demokratizazio hori indartzeko aukera ematen du.\n\nHala ere, teknologiaren erabilerak aukera paregabeak eskaintzen dituen arren, arrakala digitala kontuan hartu behar dugu. Horregatik, baliabiderik ez duten komunitateentzat sarbidea bermatzeko neurriak ezarri behar dira. Tresna teknologikoekin batera, metodologia tradizionalak uztartzea garrantzitsua da, benetako inklusioa eta irisgarritasuna ziurtatzeko. Horrela, prozesuak benetan inklus",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.6,
+                "dominant_emotion": "concern",
+                "explanation": "The text expresses a positive view on technology's role in democratization, but also highlights concerns regarding the digital divide and the need for inclusive measures, which reflects a balanced but slightly positive sentiment. The emphasis on ensuring inclusivity and addressing potential issues indicates a sense of concern."
+            }
+        },
+        {
+            "round": 15,
+            "speaker_id": "Agent A",
+            "utterance_text": "Gure eztabaidan oinarrituta, proposatzen dut erantzule nagusi gisa AA sistemak garatzen eta inplementatzen dituzten erakundeek eta enpresek jarduteko arau eta mekanismo eraginkorrak ezartzea, hauek kontrol demokratiko eta parte-hartzaile baten menpe egon daitezen. \n\nHau lortzeko, honako neurriak hartzea iradokitzen dut: lehenik, erakunde independenteak sortzea, non gizarte zibila, adituak eta komunitateak integratzen diren; bigarrenik, eskala anitzeko parte-hartze prozesuak diseinatzea, eztabaidak finkatuak eta erabakiak arinak izan daitezen; eta, azkenik, tresna teknologiko parte-hartzaileak eta metodologia tradizionalak",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.7,
+                "dominant_emotion": "optimism",
+                "explanation": "The proposal for creating effective rules and mechanisms for organizations to develop and implement AA systems under democratic control is positive and constructive, reflecting a sense of optimism about potential improvements. The focus on community involvement and structured decision-making processes adds a subjective element to the suggestions."
+            }
+        },
+        {
+            "round": 15,
+            "speaker_id": "Agent B",
+            "utterance_text": "Gure eztabaidan oinarrituta, proposatzen dut AA sistemek publikoari kalterik ez eragitea bermatzeko erantzukizun nagusia sistemak garatzen eta ezartzen dituzten erakundeen eta enpresen gain ezartzea. Horretarako, hurrengo neurriak formulatzen dira: \n\n1. **Erakunde independenteak eta gardenak sortzea**, non gizarte zibilak, komunitateek eta adituek parte-hartze aktiboa izango duten, interes gatazken prebentzioa eta kontrol demokratikoa bermatzeko. \n\n2. **Eskala anitzeko parte-hartze prozesuak ezartzea**, lehenik eztabaida tekniko eta adituak lehenetsiz, eta ondoren komunitate zabalagoari irekiz, erabakiak arinak, fink",
+            "sentiment": {
+                "overall_score": 0.1,
+                "subjectivity": 0.6,
+                "dominant_emotion": "concern",
+                "explanation": "The text demonstrates a proactive approach to preventing harm from AA systems by suggesting organizational and participatory measures, indicating a slight positive outlook. However, the emphasis on preventing conflicts of interest and ensuring democratic control suggests an underlying concern about potential risks."
+            }
+        }
+    ],
+    "thematic_analysis": {
+        "themes": [
+            {
+                "theme_title": "Erantzukizun Nagusia",
+                "theme_explanation": "AA sistemak garatzen eta erabiltzen dituzten enpresa eta erakundeek erantzukizun nagusia dute teknologia horien eraginak ulertzeko eta jarduera etikoak bermatzeko.",
+                "theme_title_en": "Main Responsibility",
+                "theme_explanation_en": "Companies and organizations that develop and use AA systems have the primary responsibility to understand the impacts of these technologies and ensure ethical practices."
+            },
+            {
+                "theme_title": "Gobernuen eta Gizarte Zibilaren Rola",
+                "theme_explanation": "Gobernuek eta gizarte zibilak araudi zorrotzak ezarri behar dituzte, eta gizartearen presioa bultzatu, enpresek etikoki jardun dezaten.",
+                "theme_title_en": "Role of Governments and Civil Society",
+                "theme_explanation_en": "Governments and civil society must establish strict regulations and encourage societal pressure for companies to act ethically."
+            },
+            {
+                "theme_title": "Parte-hartze eta Gardentasuna",
+                "theme_explanation": "Parte-hartze mekanismoak eta gardentasuna ezinbestekoak dira erabakiak inklusiboak eta justuak izan daitezen, komunitateen eta adituen ahotsa entzunda.",
+                "theme_title_en": "Participation and Transparency",
+                "theme_explanation_en": "Participatory mechanisms and transparency are essential for decisions to be inclusive and fair, by listening to the voices of communities and experts."
+            },
+            {
+                "theme_title": "Finantzaketa eta Interes Gatazkak",
+                "theme_explanation": "Finantzaketa anitzaren bidez interes gatazkak ekiditeko, erregulazio zorrotzak eta erakunde independenteak beharrezkoak dira justizia soziala bermatzeko.",
+                "theme_title_en": "Funding and Conflicts of Interest",
+                "theme_explanation_en": "To avoid conflicts of interest through diverse funding, strict regulations and independent organizations are necessary to ensure social justice."
+            },
+            {
+                "theme_title": "Teknologia eta Inklusioa",
+                "theme_explanation": "Tresna teknologikoak eta metodologia tradizionalak konbinatzea garrantzitsua da parte-hartze prozesuak demokratikoak eta irisgarriak izan daitezen, arrakala digitala kontuan hartuz.",
+                "theme_title_en": "Technology and Inclusion",
+                "theme_explanation_en": "Combining technological tools and traditional methodologies is important for participatory processes to be democratic and accessible, considering the digital divide."
+            }
+        ]
+    }
+}

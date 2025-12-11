@@ -1,0 +1,306 @@
+{
+    "total_utterances": 30,
+    "total_sentences": 30,
+    "analysis_method": "spacy_dependency_parsing",
+    "model": "en_core_web_sm",
+    "case_distribution": {
+        "nominative_count": 365,
+        "accusative_count": 526,
+        "nominative_ratio": 0.409652076318743,
+        "accusative_ratio": 0.590347923681257,
+        "nominative_pronouns": {
+            "they": 19,
+            "who": 1,
+            "we": 1,
+            "i": 2
+        },
+        "accusative_pronouns": {
+            "them": 6
+        }
+    },
+    "voice_distribution": {
+        "active_count": 10,
+        "passive_count": 20,
+        "active_ratio": 0.3333333333333333,
+        "passive_ratio": 0.6666666666666666,
+        "passive_verbs": [
+            "mitigate",
+            "mitigate",
+            "build",
+            "build",
+            "prioritize",
+            "prioritize",
+            "distribute",
+            "distribute",
+            "sideline",
+            "sideline",
+            "constrain",
+            "constrain",
+            "shape",
+            "shape",
+            "hinder",
+            "hinder",
+            "limit",
+            "limit",
+            "sideline",
+            "build",
+            "build",
+            "nullify",
+            "nullify",
+            "task",
+            "task",
+            "prioritize",
+            "prioritize",
+            "embed",
+            "embed",
+            "delay",
+            "delay",
+            "undermine",
+            "undermine",
+            "limit",
+            "limit",
+            "share",
+            "share",
+            "embed",
+            "embed",
+            "prioritize",
+            "support",
+            "support",
+            "share",
+            "share",
+            "empower",
+            "empower",
+            "standardize",
+            "standardize",
+            "address",
+            "address",
+            "share",
+            "share",
+            "achieve",
+            "achieve",
+            "achieve",
+            "achieve",
+            "meet",
+            "meet"
+        ]
+    },
+    "agent_patient_alignment": {
+        "agent_as_subject_count": 167,
+        "patient_as_subject_count": 28,
+        "patient_as_object_count": 526,
+        "agent_subject_ratio": 0.8564102564102564,
+        "top_agent_verbs": {
+            "prioritize": 10,
+            "shape": 7,
+            "emphasize": 6,
+            "create": 5,
+            "lack": 5,
+            "stress": 5,
+            "enforce": 4,
+            "play": 4,
+            "ensures": 4,
+            "underestimates": 4
+        },
+        "top_patient_verbs": {
+            "on": 29,
+            "In": 23,
+            "of": 18,
+            "for": 17,
+            "prioritize": 14,
+            "with": 13,
+            "from": 13,
+            "ensuring": 11,
+            "by": 10,
+            "Without": 10
+        }
+    },
+    "dependency_patterns": {
+        "dependency_counts": {
+            "punct": 528,
+            "amod": 396,
+            "nsubj": 322,
+            "dobj": 307,
+            "prep": 235,
+            "pobj": 219,
+            "ROOT": 218,
+            "conj": 180,
+            "advmod": 178,
+            "cc": 161,
+            "aux": 119,
+            "det": 112,
+            "poss": 112,
+            "compound": 88,
+            "advcl": 88,
+            "acomp": 66,
+            "dep": 57,
+            "mark": 51,
+            "ccomp": 49,
+            "case": 46
+        },
+        "head_dependency_patterns": {
+            "NOUN_amod": 391,
+            "VERB_punct": 354,
+            "VERB_dobj": 303,
+            "VERB_nsubj": 257,
+            "ADP_pobj": 215,
+            "VERB_prep": 134,
+            "VERB_advmod": 123,
+            "VERB_aux": 117,
+            "NOUN_poss": 112,
+            "NOUN_det": 110,
+            "NOUN_punct": 87,
+            "NOUN_compound": 84,
+            "AUX_punct": 79,
+            "NOUN_conj": 75,
+            "VERB_advcl": 73
+        },
+        "argument_structure_examples": [
+            {
+                "head": "harm",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "responsibility",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "ensuring",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "systems",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "lies",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "public",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "harm",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "lies",
+                "dependent_pos": "VERB"
+            },
+            {
+                "head": "with",
+                "head_pos": "ADP",
+                "relation": "pobj",
+                "dependent": "stakeholders",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "prioritize",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "Developers",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "prioritize",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "considerations",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "during",
+                "head_pos": "ADP",
+                "relation": "pobj",
+                "dependent": "design",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "enforce",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "corporations",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "enforce",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "standards",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "play",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "Governments",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "play",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "role",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "enforcing",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "regulations",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "ensure",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "compliance",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "is",
+                "head_pos": "AUX",
+                "relation": "csubj",
+                "dependent": "placing",
+                "dependent_pos": "VERB"
+            },
+            {
+                "head": "placing",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "responsibility",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "on",
+                "head_pos": "ADP",
+                "relation": "pobj",
+                "dependent": "developers",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "fosters",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "it",
+                "dependent_pos": "PRON"
+            },
+            {
+                "head": "fosters",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "negligence",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "ensures",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "approach",
+                "dependent_pos": "NOUN"
+            }
+        ]
+    },
+    "summary": {
+        "nominative_accusative_ratio": "40.97% nominative / 59.03% accusative",
+        "active_passive_ratio": "33.33% active / 66.67% passive",
+        "agent_subject_alignment": "85.64% of agents are subjects",
+        "primary_pattern": "nominative-accusative (agent=subject, patient=object)"
+    }
+}

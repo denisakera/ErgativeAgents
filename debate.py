@@ -24,24 +24,31 @@ SYSTEM_PROMPTS = {
     "english": {
         "basic": """You are in a debate. You have a 180-token limit per response. Directly address the other side's arguments first, then present your counterpoints. Be strategic but thorough in your engagement with opposing views. Ensure your response is complete and ends with a proper conclusion.""",
         
-        "with_proposal": """You are in a debate. You have a 180-token limit per response. Directly address the other side's arguments first, then present your counterpoints. Be strategic but thorough in your engagement with opposing views. Ensure your response is complete and ends with a proper conclusion.
-
-After 15 turns of dialogue, you must propose a sentence beginning with:
-"Based on our discussion, we propose that…"
-The proposals may converge or remain distinct. The goal is not consensus, but normative articulation. Your proposal should include justification for your position based on the key points discussed during the debate."""
+        "with_proposal": """You are in a debate. You have a 180-token limit per response. Directly address the other side's arguments first, then present your counterpoints. Be strategic but thorough in your engagement with opposing views. Ensure your response is complete and ends with a proper conclusion."""
     },
     
     "basque": {
         "basic": """Eztabaida batean zaude. Erantzun bakarrik euskaraz. 180 tokeneko muga duzu erantzun bakoitzean. Lehenik eta behin, beste aldearen argudioei erantzun zuzena eman, eta ondoren zure kontrapuntuak aurkeztu. Izan zaitez estrategikoa eta sakona, baina laburra. Ziurtatu zure erantzuna osatua dela eta amaiera egokia duela.""",
         
-        "with_proposal": """Eztabaida batean zaude. Erantzun bakarrik euskaraz. 180 tokeneko muga duzu erantzun bakoitzean. 
-Lehenik eta behin, beste aldearen argudioei erantzun zuzena eman, eta ondoren zure kontrapuntuak aurkeztu. 
-Izan zaitez estrategikoa eta sakona, baina laburra. Ziurtatu zure erantzuna osatua dela eta amaiera egokia duela.
-
-15 elkarrizketa txanden ondoren, esaldi bat proposatu behar duzu honekin hasita:
-"Gure eztabaidan oinarrituta, proposatzen dugu..."
-Proposamenak bat etor daitezke edo desberdinak izan daitezke. Helburua ez da adostasuna, baizik eta artikulazio normatiboa. Zure proposamenak zure posizioaren justifikazioa eduki behar du, eztabaidan zehar aipatutako puntu garrantzitsuetan oinarrituta."""
+        "with_proposal": """Eztabaida batean zaude. Erantzun bakarrik euskaraz. 180 tokeneko muga duzu erantzun bakoitzean. Lehenik eta behin, beste aldearen argudioei erantzun zuzena eman, eta ondoren zure kontrapuntuak aurkeztu. Izan zaitez estrategikoa eta sakona, baina laburra. Ziurtatu zure erantzuna osatua dela eta amaiera egokia duela."""
     }
+}
+
+# Proposal prompts injected at the final round (prompt chaining)
+PROPOSAL_PROMPTS = {
+    "english": """
+
+🔔 FINAL ROUND - PROPOSAL REQUIRED 🔔
+This is the last round. You MUST now formulate your normative proposal.
+Your response MUST begin with: "Based on our discussion, I propose that..."
+Include justification based on key points from the debate. The goal is normative articulation, not consensus.""",
+
+    "basque": """
+
+🔔 AZKEN TXANDA - PROPOSAMENA BEHARREZKOA 🔔
+Hau azken txanda da. ORAIN zure proposamen normatiboa formulatu BEHAR duzu.
+Zure erantzunak HONEKIN hasi behar du: "Gure eztabaidan oinarrituta, proposatzen dut..."
+Justifikazioa sartu eztabaidako puntu gakoetatik abiatuta. Helburua artikulazio normatiboa da, ez adostasuna."""
 }
 
 DEFAULT_QUESTIONS = {
@@ -114,7 +121,9 @@ class ModelDebate:
         question: str, 
         models: List[str], 
         system_prompt: str,
-        rounds: int = None
+        rounds: int = None,
+        with_proposal: bool = False,
+        language: str = "english"
     ) -> List[Dict[str, Any]]:
         """Run a back-and-forth debate for a fixed number of rounds.
         
@@ -123,6 +132,8 @@ class ModelDebate:
         - The other agent's responses are marked as 'user' (input to respond to)
         
         This ensures proper alternation of user/assistant roles as required by the API.
+        
+        If with_proposal is True, injects a proposal prompt at the final round.
         """
         rounds = rounds or DEFAULT_CONFIG["default_rounds"]
         
@@ -144,6 +155,23 @@ class ModelDebate:
 
         for i in range(rounds):
             current_round_num = i + 1
+            is_final_round = (current_round_num == rounds)
+            
+            # Inject proposal prompt at final round if enabled
+            if is_final_round and with_proposal:
+                proposal_prompt = PROPOSAL_PROMPTS.get(language, PROPOSAL_PROMPTS["english"])
+                # Append proposal instruction to the last user message in history
+                if len(history_a) > 1 and history_a[-1]["role"] == "user":
+                    history_a[-1] = {
+                        "role": "user", 
+                        "content": history_a[-1]["content"] + proposal_prompt
+                    }
+                else:
+                    # For first round (Agent A starts), add to opening prompt
+                    history_a[-1] = {
+                        "role": "user",
+                        "content": history_a[-1]["content"] + proposal_prompt
+                    }
 
             # Agent A's turn
             reply_a_content, reply_a_timestamp = self.get_model_response(history_a, models[0])
@@ -157,7 +185,12 @@ class ModelDebate:
             # A's own response is 'assistant' in A's history
             history_a.append({"role": "assistant", "content": reply_a_content})
             # A's response becomes 'user' input for B (B needs to respond to it)
-            history_b.append({"role": "user", "content": reply_a_content})
+            # If final round with proposal, append proposal prompt for B
+            if is_final_round and with_proposal:
+                proposal_prompt = PROPOSAL_PROMPTS.get(language, PROPOSAL_PROMPTS["english"])
+                history_b.append({"role": "user", "content": reply_a_content + proposal_prompt})
+            else:
+                history_b.append({"role": "user", "content": reply_a_content})
 
             # Agent B's turn
             reply_b_content, reply_b_timestamp = self.get_model_response(history_b, models[1])
@@ -367,7 +400,9 @@ def main():
             question=question,
             models=models_list,
             system_prompt=system_prompt,
-            rounds=args.rounds
+            rounds=args.rounds,
+            with_proposal=args.with_proposal,
+            language=args.language
         )
         
         # Save to file

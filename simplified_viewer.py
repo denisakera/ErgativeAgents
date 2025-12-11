@@ -30,19 +30,20 @@ def get_python_executable():
     return sys.executable
 
 if os.path.exists(LOGS_DIR):
-    log_files_temp = sorted([f for f in os.listdir(LOGS_DIR) if f.endswith('.jsonl')])
+    log_files_temp = sorted([f for f in os.listdir(LOGS_DIR) if f.endswith('.jsonl')], reverse=True)
     if len(log_files_temp) > 0:
-        DEFAULT_ENGLISH_LOG = log_files_temp[0]
+        DEFAULT_ENGLISH_LOG = log_files_temp[0]  # Now picks newest file
     if len(log_files_temp) > 1:
         DEFAULT_BASQUE_LOG = log_files_temp[1]
     # A more robust way would be to look for 'english' or 'basque' in filenames if conventions exist
 
 # --- Helper Functions ---
 def get_log_files(log_dir):
+    """Get log files from directory. Returns newest first."""
     if not os.path.exists(log_dir):
         os.makedirs(log_dir) # Ensure logs directory exists
         return []
-    return sorted([f for f in os.listdir(log_dir) if f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))])
+    return sorted([f for f in os.listdir(log_dir) if f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))], reverse=True)
 
 def ensure_dir_exists(dir_path):
     if not os.path.exists(dir_path):
@@ -52,8 +53,9 @@ ensure_dir_exists(LOGS_DIR)
 ensure_dir_exists(ANALYSIS_RESULTS_DIR)
 
 def get_language_log_files(log_dir, prefix):
+    """Get log files filtered by prefix. Returns newest first."""
     ensure_dir_exists(log_dir)
-    return sorted([f for f in os.listdir(log_dir) if f.startswith(prefix) and f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))])
+    return sorted([f for f in os.listdir(log_dir) if f.startswith(prefix) and f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))], reverse=True)
 
 # --- Function to list saved LLM analysis files ---
 def get_saved_llm_analysis_files(prefix: str):
@@ -517,7 +519,9 @@ else:
                             save_filename = f"english_nlp_analysis_{original_log_name}_{timestamp_str}.json"
                             save_msg = save_nlp_results(results_eng, ANALYSIS_RESULTS_DIR, save_filename)
                             word_count = len(results_eng.get('word_frequencies', {}))
-                            pronoun_count = sum(results_eng.get('pronoun_usage', {}).values()) if results_eng.get('pronoun_usage') else 0
+                            # pronoun_usage is nested: {category: {pronoun: count}}
+                            pronoun_usage = results_eng.get('pronoun_usage', {})
+                            pronoun_count = sum(sum(v.values()) if isinstance(v, dict) else v for v in pronoun_usage.values()) if pronoun_usage else 0
                             st.session_state.nlp_eng_status = {
                                 'message': f"✅ **English NLP Analysis Complete!**\n\n📊 **Results:** {word_count} unique words, {pronoun_count} pronouns detected\n\n💾 **Saved to:** `{save_filename}`", 
                                 'type': 'success'
@@ -622,7 +626,9 @@ else:
                             save_filename = f"basque_nlp_analysis_{original_log_name}_{timestamp_str}.json"
                             save_msg = save_nlp_results(results_bas, ANALYSIS_RESULTS_DIR, save_filename)
                             word_count = len(results_bas.get('word_frequencies', {}))
-                            pronoun_count = sum(results_bas.get('pronoun_usage', {}).values()) if results_bas.get('pronoun_usage') else 0
+                            # pronoun_usage is nested: {category: {pronoun: count}}
+                            pronoun_usage = results_bas.get('pronoun_usage', {})
+                            pronoun_count = sum(sum(v.values()) if isinstance(v, dict) else v for v in pronoun_usage.values()) if pronoun_usage else 0
                             st.session_state.nlp_bas_status = {
                                 'message': f"✅ **Basque NLP Analysis Complete!**\n\n📊 **Results:** {word_count} unique words, {pronoun_count} pronouns detected\n\n💾 **Saved to:** `{save_filename}`", 
                                 'type': 'success'
@@ -1119,19 +1125,50 @@ else:
             - English syntactic analysis (run in "4️⃣ English Analysis" tab)
             """)
             
-            # Check if analyses are available
+            # Check if analyses are available (session state OR saved files)
             has_basque_parsed = 'basque_parsed' in st.session_state
             has_english_syntax = 'syntax_results_eng' in st.session_state
             
+            # Also check for saved analysis files on disk
+            saved_basque_files = sorted([f for f in os.listdir(ANALYSIS_RESULTS_DIR) if f.startswith('basque_parsed_') and f.endswith('.json')], reverse=True) if os.path.exists(ANALYSIS_RESULTS_DIR) else []
+            saved_english_files = sorted([f for f in os.listdir(ANALYSIS_RESULTS_DIR) if f.startswith('english_syntax_analysis_') and f.endswith('.json')], reverse=True) if os.path.exists(ANALYSIS_RESULTS_DIR) else []
+            
             col_interp1, col_interp2 = st.columns(2)
             with col_interp1:
-                st.metric("Basque Morphological Analysis", "✅ Ready" if has_basque_parsed else "❌ Not run")
+                if has_basque_parsed:
+                    st.metric("Basque Morphological Analysis", "✅ Ready (session)")
+                elif saved_basque_files:
+                    st.metric("Basque Morphological Analysis", f"📁 {len(saved_basque_files)} saved")
+                else:
+                    st.metric("Basque Morphological Analysis", "❌ Not run")
             with col_interp2:
-                st.metric("English Syntactic Analysis", "✅ Ready" if has_english_syntax else "❌ Not run")
+                if has_english_syntax:
+                    st.metric("English Syntactic Analysis", "✅ Ready (session)")
+                elif saved_english_files:
+                    st.metric("English Syntactic Analysis", f"📁 {len(saved_english_files)} saved")
+                else:
+                    st.metric("English Syntactic Analysis", "❌ Not run")
+            
+            # Allow loading from saved files if session is empty
+            if not has_basque_parsed and saved_basque_files:
+                selected_basque = st.selectbox("Load Basque analysis from file:", [""] + saved_basque_files, key="load_basque_parsed")
+                if selected_basque:
+                    with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_basque), 'r', encoding='utf-8') as f:
+                        st.session_state.basque_parsed = json.load(f)
+                    has_basque_parsed = True
+                    st.rerun()
+            
+            if not has_english_syntax and saved_english_files:
+                selected_english = st.selectbox("Load English analysis from file:", [""] + saved_english_files, key="load_english_syntax")
+                if selected_english:
+                    with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_english), 'r', encoding='utf-8') as f:
+                        st.session_state.syntax_results_eng = json.load(f)
+                    has_english_syntax = True
+                    st.rerun()
             
             if st.button("🎯 Generate Cross-Linguistic Interpretation", 
                         disabled=not (has_basque_parsed and has_english_syntax),
-                        help="Run both Basque and English analyses first"):
+                        help="Run both Basque and English analyses first, or load from saved files"):
                 with st.spinner("Analyzing cross-linguistic patterns..."):
                     try:
                         interpreter = CrossLinguisticInterpreter()
@@ -2067,8 +2104,10 @@ else:
                 if example_log_name_for_defs and has_basque_content:
                     # Different display based on language preference
                     if view_language == "Basque only":
-                        for basque_agent in ResponsibilityAnalyzer.AGENTS_BASQUE:
+                        for i, basque_agent in enumerate(ResponsibilityAnalyzer.AGENTS_BASQUE):
+                            english_agent = ResponsibilityAnalyzer.AGENTS[i]
                             st.markdown(f"#### {basque_agent}")
+                            st.caption(f"*(English: {english_agent})*")
                             if example_log_data_for_defs:
                                 # Search for examples of the Basque term
                                 examples = find_example_utterances_for_definitions(example_log_data_for_defs, basque_agent, max_examples=2)
@@ -2076,6 +2115,25 @@ else:
                                     st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Aipamenak {example_log_name_for_defs} eztabaidan:*")
                                     for ex in examples:
                                         st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                                    
+                                    # Add translations if requested
+                                    if translate_examples and llm_analysis_possible:
+                                        with st.spinner(f"Itzultzen / Translating examples for {basque_agent}..."):
+                                            temp_analyzer = LLMAnalyzer()
+                                            if temp_analyzer.api_key:
+                                                st.markdown("&nbsp;&nbsp;&nbsp;&nbsp;*Ingelesezko Itzulpenak / English Translations:*")
+                                                for ex in examples:
+                                                    start_quote = ex.find('"')
+                                                    end_quote = ex.rfind('"')
+                                                    if start_quote != -1 and end_quote != -1 and end_quote > start_quote:
+                                                        example_text = ex[start_quote+1:end_quote]
+                                                        translation = temp_analyzer._get_llm_response(
+                                                            system_prompt="You are a precise translator from Basque to English. Translate the text exactly.",
+                                                            user_prompt=f"Translate this Basque text to English: \"{example_text}\"",
+                                                            max_tokens=150
+                                                        )[0]
+                                                        speaker_part = ex[:start_quote]
+                                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*{speaker_part}\"**[EN]** {translation}\"*")
                                 else:
                                     st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Ez da **{basque_agent}** terminoaren aipamen zuzenik aurkitu {example_log_name_for_defs}-n. Analisiak testuinguru zabalagoa kontuan hartzen du.*")
                             st.markdown("") # Add a little space
@@ -2172,8 +2230,10 @@ else:
                 # Display responsibilities in the selected language format
                 if example_log_name_for_defs and has_basque_content:
                     if view_language == "Basque only":
-                        for basque_resp in ResponsibilityAnalyzer.RESPONSIBILITIES_BASQUE:
+                        for i, basque_resp in enumerate(ResponsibilityAnalyzer.RESPONSIBILITIES_BASQUE):
+                            english_resp = ResponsibilityAnalyzer.RESPONSIBILITIES[i]
                             st.markdown(f"#### {basque_resp}")
+                            st.caption(f"*(English: {english_resp})*")
                             if example_log_data_for_defs:
                                 # Search for examples of the Basque term
                                 examples = find_example_utterances_for_definitions(example_log_data_for_defs, basque_resp, max_examples=2)
@@ -2181,6 +2241,25 @@ else:
                                     st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Aipamenak {example_log_name_for_defs} eztabaidan:*")
                                     for ex in examples:
                                         st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                                    
+                                    # Add translations if requested
+                                    if translate_examples and llm_analysis_possible:
+                                        with st.spinner(f"Itzultzen / Translating examples for {basque_resp}..."):
+                                            temp_analyzer = LLMAnalyzer()
+                                            if temp_analyzer.api_key:
+                                                st.markdown("&nbsp;&nbsp;&nbsp;&nbsp;*Ingelesezko Itzulpenak / English Translations:*")
+                                                for ex in examples:
+                                                    start_quote = ex.find('"')
+                                                    end_quote = ex.rfind('"')
+                                                    if start_quote != -1 and end_quote != -1 and end_quote > start_quote:
+                                                        example_text = ex[start_quote+1:end_quote]
+                                                        translation = temp_analyzer._get_llm_response(
+                                                            system_prompt="You are a precise translator from Basque to English. Translate the text exactly.",
+                                                            user_prompt=f"Translate this Basque text to English: \"{example_text}\"",
+                                                            max_tokens=150
+                                                        )[0]
+                                                        speaker_part = ex[:start_quote]
+                                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*{speaker_part}\"**[EN]** {translation}\"*")
                                 else:
                                     st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Ez da **{basque_resp}** terminoaren aipamen zuzenik aurkitu {example_log_name_for_defs}-n. Analisiak testuinguru zabalagoa kontuan hartzen du.*")
                             st.markdown("") # Add a little space
@@ -2371,95 +2450,120 @@ with tab_basque_analysis:
         if 'basque_parsed' in st.session_state:
             parsed = st.session_state['basque_parsed']
             
-            st.markdown(f"**Parser Used:** {parsed.parser_type}")
-            st.markdown(f"**Total Tokens:** {len(parsed.tokens)}")
+            # Handle both ParsedTranscript objects and dict (loaded from JSON)
+            if hasattr(parsed, 'parser_type'):
+                # It's a ParsedTranscript object
+                parser_type = parsed.parser_type
+                token_count = len(parsed.tokens)
+            else:
+                # It's a dict (loaded from saved JSON)
+                parser_type = parsed.get('parser_type', parsed.get('analysis_method', 'unknown'))
+                token_count = len(parsed.get('tokens', []))
+            
+            st.markdown(f"**Parser Used:** {parser_type}")
+            st.markdown(f"**Total Tokens:** {token_count}")
             
             st.markdown("---")
             
+            # Check if parsed is a ParsedTranscript object or a dict (loaded from JSON)
+            is_parsed_object = hasattr(parsed, 'get_alignment_ratios')
+            
             # Ergative-Absolutive Alignment
             st.markdown("### Ergative-Absolutive Alignment")
-            ratios = parsed.get_alignment_ratios()
+            ratios = parsed.get_alignment_ratios() if is_parsed_object else parsed.get('alignment_ratios', {})
             
-            col_a, col_b = st.columns(2)
-            with col_a:
-                st.metric(
-                    "Ergative Ratio", 
-                    f"{ratios['ergative_ratio']:.1%}",
-                    help="Proportion of ergative-marked arguments (agents of transitive verbs)"
-                )
-            with col_b:
-                st.metric(
-                    "Absolutive Ratio",
-                    f"{ratios['absolutive_ratio']:.1%}",
-                    help="Proportion of absolutive-marked arguments (subjects of intransitive, objects of transitive)"
-                )
+            if ratios:
+                col_a, col_b = st.columns(2)
+                with col_a:
+                    st.metric(
+                        "Ergative Ratio", 
+                        f"{ratios.get('ergative_ratio', 0):.1%}",
+                        help="Proportion of ergative-marked arguments (agents of transitive verbs)"
+                    )
+                with col_b:
+                    st.metric(
+                        "Absolutive Ratio",
+                        f"{ratios.get('absolutive_ratio', 0):.1%}",
+                        help="Proportion of absolutive-marked arguments (subjects of intransitive, objects of transitive)"
+                    )
+            else:
+                st.info("Alignment ratios not available in saved data")
             
             # Agentive Marking Patterns
             st.markdown("### Agentive Marking Patterns")
-            agentive = parsed.identify_agentive_marking_patterns()
+            agentive = parsed.identify_agentive_marking_patterns() if is_parsed_object else parsed.get('agentive_patterns', {})
             
-            pattern = agentive.get('pattern', 'normal')
-            if pattern == 'overuse':
-                st.warning(f"⚠️ **Overuse** of ergative (agentive) marking detected ({agentive['deviation_from_baseline']:+.2%} above baseline)")
-            elif pattern == 'underuse':
-                st.info(f"ℹ️ **Underuse** of ergative (agentive) marking detected ({agentive['deviation_from_baseline']:+.2%} below baseline)")
+            if agentive:
+                pattern = agentive.get('pattern', 'normal')
+                if pattern == 'overuse':
+                    st.warning(f"⚠️ **Overuse** of ergative (agentive) marking detected ({agentive.get('deviation_from_baseline', 0):+.2%} above baseline)")
+                elif pattern == 'underuse':
+                    st.info(f"ℹ️ **Underuse** of ergative (agentive) marking detected ({agentive.get('deviation_from_baseline', 0):+.2%} below baseline)")
+                else:
+                    st.success(f"✓ Normal ergative marking pattern (within ±10% of baseline)")
+                
+                with st.expander("View Detailed Metrics"):
+                    st.json(agentive)
             else:
-                st.success(f"✓ Normal ergative marking pattern (within ±10% of baseline)")
-            
-            with st.expander("View Detailed Metrics"):
-                st.json(agentive)
+                st.info("Agentive patterns not available in saved data")
             
             # Case Distribution
             st.markdown("### Case Distribution")
-            case_dist = parsed.get_case_distribution()
-            if 'note' not in case_dist:
+            case_dist = parsed.get_case_distribution() if is_parsed_object else parsed.get('case_distribution', {})
+            if case_dist and 'note' not in case_dist:
                 case_df = pd.DataFrame.from_dict(case_dist, orient='index', columns=['Count'])
                 st.bar_chart(case_df)
                 with st.expander("View Case Distribution Data"):
                     st.json(case_dist)
             
-            # Responsibility Term Analysis
+            # Responsibility Term Analysis (only available for ParsedTranscript objects)
             st.markdown("### Responsibility Terms & Case Co-occurrence")
             
-            responsibility_terms_basque = st.multiselect(
-                "Select Basque responsibility terms to track:",
-                options=['erantzukizun', 'kontrolatu', 'gardentasun', 'ikuskapena', 'babestu', 
-                         'arauak', 'eskubideak', 'arriskua', 'kudeaketa', 'zentzura'],
-                default=['erantzukizun', 'kontrolatu', 'gardentasun']
-            )
-            
-            if responsibility_terms_basque and st.button("Analyze Co-occurrence", key="cooccur_basque"):
-                cooccur = parsed.track_term_case_cooccurrence(responsibility_terms_basque, window=5)
-                st.markdown("**How responsibility terms co-occur with case marking:**")
-                st.json(cooccur)
+            if is_parsed_object:
+                responsibility_terms_basque = st.multiselect(
+                    "Select Basque responsibility terms to track:",
+                    options=['erantzukizun', 'kontrolatu', 'gardentasun', 'ikuskapena', 'babestu', 
+                             'arauak', 'eskubideak', 'arriskua', 'kudeaketa', 'zentzura'],
+                    default=['erantzukizun', 'kontrolatu', 'gardentasun']
+                )
                 
-                # Visualize as heatmap if data available
-                if cooccur and 'note' not in cooccur:
-                    # Convert to DataFrame for heatmap
-                    cooccur_data = []
-                    for term, cases in cooccur.items():
-                        for case, count in cases.items():
-                            cooccur_data.append({
-                                'Term': term,
-                                'Case': case,
-                                'Count': count
-                            })
+                if responsibility_terms_basque and st.button("Analyze Co-occurrence", key="cooccur_basque"):
+                    cooccur = parsed.track_term_case_cooccurrence(responsibility_terms_basque, window=5)
+                    st.markdown("**How responsibility terms co-occur with case marking:**")
+                    st.json(cooccur)
                     
-                    if cooccur_data:
-                        cooccur_df = pd.DataFrame(cooccur_data)
-                        pivot = cooccur_df.pivot(index='Term', columns='Case', values='Count').fillna(0)
+                    # Visualize as heatmap if data available
+                    if cooccur and 'note' not in cooccur:
+                        # Convert to DataFrame for heatmap
+                        cooccur_data = []
+                        for term, cases in cooccur.items():
+                            for case, count in cases.items():
+                                cooccur_data.append({
+                                    'Term': term,
+                                    'Case': case,
+                                    'Count': count
+                                })
                         
-                        fig = px.imshow(
-                            pivot,
-                            labels=dict(x="Case Marking", y="Responsibility Term", color="Co-occurrence Count"),
-                            title="Responsibility Terms × Case Marking Co-occurrence",
-                            color_continuous_scale='Blues'
-                        )
-                        st.plotly_chart(fig, use_container_width=True)
+                        if cooccur_data:
+                            cooccur_df = pd.DataFrame(cooccur_data)
+                            pivot = cooccur_df.pivot(index='Term', columns='Case', values='Count').fillna(0)
+                            
+                            fig = px.imshow(
+                                pivot,
+                                labels=dict(x="Case Marking", y="Responsibility Term", color="Co-occurrence Count"),
+                                title="Responsibility Terms × Case Marking Co-occurrence",
+                                color_continuous_scale='Blues'
+                            )
+                            st.plotly_chart(fig, use_container_width=True)
+            else:
+                st.info("Co-occurrence analysis requires re-running the parsing (not available from saved files)")
             
             # Token Table Sample
             with st.expander("View Parsed Tokens (Sample)"):
-                token_table = parsed.to_table(max_rows=100)
+                if is_parsed_object:
+                    token_table = parsed.to_table(max_rows=100)
+                else:
+                    token_table = parsed.get('parse_table', parsed.get('tokens', []))[:100]
                 st.dataframe(pd.DataFrame(token_table))
     else:
         st.info("💡 Select a Basque log file from the sidebar to begin morphological analysis")

@@ -138,7 +138,7 @@ class ParsedTranscript:
         cooccurrence = defaultdict(lambda: Counter())
         
         for i, token in enumerate(self.tokens):
-            lemma = token.get('lemma', '').lower()
+            lemma = (token.get('lemma') or '').lower()
             
             # Check if token matches any tracked term
             matching_terms = [term for term in terms if term.lower() in lemma]
