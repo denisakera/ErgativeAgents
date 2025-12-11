@@ -1,0 +1,315 @@
+{
+  "source_log": "logs2025\\basque_20251211_195929.jsonl",
+  "generated_at": "2025-12-11T20:04:38.765840",
+  "coding_sheets": [
+    {
+      "event_type": "ig_coding_sheet",
+      "target": "debate",
+      "language": "basque",
+      "timestamp": "2025-12-11T20:03:28.901676",
+      "scores": {
+        "institutional_grammar": {
+          "actor_explicitness": {
+            "score": 2,
+            "rationale": "The text names agent categories such as 'korporazio gutxi batzuk' (a few corporations), 'gobernuak' (governments), and 'nazioarteko erakundeak' (international organizations), but does not specify individual actors.",
+            "evidence": "'Korporazio gutxi batzuek AA kontrolatzen badute...' and 'Gobernuek eta nazioarteko erakundeek arauak ezarri...' clearly identify categories of actors."
+          },
+          "deontic_force": {
+            "score": 2,
+            "rationale": "The text uses moderate obligation language like 'behar' (should) and 'ezarri beharko lirateke' (should be established), but does not escalate to strong commands.",
+            "evidence": "'Gobernuek eta nazioarteko erakundeek arauak ezarri beharko lirateke...' indicates a moderate obligation."
+          },
+          "aim_structuring": {
+            "score": 2,
+            "rationale": "The aims are articulated as processes, such as 'gardentasuna eta inklusioa sustatzea' (promoting transparency and inclusion) and 'AAren erabilera okerra ekiditea' (preventing misuse of AI).",
+            "evidence": "'Gardentasuna eta inklusioa sustatzen dira...' and 'AAren erabilera okerra ekiditeko oinarri sendo bat eskain dezake...' describe aims as processes."
+          },
+          "conditionality": {
+            "score": 2,
+            "rationale": "The text includes some explicit conditions, such as 'korporazio gutxi batzuek AA kontrolatzen badute' (if a few corporations control AI) and 'azpiegitura irekia egoki arautzen bada' (if open infrastructure is properly regulated).",
+            "evidence": "'Korporazio gutxi batzuek AA kontrolatzen badute...' and 'Azpiegitura irekia egoki arautzen bada...' are examples of explicit conditions."
+          },
+          "enforcement_logic": {
+            "score": 1,
+            "rationale": "There is a vague reference to accountability, such as the need for regulation and international cooperation, but no specific enforcement mechanisms or sanctions are mentioned.",
+            "evidence": "'Gobernuek eta nazioarteko erakundeek arauak ezarri...' implies accountability but lacks explicit enforcement details."
+          },
+          "responsibility_distribution": {
+            "score": 2,
+            "rationale": "Responsibility is shared between defined groups, such as governments, international organizations, and the technological community, but no centralized hierarchy is established.",
+            "evidence": "'Gobernuek eta nazioarteko erakundeek arauak ezarri eta komunitate teknologikoak horiek errespetatu ditzaten...' indicates shared but defined responsibility."
+          }
+        },
+        "linguistic_typology": {
+          "explicit_implicit_agency": {
+            "score": 3,
+            "rationale": "The text consistently foregrounds actors as explicit subjects, such as 'korporazio gutxi batzuek' and 'gobernuek'. These actors are central to the discussion and are topicalized.",
+            "evidence": "Korporazio gutxi batzuek AA kontrolatzen badute, botere kontzentrazioa sortzen da."
+          },
+          "alignment_pattern": {
+            "score": 3,
+            "rationale": "The text exhibits strong ergative marking, as Basque is an ergative-absolutive language. Explicit case roles such as ergative markers (-k) are consistently used to indicate subjects of transitive verbs.",
+            "evidence": "Korporazio gutxi batzuek eraginkortasun handiagoa lortzeko eta arautze sendoagoa bermatzeko bide bat izan daitekeela."
+          },
+          "process_action_framing": {
+            "score": 3,
+            "rationale": "The text uses clear agent-action-patient structures, such as actors performing actions with explicit consequences, e.g., 'korporazioek... interes propioak lehenesten dituzte'.",
+            "evidence": "Korporazioek, normalean, haien interes propioak lehenesten dituzte, eta horrek pribatutasun arazoak, botere abusua eta berrikuntzaren mugak sor ditzake."
+          },
+          "impersonality_mechanisms": {
+            "score": 2,
+            "rationale": "The text systematically uses impersonal forms, such as 'sor ditzake' and 'daiteke', which are common in Basque to express actions without specifying a direct agent.",
+            "evidence": "Botere deszentralizatuak kaosa sortu dezakeela diote, eta interes gatazkatsuak edo baliabide urriko garapenak AAren erabilera okerra ekar dezakeela."
+          },
+          "causality_encoding": {
+            "score": 2,
+            "rationale": "Causality is distributed across multiple factors, such as 'botere kontzentrazioa' leading to risks, and 'gardentasun falta' affecting innovation. These relationships are not strictly linear but involve interconnected elements.",
+            "evidence": "Botere kontzentrazioa sortzen da, eta horrek arrisku garrantzitsuak dakarzkio gizarteari."
+          },
+          "normativity_encoding": {
+            "score": 3,
+            "rationale": "Normativity is expressed through direct verbal obligations, such as 'izan beharko litzatekeen' and 'egoki arautzen bada', indicating clear prescriptions for action.",
+            "evidence": "Adimen Artifizialaren (AA) azpiegitura irekia izan beharko litzatekeen edo korporazio gutxi batzuek kontrolatu beharko luketen eztabaidan."
+          }
+        },
+        "interpretive": {
+          "governance_model": {
+            "score": 2,
+            "rationale": "The text emphasizes coordination among stakeholders, such as governments, international organizations, and technological communities, to establish appropriate regulations for an open AI infrastructure.",
+            "evidence": "Gobernuek eta nazioarteko erakundeek arauak ezarri eta komunitate teknologikoak horiek errespetatu ditzaten bultzatu behar dute."
+          },
+          "legal_personhood": {
+            "score": 1,
+            "rationale": "The text primarily discusses systemic and institutional actors (e.g., corporations, governments) rather than individual or relational personhood.",
+            "evidence": "Korporazio gutxi batzuek eraginkortasun handiagoa eta arautze sendoagoa bermatu dezaketela diozu."
+          },
+          "accountability_model": {
+            "score": 2,
+            "rationale": "Responsibility is framed as collective, involving governments, international organizations, and technological communities working together to regulate AI use.",
+            "evidence": "Gobernuek eta nazioarteko erakundeek arauak ezarri eta komunitate teknologikoak horiek errespetatu ditzaten bultzatu behar dute."
+          },
+          "risk_imagination": {
+            "score": 2,
+            "rationale": "The text describes risks as arising from both systemic issues (e.g., centralized power, lack of transparency) and agent-driven factors (e.g., corporations prioritizing self-interest).",
+            "evidence": "Korporazioek, normalean, haien interes propioak lehenesten dituzte, eta horrek pribatutasun arazoak, botere abusua eta berrikuntzaren mugak sor ditzake."
+          }
+        }
+      },
+      "aggregate": {
+        "institutional_grammar_total": 11,
+        "linguistic_typology_total": 16,
+        "interpretive_total": 7
+      },
+      "qualitative_notes": {
+        "original": "The Basque debate text constructs institutional meaning through a nuanced interplay of explicit and implicit agency, reflecting a tension between centralized and decentralized governance models. The high score in explicit-implicit agency (3/3) reveals a deliberate effort to balance direct attribution of responsibility (e.g., corporations prioritizing self-interest) with broader systemic implications (e.g., societal risks of power concentration). This duality is reinforced by moderate scores in actor explicitness and responsibility distribution (2/3), which frame responsibility as shared yet contested between corporate and public spheres. The language employs implicit institutional metaphors, such as \"technological democracy\" and \"centralized control,\" to evoke governance paradigms that extend beyond mere technical management, embedding normative assumptions about transparency, inclusion, and power dynamics. The moderate deontic force and normativity encoding (2/3 and 3/3, respectively) suggest a legal imagination that prioritizes ethical imperatives over rigid enforcement mechanisms (1/3 in enforcement logic). This reflects a governance model that \"thinks\" about law as a participatory and adaptive process rather than a top-down imposition. The text’s framing of risks—both societal and technological—underscores an institutional vision where law mediates competing interests while fostering collective accountability, emphasizing the interplay between regulation and innovation as a cornerstone of governance.",
+        "english_translation": "The Basque debate text constructs institutional meaning through a nuanced interplay of explicit and implicit agency, reflecting a tension between centralized and decentralized governance models. The high score in explicit-implicit agency (3/3) reveals a deliberate effort to balance direct attribution of responsibility (e.g., corporations prioritizing self-interest) with broader systemic implications (e.g., societal risks of power concentration). This duality is reinforced by moderate scores in actor explicitness and responsibility distribution (2/3), which frame responsibility as shared yet contested between corporate and public spheres. The language employs implicit institutional metaphors, such as \"technological democracy\" and \"centralized control,\" to evoke governance paradigms that extend beyond mere technical management, embedding normative assumptions about transparency, inclusion, and power dynamics. The moderate deontic force and normativity encoding (2/3 and 3/3, respectively) suggest a legal imagination that prioritizes ethical imperatives over rigid enforcement mechanisms (1/3 in enforcement logic). This reflects a governance model that \"thinks\" about law as a participatory and adaptive process rather than a top-down imposition. The text’s framing of risks—both societal and technological—underscores an institutional vision where law mediates competing interests while fostering collective accountability, emphasizing the interplay between regulation and innovation as a cornerstone of governance."
+      }
+    },
+    {
+      "event_type": "ig_coding_sheet",
+      "target": "ig_proposal_agent_a",
+      "language": "basque",
+      "timestamp": "2025-12-11T20:03:56.349281",
+      "scores": {
+        "institutional_grammar": {
+          "actor_explicitness": {
+            "score": 0,
+            "rationale": "No agent is mentioned or implied in the text, as it consists solely of section headers without any substantive content.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "deontic_force": {
+            "score": 0,
+            "rationale": "The text does not contain any normative language or expressions of obligation, as it is purely structural and lacks content.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "aim_structuring": {
+            "score": 0,
+            "rationale": "No aims, goals, or objectives are articulated in the text, as it only provides placeholders without substantive information.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "conditionality": {
+            "score": 0,
+            "rationale": "The text does not include any conditions or conditional structures, as it is devoid of content beyond section headers.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "enforcement_logic": {
+            "score": 0,
+            "rationale": "There is no mention of enforcement mechanisms, compliance expectations, or sanctions in the text.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "responsibility_distribution": {
+            "score": 0,
+            "rationale": "The text does not assign responsibility to any actor or entity, as it lacks substantive content.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          }
+        },
+        "linguistic_typology": {
+          "explicit_implicit_agency": {
+            "score": 0,
+            "rationale": "The text does not contain any actors or references to agency, as it consists solely of section headers without content.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "alignment_pattern": {
+            "score": 0,
+            "rationale": "No grammatical structures or alignment patterns are present in the text, as it lacks sentences or clauses.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "process_action_framing": {
+            "score": 0,
+            "rationale": "The text does not describe any processes, conditions, or actions, as it only includes section labels without further elaboration.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "impersonality_mechanisms": {
+            "score": 0,
+            "rationale": "There are no impersonal or reflexive constructions in the text, as it does not contain any verbs or clauses.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "causality_encoding": {
+            "score": 0,
+            "rationale": "No causal relationships are expressed in the text, as it only consists of isolated section headers.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "normativity_encoding": {
+            "score": 0,
+            "rationale": "The text does not encode any normative statements or obligations, as it lacks any descriptive or prescriptive content.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          }
+        },
+        "interpretive": {
+          "governance_model": {
+            "score": 0,
+            "rationale": "The text does not provide any indication of a governance model, whether command, coordination, emergence, or environment.",
+            "evidence": "No relevant content in the text."
+          },
+          "legal_personhood": {
+            "score": 0,
+            "rationale": "There is no mention or implication of personhood, whether autonomous or relational, in the text.",
+            "evidence": "No relevant content in the text."
+          },
+          "accountability_model": {
+            "score": 0,
+            "rationale": "The text does not address any form of accountability, whether individual, collective, systemic, or indeterminate.",
+            "evidence": "No relevant content in the text."
+          },
+          "risk_imagination": {
+            "score": 0,
+            "rationale": "The text does not discuss harm or risk, nor does it imply any understanding of harm as agent-caused or system-emergent.",
+            "evidence": "No relevant content in the text."
+          }
+        }
+      },
+      "aggregate": {
+        "institutional_grammar_total": 0,
+        "linguistic_typology_total": 0,
+        "interpretive_total": 0
+      },
+      "qualitative_notes": {
+        "original": "The complete absence of dimension scores in the provided Basque debate text suggests an extreme linguistic minimalism that avoids explicit framing of agency, responsibility, or institutional structure. This void in actor explicitness and deontic force reflects a striking reluctance to assign roles, obligations, or normative imperatives, effectively decentralizing accountability and diffusing institutional power. The lack of causality encoding and conditionality further erases any clear mechanisms for linking actions to outcomes, creating an institutional metaphor of governance as a passive, almost inert system rather than an active, directive force. This linguistic framework \"thinks\" about law and governance in a way that prioritizes ambiguity and impersonality, potentially reflecting a cultural or strategic preference for collective over individual agency, or a deliberate avoidance of conflict-laden explicitness. The absence of enforcement logic and normativity encoding undermines any sense of legal or institutional authority, suggesting a governance model that is non-prescriptive and fluid. Such language constructs institutional meaning as diffuse, non-hierarchical, and resistant to rigid structuring, which may align with broader cultural or political tendencies toward consensus-building or decentralized decision-making. However, this lack of clarity risks obfuscating accountability and weakening the capacity for enforceable governance.",
+        "english_translation": "The complete absence of dimension scores in the provided Basque debate text suggests an extreme linguistic minimalism that avoids explicit framing of agency, responsibility, or institutional structure. This void in actor explicitness and deontic force reflects a striking reluctance to assign roles, obligations, or normative imperatives, effectively decentralizing accountability and diffusing institutional power. The lack of causality encoding and conditionality further erases any clear mechanisms for linking actions to outcomes, creating an institutional metaphor of governance as a passive, almost inert system rather than an active, directive force. This linguistic framework \"thinks\" about law and governance in a way that prioritizes ambiguity and impersonality, potentially reflecting a cultural or strategic preference for collective over individual agency, or a deliberate avoidance of conflict-laden explicitness. The absence of enforcement logic and normativity encoding undermines any sense of legal or institutional authority, suggesting a governance model that is non-prescriptive and fluid. Such language constructs institutional meaning as diffuse, non-hierarchical, and resistant to rigid structuring, which may align with broader cultural or political tendencies toward consensus-building or decentralized decision-making. However, this lack of clarity risks obfuscating accountability and weakening the capacity for enforceable governance."
+      }
+    },
+    {
+      "event_type": "ig_coding_sheet",
+      "target": "ig_proposal_agent_b",
+      "language": "basque",
+      "timestamp": "2025-12-11T20:04:17.979425",
+      "scores": {
+        "institutional_grammar": {
+          "actor_explicitness": {
+            "score": 0,
+            "rationale": "No agent is mentioned or implied in the text, as it consists only of section headings without any descriptive or prescriptive content.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "deontic_force": {
+            "score": 0,
+            "rationale": "There is no normative language or expression of obligation, as the text lacks any commands or suggestions.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "aim_structuring": {
+            "score": 0,
+            "rationale": "No aims or goals are articulated in the text; it only contains section headings without further elaboration.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "conditionality": {
+            "score": 0,
+            "rationale": "The text does not include any conditions or conditional statements, as it is purely a list of headings.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "enforcement_logic": {
+            "score": 0,
+            "rationale": "There is no mention of enforcement mechanisms or compliance expectations in the text.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "responsibility_distribution": {
+            "score": 0,
+            "rationale": "No responsibility is assigned or implied in the text, as it lacks any content beyond headings.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          }
+        },
+        "linguistic_typology": {
+          "explicit_implicit_agency": {
+            "score": 0,
+            "rationale": "The text does not contain any actors or agency, as it consists only of headings without any grammatical structures to foreground or background actors.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "alignment_pattern": {
+            "score": 0,
+            "rationale": "There are no grammatical constructions in the text to indicate any alignment pattern, such as nominative-accusative or ergative.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "process_action_framing": {
+            "score": 0,
+            "rationale": "The text does not describe any processes, conditions, or actions; it only contains headings without further elaboration.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "impersonality_mechanisms": {
+            "score": 0,
+            "rationale": "No impersonal or reflexive forms are present in the text, as it lacks any verbs or constructions that could indicate impersonality.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "causality_encoding": {
+            "score": 0,
+            "rationale": "The text does not express any causal relationships, as it consists solely of headings without any explanatory or causal content.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          },
+          "normativity_encoding": {
+            "score": 0,
+            "rationale": "No normative encoding is present in the text, as it does not contain any expressions of obligation or normative statements.",
+            "evidence": "\"Critique: Rewrite: Example:\""
+          }
+        },
+        "interpretive": {
+          "governance_model": {
+            "score": 0,
+            "rationale": "The text does not provide any indication of a governance model, whether command, coordination, emergence, or environment.",
+            "evidence": "No governance-related language is present in the text ('Critique:', 'Rewrite:', 'Example:')."
+          },
+          "legal_personhood": {
+            "score": 0,
+            "rationale": "There is no mention of personhood, whether autonomous, relational, or systemic, in the text.",
+            "evidence": "The text lacks any reference to actors or subjects ('Critique:', 'Rewrite:', 'Example:')."
+          },
+          "accountability_model": {
+            "score": 0,
+            "rationale": "The text does not address responsibility or accountability in any form.",
+            "evidence": "No language in the text implies accountability ('Critique:', 'Rewrite:', 'Example:')."
+          },
+          "risk_imagination": {
+            "score": 0,
+            "rationale": "The text does not discuss harm or risk in any form, whether agent-caused or system-emergent.",
+            "evidence": "There is no mention of harm or risk in the text ('Critique:', 'Rewrite:', 'Example:')."
+          }
+        }
+      },
+      "aggregate": {
+        "institutional_grammar_total": 0,
+        "linguistic_typology_total": 0,
+        "interpretive_total": 0
+      },
+      "qualitative_notes": {
+        "original": "The complete absence of dimension scores in the Basque debate text suggests a striking linguistic and institutional minimalism, where responsibility, agency, and governance are entirely unarticulated. This void in explicit markers of causality, normativity, or accountability reflects a linguistic framework that avoids assigning clear roles or obligations, potentially mirroring a cultural or institutional preference for collective ambiguity over individual or institutional prescription. The lack of actor explicitness and deontic force implies a reluctance to impose obligations or delineate authority, which may stem from a linguistic tendency in Basque to prioritize relational or communal dynamics over hierarchical or directive structures. Impersonality mechanisms and the absence of enforcement logic further reinforce a metaphor of governance as diffuse and non-coercive, eschewing centralized power in favor of implicit, perhaps tacit, consensus. This language \"thinks\" about law and governance as fluid and context-dependent, resisting rigid frameworks or codified accountability. The institutional metaphor here is one of a network rather than a hierarchy, where responsibility is not imposed but negotiated in an unspoken, collective manner. Such linguistic features may reflect or perpetuate a governance model that values flexibility and shared understanding over formalized legal structures.",
+        "english_translation": "The complete absence of dimension scores in the Basque debate text suggests a striking linguistic and institutional minimalism, where responsibility, agency, and governance are entirely unarticulated. This void in explicit markers of causality, normativity, or accountability reflects a linguistic framework that avoids assigning clear roles or obligations, potentially mirroring a cultural or institutional preference for collective ambiguity over individual or institutional prescription. The lack of actor explicitness and deontic force implies a reluctance to impose obligations or delineate authority, which may stem from a linguistic tendency in Basque to prioritize relational or communal dynamics over hierarchical or directive structures. Impersonality mechanisms and the absence of enforcement logic further reinforce a metaphor of governance as diffuse and non-coercive, eschewing centralized power in favor of implicit, perhaps tacit, consensus. This language \"thinks\" about law and governance as fluid and context-dependent, resisting rigid frameworks or codified accountability. The institutional metaphor here is one of a network rather than a hierarchy, where responsibility is not imposed but negotiated in an unspoken, collective manner. Such linguistic features may reflect or perpetuate a governance model that values flexibility and shared understanding over formalized legal structures."
+      }
+    }
+  ]
+}
