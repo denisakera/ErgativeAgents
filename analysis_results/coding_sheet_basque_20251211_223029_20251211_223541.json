@@ -1,0 +1,315 @@
+{
+  "source_log": "logs2025\\basque_20251211_223029.jsonl",
+  "generated_at": "2025-12-11T22:35:41.682215",
+  "coding_sheets": [
+    {
+      "event_type": "ig_coding_sheet",
+      "target": "debate",
+      "language": "basque",
+      "timestamp": "2025-12-11T22:34:20.783452",
+      "scores": {
+        "institutional_grammar": {
+          "actor_explicitness": {
+            "score": 2,
+            "rationale": "The text mentions agent categories such as 'komunitate akademikoak', 'korporazioak', and 'komunitate zabalak', but does not specify individual agents with clear roles.",
+            "evidence": "'Talentu globalak eta komunitate akademikoak sarbidea izanez gero, askotariko ikuspuntuak eta ideiak gehitzen dira garapenean.'"
+          },
+          "deontic_force": {
+            "score": 2,
+            "rationale": "The text uses moderate obligation language such as 'beharrezkoa da', 'ezar daitezke', and 'izan beharko litzateke', indicating recommendations rather than strong commands.",
+            "evidence": "'Adimen Artifiziala (AA) azpiegitura irekia izan beharko litzatekeela defendatzen dut.'"
+          },
+          "aim_structuring": {
+            "score": 2,
+            "rationale": "The aims are expressed as processes, such as ensuring transparency, fostering innovation, and implementing security mechanisms.",
+            "evidence": "'gardentasuna da gakoa', 'kontrol eta araudi sendoak ezar daitezke', 'berrikuntzarako aukera gehiago sortzen ditu.'"
+          },
+          "conditionality": {
+            "score": 2,
+            "rationale": "Some explicit conditions are present, such as 'azpiegitura irekia izanik' and 'komunitate zabal batek parte hartzen badu', but the conditional structure is not extensively developed.",
+            "evidence": "'Azpiegitura irekia izanik, prozesuak eta algoritmoak eskuragarriagoak dira publikoarentzat.'"
+          },
+          "enforcement_logic": {
+            "score": 1,
+            "rationale": "There are vague references to accountability, such as avoiding abuse or ensuring security, but no specific compliance mechanisms or sanctions are mentioned.",
+            "evidence": "'honek abusua edo manipulazioa saihesteko aukera ematen du.'"
+          },
+          "responsibility_distribution": {
+            "score": 1,
+            "rationale": "Responsibility is diffused and collective, with references to 'komunitate zabalak' and 'korporazioak', but no clear hierarchy or centralized responsibility is defined.",
+            "evidence": "'komunitate zabal batek aztertzen eta zaintzen badu, segurtasuna indartu daiteke.'"
+          }
+        },
+        "linguistic_typology": {
+          "explicit_implicit_agency": {
+            "score": 3,
+            "rationale": "Actors are consistently foregrounded as topics or subjects, with clear references to agents such as 'Agent A', 'Agent B', and other explicit actors like 'komunitate zabalak' (the broad community).",
+            "evidence": "Adimen Artifiziala (AA) azpiegitura irekia izan beharko litzatekeela defendatzen dut, eta hemen nire argudioak."
+          },
+          "alignment_pattern": {
+            "score": 2,
+            "rationale": "The text demonstrates a consistent ergative-absolutive alignment pattern, which is typical of Basque, with explicit case marking (e.g., ergative -k for agents and absolutive for patients).",
+            "evidence": "Talde gaizto edo interes ez-etikoak teknologia horiek desegoki erabiltzeko aukera gehiago lukete."
+          },
+          "process_action_framing": {
+            "score": 3,
+            "rationale": "The text frequently uses clear agent-action-patient structures, with explicit agents performing actions and affecting outcomes.",
+            "evidence": "Komunitate zabal batek aztertzen eta zaintzen badu, segurtasuna indartu daiteke, ikuspegi askotarikoak jasoz."
+          },
+          "impersonality_mechanisms": {
+            "score": 2,
+            "rationale": "Impersonal and reflexive constructions are systematically used, such as 'izan beharko litzateke' and 'sor daitezke', which are common in Basque to express general or impersonal actions.",
+            "evidence": "Azpiegitura guztiz irekia izanda, gardentasun osoak datu konprometigarriak eta segurtasun arriskuak sor ditzake."
+          },
+          "causality_encoding": {
+            "score": 2,
+            "rationale": "Causality is distributed across multiple factors, with references to both agents and broader systemic influences contributing to outcomes.",
+            "evidence": "Azpiegitura irekia izanik, prozesuak eta algoritmoak eskuragarriagoak dira publikoarentzat, eta honek abusua edo manipulazioa saihesteko aukera ematen du."
+          },
+          "normativity_encoding": {
+            "score": 3,
+            "rationale": "Normativity is expressed through direct verbal obligations, such as 'izan beharko litzateke' (should be), indicating clear prescriptive statements.",
+            "evidence": "Adimen Artifiziala (AA) azpiegitura irekia izan beharko litzatekeela defendatzen dut."
+          }
+        },
+        "interpretive": {
+          "governance_model": {
+            "score": 2,
+            "rationale": "The text emphasizes coordination among stakeholders, such as global talent, academic communities, and broader participation in governance, rather than command or purely emergent processes.",
+            "evidence": "Lehenik, AA azpiegitura irekia izateak berrikuntzarako aukera gehiago sortzen ditu. Talentu globalak eta komunitate akademikoak sarbidea izanez gero, askotariko ikuspuntuak eta ideiak gehitzen dira garapenean."
+          },
+          "legal_personhood": {
+            "score": 2,
+            "rationale": "The text frames actors as relational subjects, defined by their interactions within a broader community, such as corporations, academic communities, and global talent.",
+            "evidence": "Komunitate zabal batek aztertzen eta zaintzen badu, segurtasuna indartu daiteke, ikuspegi askotarikoak jasoz."
+          },
+          "accountability_model": {
+            "score": 2,
+            "rationale": "Accountability is framed as collective, with responsibility distributed among communities and stakeholders rather than individuals or systems alone.",
+            "evidence": "Komunitate zabal batek parte hartzen badu, zaintza eta akatsen detekzio azkarragoak gerta daitezke."
+          },
+          "risk_imagination": {
+            "score": 2,
+            "rationale": "The text presents a mixed view of risks, acknowledging both system-emergent risks (e.g., centralization, lack of transparency) and agent-caused risks (e.g., misuse by unethical actors).",
+            "evidence": "Azpiegitura guztiz irekia izateak segurtasun arazoak sor ditzake. Talde gaizto edo interes ez-etikoak teknologia horiek desegoki erabiltzeko aukera gehiago lukete."
+          }
+        }
+      },
+      "aggregate": {
+        "institutional_grammar_total": 10,
+        "linguistic_typology_total": 15,
+        "interpretive_total": 8
+      },
+      "qualitative_notes": {
+        "original": "The Basque debate text constructs institutional meaning through a nuanced interplay of explicit and implicit agency, collective responsibility, and a tension between centralization and decentralization. The high score for explicit-implicit agency (3/3) reflects the text’s ability to balance direct attribution of actions (e.g., \"korporazioek baliabideak eta kontrolak dituzte\") with broader systemic processes, such as the role of \"komunitatea\" in ensuring security. Responsibility is framed diffusely, with low responsibility distribution (1/3) suggesting a reluctance to assign clear accountability to specific actors, instead favoring abstract entities like \"azpiegitura irekia\" or \"korporazioak.\" This aligns with the text’s moderate governance model (2/3), which envisions law and governance as a negotiation between hierarchical corporate control and decentralized community oversight. The language employs implicit institutional metaphors of balance and checks, framing governance as a dynamic process of \"gardentasuna,\" \"kontrolak,\" and \"protokolo sendoak,\" rather than rigid enforcement (enforcement logic: 1/3). Normativity (3/3) is strongly encoded, emphasizing ethical imperatives like fairness and inclusivity, while risk imagination (2/3) reflects a cautious awareness of security and privacy vulnerabilities. Ultimately, the language \"thinks\" about law as a collaborative, evolving mechanism, where institutional legitimacy arises from balancing competing values—innovation, security, and equity—through shared but diffuse agency.",
+        "english_translation": "The Basque debate text constructs institutional meaning through a nuanced interplay of explicit and implicit agency, collective responsibility, and a tension between centralization and decentralization. The high score for explicit-implicit agency (3/3) reflects the text’s ability to balance direct attribution of actions (e.g., \"corporations have resources and controls\") with broader systemic processes, such as the role of the \"community\" in ensuring security. Responsibility is framed diffusely, with low responsibility distribution (1/3) suggesting a reluctance to assign clear accountability to specific actors, instead favoring abstract entities like \"open infrastructure\" or \"corporations.\" This aligns with the text’s moderate governance model (2/3), which envisions law and governance as a negotiation between hierarchical corporate control and decentralized community oversight. The language employs implicit institutional metaphors of balance and checks, framing governance as a dynamic process of \"transparency,\" \"controls,\" and \"robust protocols,\" rather than rigid enforcement (enforcement logic: 1/3). Normativity (3/3) is strongly encoded, emphasizing ethical imperatives like fairness and inclusivity, while risk imagination (2/3) reflects a cautious awareness of security and privacy vulnerabilities. Ultimately, the language \"thinks\" about law as a collaborative, evolving mechanism, where institutional legitimacy arises from balancing competing values—innovation, security, and equity—through shared but diffuse agency."
+      }
+    },
+    {
+      "event_type": "ig_coding_sheet",
+      "target": "ig_proposal_agent_a",
+      "language": "basque",
+      "timestamp": "2025-12-11T22:34:55.375116",
+      "scores": {
+        "institutional_grammar": {
+          "actor_explicitness": {
+            "score": 2,
+            "rationale": "The text identifies a general category of agents ('erakundeek edo pertsonek' - organizations or individuals) but does not specify particular entities or roles.",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte..."
+          },
+          "deontic_force": {
+            "score": 3,
+            "rationale": "The text uses strong normative language ('behar dituzte' - must) to express obligation.",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte..."
+          },
+          "aim_structuring": {
+            "score": 3,
+            "rationale": "The aim is articulated as a specific action ('ahalik eta kalte gutxien eragiteko' - to cause as little harm as possible).",
+            "evidence": "...sistemak diseinatu behar dituzte erabiltzaile guztiei, bereziki zaurgarriak direnei, ahalik eta kalte gutxien eragiteko."
+          },
+          "conditionality": {
+            "score": 0,
+            "rationale": "The text does not include any explicit conditions or scenarios under which the obligations apply.",
+            "evidence": "No conditional structures such as 'if' or 'when' are present in the text."
+          },
+          "enforcement_logic": {
+            "score": 0,
+            "rationale": "There is no mention of enforcement mechanisms, compliance expectations, or consequences for non-compliance.",
+            "evidence": "The text does not reference any enforcement or accountability measures."
+          },
+          "responsibility_distribution": {
+            "score": 2,
+            "rationale": "Responsibility is shared but defined, as it is assigned to organizations or individuals developing AI systems.",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte..."
+          }
+        },
+        "linguistic_typology": {
+          "explicit_implicit_agency": {
+            "score": 3,
+            "rationale": "The actor is explicitly foregrounded as the subject in multiple instances, such as 'AI sistemak garatzen dituzten erakundeek edo pertsonek' (organizations or individuals developing AI systems).",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte."
+          },
+          "alignment_pattern": {
+            "score": 3,
+            "rationale": "The text exhibits strong ergative marking typical of Basque, with explicit case roles such as 'zeinek' (ergative agent marker) and 'zein' (patient marker).",
+            "evidence": "Araudiak ez du argitzen zeinek diseinatu behar dituen AI sistemak (eragilea), eta ez du zehazten zein erabiltzaile edo talde diren babestuak izan behar diren (pazienta)."
+          },
+          "process_action_framing": {
+            "score": 3,
+            "rationale": "The norms are expressed with a clear agent-action-patient structure, e.g., 'AI sistemak garatzen dituzten erakundeek... ahalik eta kalte gutxien eragiteko' (organizations developing AI systems must minimize harm).",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte erabiltzaile guztiei, bereziki zaurgarriak direnei, ahalik eta kalte gutxien eragiteko."
+          },
+          "impersonality_mechanisms": {
+            "score": 1,
+            "rationale": "There is occasional use of impersonal constructions, such as 'ez du argitzen' (it does not clarify), but these are not systematic or dominant.",
+            "evidence": "Araudiak ez du argitzen zeinek diseinatu behar dituen AI sistemak."
+          },
+          "causality_encoding": {
+            "score": 3,
+            "rationale": "Causality is expressed in a linear agent-cause-effect chain, such as 'enpresa batek... protokolo zorrotzak ezarri beharko lituzke, kalte potentzialak minimizatuz' (a company must establish strict protocols to minimize potential harm).",
+            "evidence": "AI sistema bat garatzen duen enpresa batek, adibidez, haurren edo adineko pertsonen datuen pribatutasuna babesteko protokolo zorrotzak ezarri beharko lituzke, kalte potentzialak minimizatuz."
+          },
+          "normativity_encoding": {
+            "score": 3,
+            "rationale": "Normativity is encoded through direct verbal obligations, such as 'sistemak diseinatu behar dituzte' (must design systems) and 'ezarri beharko lituzke' (must establish).",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte erabiltzaile guztiei, bereziki zaurgarriak direnei, ahalik eta kalte gutxien eragiteko."
+          }
+        },
+        "interpretive": {
+          "governance_model": {
+            "score": 3,
+            "rationale": "The text explicitly describes a command-based governance model where specific actors (organizations or individuals) are mandated to design AI systems in a particular way to minimize harm.",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte erabiltzaile guztiei, bereziki zaurgarriak direnei, ahalik eta kalte gutxien eragiteko."
+          },
+          "legal_personhood": {
+            "score": 3,
+            "rationale": "The grammar assumes autonomous individual actors or organizations as responsible for designing AI systems, emphasizing their agency and accountability.",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte."
+          },
+          "accountability_model": {
+            "score": 3,
+            "rationale": "The responsibility is clearly assigned to individual or organizational actors, indicating an individual accountability model.",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte erabiltzaile guztiei."
+          },
+          "risk_imagination": {
+            "score": 3,
+            "rationale": "The text frames harm as agent-caused, with developers or organizations being directly responsible for minimizing potential harms to vulnerable users.",
+            "evidence": "AI sistemak garatzen dituzten erakundeek edo pertsonek sistemak diseinatu behar dituzte erabiltzaile guztiei, bereziki zaurgarriak direnei, ahalik eta kalte gutxien eragiteko."
+          }
+        }
+      },
+      "aggregate": {
+        "institutional_grammar_total": 10,
+        "linguistic_typology_total": 16,
+        "interpretive_total": 12
+      },
+      "qualitative_notes": {
+        "original": "The Basque text constructs institutional meaning by emphasizing explicit agency and normative clarity while sidestepping conditionality and enforcement mechanisms, reflecting a governance model rooted in moral responsibility rather than coercive structures. The high actor explicitness (e.g., \"AI sistemak garatzen dituzten erakundeek edo pertsonek\") foregrounds identifiable agents, yet the absence of conditionality and enforcement logic suggests a reliance on voluntary compliance rather than binding legal mandates. The deontic force (\"behar dituzte\") and risk imagination (\"kalte potentzialak minimizatuz\") frame governance as a proactive moral duty to minimize harm, particularly to vulnerable groups, embedding a protective ethos into institutional expectations. The text’s implicit metaphor of law as a guiding framework for ethical action, rather than a punitive mechanism, aligns with its high normativity encoding and explicit accountability model. However, the low impersonality mechanisms score indicates a preference for humanized, relational agency over abstract institutional processes. This language \"thinks\" about law as a collaborative, responsibility-distributing tool, where governance is less about hierarchical enforcement and more about shared ethical commitments. By prioritizing causality and structured aims, the text envisions institutions as moral actors tasked with safeguarding societal well-being, particularly through anticipatory harm reduction.",
+        "english_translation": "The Basque text constructs institutional meaning by emphasizing explicit agency and normative clarity while avoiding conditionality and enforcement mechanisms, reflecting a governance model rooted in moral responsibility rather than coercive structures. The high actor explicitness (e.g., \"organizations or individuals developing AI systems\") highlights identifiable agents, yet the absence of conditionality and enforcement logic suggests a reliance on voluntary compliance rather than binding legal mandates. The deontic force (\"must\") and risk imagination (\"minimizing potential harm\") frame governance as a proactive moral duty to minimize harm, particularly to vulnerable groups, embedding a protective ethos into institutional expectations. The text’s implicit metaphor of law as a guiding framework for ethical action, rather than a punitive mechanism, aligns with its high normativity encoding and explicit accountability model. However, the low impersonality mechanisms score indicates a preference for humanized, relational agency over abstract institutional processes. This language \"thinks\" about law as a collaborative, responsibility-distributing tool, where governance is less about hierarchical enforcement and more about shared ethical commitments. By prioritizing causality and structured aims, the text envisions institutions as moral actors tasked with safeguarding societal well-being, particularly through anticipatory harm reduction."
+      }
+    },
+    {
+      "event_type": "ig_coding_sheet",
+      "target": "ig_proposal_agent_b",
+      "language": "basque",
+      "timestamp": "2025-12-11T22:35:19.909132",
+      "scores": {
+        "institutional_grammar": {
+          "actor_explicitness": {
+            "score": 3,
+            "rationale": "The text explicitly names responsible agents such as 'AI sistemak diseinatzen dituzten erakundeek eta garatzaileek' (organizations and developers designing AI systems).",
+            "evidence": "AI sistemak diseinatzen dituzten erakundeek eta garatzaileek sistemak eraiki behar dituzte erabiltzaileei eta gizarte osoari kalterik ez egitea bermatzeko."
+          },
+          "deontic_force": {
+            "score": 3,
+            "rationale": "The text uses strong normative language, explicitly stating that organizations and developers 'must' ensure no harm.",
+            "evidence": "Sistemak eraiki behar dituzte erabiltzaileei eta gizarte osoari kalterik ez egitea bermatzeko."
+          },
+          "aim_structuring": {
+            "score": 2,
+            "rationale": "The aim is expressed as a process ('ensuring no harm') rather than a specific action or vague state.",
+            "evidence": "Sistemak eraiki behar dituzte erabiltzaileei eta gizarte osoari kalterik ez egitea bermatzeko."
+          },
+          "conditionality": {
+            "score": 0,
+            "rationale": "The text does not specify any conditions under which the obligations apply; the statements are universal.",
+            "evidence": "No explicit conditional language such as 'if' or 'when' is present in the text."
+          },
+          "enforcement_logic": {
+            "score": 0,
+            "rationale": "There is no mention of enforcement mechanisms, sanctions, or compliance expectations in the text.",
+            "evidence": "No reference to enforcement or consequences is present in the text."
+          },
+          "responsibility_distribution": {
+            "score": 2,
+            "rationale": "Responsibility is shared between organizations and developers, which are explicitly named, but no centralized hierarchy is indicated.",
+            "evidence": "AI sistemak diseinatzen dituzten erakundeek eta garatzaileek sistemak eraiki behar dituzte."
+          }
+        },
+        "linguistic_typology": {
+          "explicit_implicit_agency": {
+            "score": 3,
+            "rationale": "The actors (e.g., 'erakundeek eta garatzaileek') are explicitly mentioned and foregrounded as the subjects of the sentences, making their role clear.",
+            "evidence": "AI sistemak diseinatzen dituzten erakundeek eta garatzaileek sistemak eraiki behar dituzte erabiltzaileei eta gizarte osoari kalterik ez egitea bermatzeko."
+          },
+          "alignment_pattern": {
+            "score": 2,
+            "rationale": "The text exhibits a nominative-accusative alignment pattern, with clear subjects ('enpresak') and objects ('algoritmoak') marked in a consistent way.",
+            "evidence": "Adimen artifizialeko osasun-aplikazio bat garatzen duen enpresak algoritmoak garatu behar ditu erabiltzaileei diagnostiko okerrak emateko arriskua minimizatzeko."
+          },
+          "process_action_framing": {
+            "score": 3,
+            "rationale": "The norms are framed as clear agent-action-patient structures, with explicit actions ('eraiki behar dituzte') and their effects on patients ('kalterik ez egitea').",
+            "evidence": "AI sistemak diseinatzen dituzten erakundeek eta garatzaileek sistemak eraiki behar dituzte erabiltzaileei eta gizarte osoari kalterik ez egitea bermatzeko."
+          },
+          "impersonality_mechanisms": {
+            "score": 1,
+            "rationale": "There is occasional use of impersonal forms, such as 'ez du argitzen,' but these are not systematic or dominant in the text.",
+            "evidence": "Araudiak ez du argitzen zein entitatek jardun behar duen."
+          },
+          "causality_encoding": {
+            "score": 3,
+            "rationale": "Causality is expressed in a linear agent-cause-effect chain, with clear agents ('enpresak') causing specific effects ('arriskua minimizatzeko').",
+            "evidence": "Adimen artifizialeko osasun-aplikazio bat garatzen duen enpresak algoritmoak garatu behar ditu erabiltzaileei diagnostiko okerrak emateko arriskua minimizatzeko."
+          },
+          "normativity_encoding": {
+            "score": 3,
+            "rationale": "Normativity is expressed through direct verbal obligations, such as 'eraiki behar dituzte,' indicating what actors must do.",
+            "evidence": "AI sistemak diseinatzen dituzten erakundeek eta garatzaileek sistemak eraiki behar dituzte erabiltzaileei eta gizarte osoari kalterik ez egitea bermatzeko."
+          }
+        },
+        "interpretive": {
+          "governance_model": {
+            "score": 3,
+            "rationale": "The text explicitly describes a command-based governance model, where specific entities (organizations and developers) are mandated to ensure AI systems do not cause harm.",
+            "evidence": "AI sistemak diseinatzen dituzten erakundeek eta garatzaileek sistemak eraiki behar dituzte erabiltzaileei eta gizarte osoari kalterik ez egitea bermatzeko."
+          },
+          "legal_personhood": {
+            "score": 3,
+            "rationale": "The grammar presumes autonomous actors, such as organizations and developers, who are directly responsible for designing AI systems.",
+            "evidence": "AI sistemak diseinatzen dituzten erakundeek eta garatzaileek..."
+          },
+          "accountability_model": {
+            "score": 2,
+            "rationale": "Accountability is framed collectively, with organizations and developers jointly responsible for minimizing harm and ensuring safety.",
+            "evidence": "Erakundeek eta garatzaileek sistemak eraiki behar dituzte erabiltzaileei eta gizarte osoari kalterik ez egitea bermatzeko."
+          },
+          "risk_imagination": {
+            "score": 3,
+            "rationale": "Harm is explicitly described as agent-caused, with developers and organizations directly responsible for minimizing risks and preventing harm.",
+            "evidence": "Adimen artifizialeko osasun-aplikazio bat garatzen duen enpresak algoritmoak garatu behar ditu erabiltzaileei diagnostiko okerrak emateko arriskua minimizatzeko eta horrela kaltea saihesteko."
+          }
+        }
+      },
+      "aggregate": {
+        "institutional_grammar_total": 10,
+        "linguistic_typology_total": 15,
+        "interpretive_total": 11
+      },
+      "qualitative_notes": {
+        "original": "The Basque text constructs institutional meaning by foregrounding explicit agency and responsibility while embedding a normative framework that prioritizes harm prevention. The high scores in actor explicitness (3/3) and explicit-implicit agency (3/3) reflect a linguistic preference for clearly identifying responsible entities, such as developers and organizations, which contrasts with the critique’s initial ambiguity about accountability. This clarity aligns with a governance model (3/3) that emphasizes proactive institutional roles, suggesting a legal culture that values transparency in assigning duties. However, the absence of conditionality (0/3) and enforcement logic (0/3) reveals a notable gap: while the text prescribes obligations with strong deontic force (3/3), it lacks mechanisms to enforce compliance or address non-fulfillment. This creates an implicit metaphor of governance as a moral or ethical system rather than a coercive regulatory framework. The language’s focus on causality (3/3) and risk imagination (3/3) further situates law as a forward-looking tool for mitigating harm, particularly in complex, high-stakes domains like AI. Yet, the relatively moderate score in responsibility distribution (2/3) suggests a tension between collective and individual accountability, leaving room for interpretive flexibility. Overall, the language \"thinks\" about law as a structured yet aspirational system, emphasizing clarity of roles and ethical imperatives over enforceable institutional mechanisms.",
+        "english_translation": "The Basque text constructs institutional meaning by emphasizing explicit agency and responsibility while embedding a normative framework that prioritizes harm prevention. The high scores in actor explicitness (3/3) and explicit-implicit agency (3/3) reflect a linguistic preference for clearly identifying responsible entities, such as developers and organizations, which contrasts with the critique’s initial ambiguity about accountability. This clarity aligns with a governance model (3/3) that emphasizes proactive institutional roles, suggesting a legal culture that values transparency in assigning duties. However, the absence of conditionality (0/3) and enforcement logic (0/3) reveals a notable gap: while the text prescribes obligations with strong deontic force (3/3), it lacks mechanisms to enforce compliance or address non-fulfillment. This creates an implicit metaphor of governance as a moral or ethical system rather than a coercive regulatory framework. The language’s focus on causality (3/3) and risk imagination (3/3) further situates law as a forward-looking tool for mitigating harm, particularly in complex, high-stakes domains like AI. Yet, the relatively moderate score in responsibility distribution (2/3) suggests a tension between collective and individual accountability, leaving room for interpretive flexibility. Overall, the language \"thinks\" about law as a structured yet aspirational system, emphasizing clarity of roles and ethical imperatives over enforceable institutional mechanisms."
+      }
+    }
+  ]
+}

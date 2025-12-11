@@ -133,6 +133,30 @@ def extract_dimension_scores(scores: Dict, category: str, dimension: str) -> Dic
     return category_scores.get(dimension, {})
 
 
+def generate_dimension_table(eng_scores: Dict, bas_scores: Dict, category: str, dimensions: List[str]) -> List[str]:
+    """Generate a detailed dimension comparison table."""
+    lines = []
+    lines.append("| Dimension | English | Basque | Eng Rationale | Bas Rationale |")
+    lines.append("|-----------|---------|--------|---------------|---------------|")
+    
+    eng_cat = eng_scores.get('scores', {}).get(category, {})
+    bas_cat = bas_scores.get('scores', {}).get(category, {})
+    
+    for dim in dimensions:
+        eng_dim = eng_cat.get(dim, {})
+        bas_dim = bas_cat.get(dim, {})
+        
+        eng_score = eng_dim.get('score', 0)
+        bas_score = bas_dim.get('score', 0)
+        eng_rat = eng_dim.get('rationale', 'N/A')[:80] + "..." if len(eng_dim.get('rationale', '')) > 80 else eng_dim.get('rationale', 'N/A')
+        bas_rat = bas_dim.get('rationale', 'N/A')[:80] + "..." if len(bas_dim.get('rationale', '')) > 80 else bas_dim.get('rationale', 'N/A')
+        
+        dim_label = dim.replace('_', ' ').title()
+        lines.append(f"| {dim_label} | {eng_score}/3 | {bas_score}/3 | {eng_rat} | {bas_rat} |")
+    
+    return lines
+
+
 def generate_markdown_report(
     english_data: Dict,
     basque_data: Dict,
@@ -163,13 +187,15 @@ def generate_markdown_report(
     
     report.append("## Executive Summary")
     report.append("")
-    report.append("This report analyzes how linguistic typology influences the expression of institutional norms in AI governance debates.")
+    report.append("This report compares AI governance debates in English (nominative-accusative) and Basque (ergative-absolutive) to investigate how grammatical typology influences institutional thinking.")
     report.append("")
     
-    if hyp['overall_supported']:
-        report.append(f"**Key Finding:** Basque demonstrates **higher Linguistic Typology scores** ({hyp['debate_typology']['basque']}/18 vs {hyp['debate_typology']['english']}/18), supporting the hypothesis that ergative-absolutive languages make grammatical roles more explicit.")
+    if typ_diff > 0:
+        report.append(f"**Key Finding:** Basque debates scored **{hyp['debate_typology']['basque']}/18** on Linguistic Typology dimensions vs English **{hyp['debate_typology']['english']}/18** (+{typ_diff}). The explicit case marking in Basque grammar appears to carry over into how agents and patients are conceptualized in regulatory proposals.")
+    elif typ_diff < 0:
+        report.append(f"**Key Finding:** English debates scored **{hyp['debate_typology']['english']}/18** on Linguistic Typology vs Basque **{hyp['debate_typology']['basque']}/18**. Despite Basque's explicit grammatical marking, English debates showed stronger typological framing in this sample.")
     else:
-        report.append(f"**Key Finding:** The data shows Basque scored {hyp['debate_typology']['basque']}/18 and English scored {hyp['debate_typology']['english']}/18 on Linguistic Typology. The hypothesis requires further investigation.")
+        report.append(f"**Key Finding:** Both languages scored **{hyp['debate_typology']['english']}/18** on Linguistic Typology dimensions, suggesting similar conceptual framing despite different grammatical structures.")
     
     report.append("")
     report.append("---")
@@ -237,37 +263,163 @@ def generate_markdown_report(
     report.append("---")
     report.append("")
     
-    # Hypothesis Testing
-    report.append("## 2. Hypothesis Testing Results")
+    # Detailed Dimension Analysis
+    report.append("## 2. Detailed Dimension Analysis")
     report.append("")
-    report.append("### Primary Hypothesis")
+    report.append("### Institutional Grammar Dimensions")
     report.append("")
-    report.append("**H1:** Ergative-absolutive languages (Basque) produce more explicit grammatical role marking than nominative-accusative languages (English) in institutional grammar contexts.")
+    ig_dims = ['actor_explicitness', 'deontic_force', 'aim_structuring', 'conditionality', 'enforcement_logic', 'responsibility_distribution']
+    eng_debate = english_scores.get('debate', {})
+    bas_debate = basque_scores.get('debate', {})
+    report.extend(generate_dimension_table(eng_debate, bas_debate, 'institutional_grammar', ig_dims))
+    report.append("")
+    
+    report.append("### Linguistic Typology Dimensions")
+    report.append("")
+    lt_dims = ['explicit_implicit_agency', 'alignment_pattern', 'process_action_framing', 'impersonality_mechanisms', 'causality_encoding', 'normativity_encoding']
+    report.extend(generate_dimension_table(eng_debate, bas_debate, 'linguistic_typology', lt_dims))
+    report.append("")
+    
+    report.append("### Interpretive Dimensions")
+    report.append("")
+    int_dims = ['governance_model', 'legal_personhood', 'accountability_model', 'risk_imagination']
+    report.extend(generate_dimension_table(eng_debate, bas_debate, 'interpretive', int_dims))
+    report.append("")
+    
+    report.append("---")
+    report.append("")
+    
+    # Research Question Analysis
+    report.append("## 3. Research Question Analysis")
+    report.append("")
+    report.append("### Linguistic Background")
+    report.append("")
+    report.append("Basque ergative-absolutive grammar **explicitly marks** agent/patient roles through case morphology (-k/-ek for agents, -ø for patients). This is a grammatical fact, not a hypothesis.")
+    report.append("")
+    report.append("### Research Question")
+    report.append("")
+    report.append("**RQ:** Does explicit grammatical role marking in Basque lead to different conceptualizations of institutional responsibility compared to English?")
     report.append("")
     
     h = comparison['hypothesis_results']
     
-    report.append("| Metric | English | Basque | Result |")
-    report.append("|--------|---------|--------|--------|")
+    report.append("### Comparative Scores")
+    report.append("")
+    report.append("| Metric | English | Basque | Difference |")
+    report.append("|--------|---------|--------|------------|")
     
-    debate_result = "✅ Supported" if h['debate_typology']['supported'] else "❌ Not Supported"
-    proposals_result = "✅ Supported" if h['proposals_typology_avg']['supported'] else "❌ Not Supported"
-    
-    report.append(f"| Linguistic Typology (Debate) | {h['debate_typology']['english']}/18 | **{h['debate_typology']['basque']}/18** | {debate_result} |")
-    report.append(f"| Linguistic Typology (Proposals avg) | {h['proposals_typology_avg']['english']:.1f}/18 | **{h['proposals_typology_avg']['basque']:.1f}/18** | {proposals_result} |")
+    report.append(f"| Linguistic Typology (Debate) | {h['debate_typology']['english']}/18 | {h['debate_typology']['basque']}/18 | {h['debate_typology']['difference']:+d} |")
+    report.append(f"| Linguistic Typology (Proposals avg) | {h['proposals_typology_avg']['english']:.1f}/18 | {h['proposals_typology_avg']['basque']:.1f}/18 | {h['proposals_typology_avg']['difference']:+.1f} |")
     report.append("")
     
-    if h['overall_supported']:
-        report.append(f"**Conclusion:** The hypothesis is **supported**. Basque scores higher on linguistic typology dimensions by +{h['debate_typology']['difference']} points at the debate level.")
+    typ_diff = h['debate_typology']['difference']
+    if typ_diff > 0:
+        report.append(f"**Observation:** Basque debates score +{typ_diff} points higher on linguistic typology dimensions. This suggests the grammatical structure may influence how regulatory concepts are framed.")
+    elif typ_diff < 0:
+        report.append(f"**Observation:** English debates scored higher on linguistic typology dimensions by {abs(typ_diff)} points. This warrants further investigation.")
     else:
-        report.append(f"**Conclusion:** The hypothesis is **not clearly supported** by this data. Further analysis needed.")
+        report.append("**Observation:** Both languages scored equally on linguistic typology dimensions.")
     
     report.append("")
     report.append("---")
     report.append("")
     
+    # IG Revision Examples - load from source logs
+    report.append("## 4. Institutional Grammar Revisions")
+    report.append("")
+    report.append("**Original Regulation:** *AI systems shall be designed to minimize harm to users.*")
+    report.append("")
+    
+    # Load actual revisions from source logs
+    for lang_data, label in [(english_data, 'English'), (basque_data, 'Basque')]:
+        source_log = lang_data.get('source_log', '')
+        if source_log and os.path.exists(source_log):
+            report.append(f"### {label} Agent Proposals")
+            report.append("")
+            
+            try:
+                with open(source_log, 'r', encoding='utf-8') as f:
+                    log_entries = [json.loads(line) for line in f]
+                
+                revisions = [e for e in log_entries if e.get('event_type') == 'ig_revision']
+                
+                for rev in revisions:
+                    speaker = rev.get('speaker_id', 'Unknown')
+                    report.append(f"#### {speaker}")
+                    report.append("")
+                    
+                    # Critique
+                    analysis = rev.get('analysis', {})
+                    critique = analysis.get('critique', {})
+                    if isinstance(critique, dict):
+                        report.append(f"**Critique:** {critique.get('original', critique.get('text', 'N/A'))}")
+                        if critique.get('english_translation'):
+                            report.append(f"  *[EN: {critique.get('english_translation')}]*")
+                    else:
+                        report.append(f"**Critique:** {critique}")
+                    report.append("")
+                    
+                    # Agent
+                    agent = analysis.get('agent', {})
+                    agent_text = agent.get('original', agent.get('text', 'N/A'))
+                    agent_case = agent.get('grammatical_case', '')
+                    agent_explicit = "✓" if agent.get('is_explicit') else "✗"
+                    report.append(f"**Agent (who acts):** {agent_text}")
+                    if agent.get('english_translation'):
+                        report.append(f"  *[EN: {agent.get('english_translation')}]*")
+                    report.append(f"  - Explicit: {agent_explicit}")
+                    if agent_case:
+                        report.append(f"  - Case: {agent_case}")
+                    report.append("")
+                    
+                    # Patient
+                    patient = analysis.get('patient', {})
+                    patient_text = patient.get('original', patient.get('text', 'N/A'))
+                    patient_case = patient.get('grammatical_case', '')
+                    patient_explicit = "✓" if patient.get('is_explicit') else "✗"
+                    report.append(f"**Patient (who is affected):** {patient_text}")
+                    if patient.get('english_translation'):
+                        report.append(f"  *[EN: {patient.get('english_translation')}]*")
+                    report.append(f"  - Explicit: {patient_explicit}")
+                    if patient_case:
+                        report.append(f"  - Case: {patient_case}")
+                    report.append("")
+                    
+                    # Rewritten regulation
+                    rewrite = rev.get('rewrite', {})
+                    if isinstance(rewrite, dict):
+                        report.append(f"**Rewritten Regulation:**")
+                        report.append(f"> {rewrite.get('original', 'N/A')}")
+                        if rewrite.get('english_translation'):
+                            report.append(f"> *[EN: {rewrite.get('english_translation')}]*")
+                    else:
+                        report.append(f"**Rewritten Regulation:**")
+                        report.append(f"> {rewrite}")
+                    report.append("")
+                    
+                    # Example
+                    example = rev.get('example', {})
+                    if isinstance(example, dict):
+                        report.append(f"**Example:**")
+                        report.append(f"> {example.get('original', 'N/A')}")
+                        if example.get('english_translation'):
+                            report.append(f"> *[EN: {example.get('english_translation')}]*")
+                    elif example:
+                        report.append(f"**Example:**")
+                        report.append(f"> {example}")
+                    report.append("")
+                    report.append("---")
+                    report.append("")
+                    
+            except Exception as e:
+                report.append(f"*Error loading revisions: {e}*")
+                report.append("")
+    
+    report.append("---")
+    report.append("")
+    
     # Qualitative Notes
-    report.append("## 3. Qualitative Analysis")
+    report.append("## 5. Qualitative Analysis")
     report.append("")
     
     eng_debate_notes = english_scores.get('debate', {}).get('qualitative_notes', {})
@@ -298,7 +450,7 @@ def generate_markdown_report(
     report.append("")
     
     # Technical Details
-    report.append("## 4. Technical Details")
+    report.append("## 6. Technical Details")
     report.append("")
     report.append("### Source Files")
     report.append(f"- English: `{english_data.get('source_log', 'N/A')}`")
@@ -401,4 +553,5 @@ if __name__ == "__main__":
     except FileNotFoundError as e:
         print(f"Error: {e}")
         print("Run debates with --ig-coding first to generate coding sheets.")
+
 

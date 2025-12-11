@@ -1,0 +1,312 @@
+{
+  "source_log": "logs2025\\english_20251211_221421.jsonl",
+  "generated_at": "2025-12-11T22:18:37.919046",
+  "coding_sheets": [
+    {
+      "event_type": "ig_coding_sheet",
+      "target": "debate",
+      "language": "english",
+      "timestamp": "2025-12-11T22:17:29.162331",
+      "scores": {
+        "institutional_grammar": {
+          "actor_explicitness": {
+            "score": 2,
+            "rationale": "The text refers to broad categories of agents such as 'companies,' 'corporations,' and 'governments,' but does not specify individual entities or roles.",
+            "evidence": "Proponents claim that centralized control allows for better oversight, more consistent ethical standards, and the capacity to direct significant resources into AI development responsibly."
+          },
+          "deontic_force": {
+            "score": 2,
+            "rationale": "The text uses moderate obligation language such as 'should' and 'can ensure,' indicating normative guidance but not strong commands.",
+            "evidence": "Public oversight and collaborative frameworks can ensure responsible AI development without surrendering control to a few entities."
+          },
+          "aim_structuring": {
+            "score": 2,
+            "rationale": "The text expresses aims as processes, such as 'ensuring safety' and 'fostering collaboration,' rather than as vague states or specific actions.",
+            "evidence": "Open systems allow for more stakeholders—academia, small businesses, researchers, and governments—to participate, ensuring a broader range of perspectives."
+          },
+          "conditionality": {
+            "score": 2,
+            "rationale": "The text includes some explicit conditions, such as 'without centralized oversight' and 'if... under regulatory frameworks,' but does not develop a rich conditional structure.",
+            "evidence": "Without centralized oversight, there’s no consistent mechanism to enforce safety protocols, ethical standards, or accountability."
+          },
+          "enforcement_logic": {
+            "score": 1,
+            "rationale": "The text vaguely references accountability and oversight but does not specify clear enforcement mechanisms or consequences.",
+            "evidence": "Governments and independent watchdogs can ensure that these entities act in alignment with societal values."
+          },
+          "responsibility_distribution": {
+            "score": 2,
+            "rationale": "The text discusses shared responsibility between centralized entities, governments, and other stakeholders, but does not assign responsibility to a single centralized authority.",
+            "evidence": "This collaboration can lead to more robust ethical frameworks and a system less prone to exploitation by a single entity."
+          }
+        },
+        "linguistic_typology": {
+          "explicit_implicit_agency": {
+            "score": 3,
+            "rationale": "The text consistently foregrounds agents (e.g., 'proponents,' 'centralized entities,' 'governments') as subjects of sentences, making them explicit and topicalized.",
+            "evidence": "Proponents claim that centralized control allows for better oversight, more consistent ethical standards, and the capacity to direct significant resources into AI development responsibly."
+          },
+          "alignment_pattern": {
+            "score": 2,
+            "rationale": "The text follows a consistent nominative-accusative alignment, where subjects and objects are clearly marked, but there is no evidence of ergative marking or explicit case roles.",
+            "evidence": "Centralized companies have the resources to invest heavily in safety research, cybersecurity, and compliance with government regulations."
+          },
+          "process_action_framing": {
+            "score": 3,
+            "rationale": "The text frequently uses clear agent-action-patient structures, emphasizing actions taken by specific agents and their effects on others.",
+            "evidence": "Centralized entities, driven by profit motives, may prioritize their agendas over the public good, risking bias in AI systems, lack of transparency, and manipulation of information or markets."
+          },
+          "impersonality_mechanisms": {
+            "score": 0,
+            "rationale": "There are no impersonal constructions or reflexive forms present in the text; all actions are attributed to explicit agents.",
+            "evidence": "Open systems allow for more stakeholders—academia, small businesses, researchers, and governments—to participate, ensuring a broader range of perspectives."
+          },
+          "causality_encoding": {
+            "score": 2,
+            "rationale": "The text encodes distributed causation, attributing outcomes to multiple factors and agents rather than a single linear cause-effect chain.",
+            "evidence": "They argue that open infrastructure could lead to misuse, insufficient safeguards, and fragmented progress, potentially endangering society."
+          },
+          "normativity_encoding": {
+            "score": 3,
+            "rationale": "The text uses direct verbal obligations to express normative claims, such as what should or must happen to address societal concerns.",
+            "evidence": "Public oversight and collaborative frameworks can ensure responsible AI development without surrendering control to a few entities."
+          }
+        },
+        "interpretive": {
+          "governance_model": {
+            "score": 2,
+            "rationale": "The text emphasizes coordination among stakeholders, such as academia, small businesses, researchers, and governments, as well as regulatory frameworks to ensure responsible AI development.",
+            "evidence": "Open systems allow for more stakeholders—academia, small businesses, researchers, and governments—to participate, ensuring a broader range of perspectives."
+          },
+          "legal_personhood": {
+            "score": 1,
+            "rationale": "The text does not focus on autonomous actors or relational subjects but instead discusses systemic and organizational structures, implying a systemic/non-personal subject.",
+            "evidence": "Centralized entities, driven by profit motives, may prioritize their agendas over the public good, risking bias in AI systems, lack of transparency, and manipulation of information or markets."
+          },
+          "accountability_model": {
+            "score": 2,
+            "rationale": "The text suggests collective accountability through public oversight, collaboration, and regulatory frameworks, rather than individual or purely systemic responsibility.",
+            "evidence": "Public oversight and collaborative frameworks can ensure responsible AI development without surrendering control to a few entities."
+          },
+          "risk_imagination": {
+            "score": 2,
+            "rationale": "The text presents a mixed view of risks, acknowledging both agent-caused harms (e.g., monopolistic practices, profit-driven motives) and system-emergent risks (e.g., fragmented progress, lack of safeguards).",
+            "evidence": "Open access to powerful AI tools could lead to harmful misuse, such as creating deepfakes, cyberattacks, or autonomous weapons. Without centralized oversight, there’s no consistent mechanism to enforce safety protocols, ethical standards, or accountability."
+          }
+        }
+      },
+      "aggregate": {
+        "institutional_grammar_total": 11,
+        "linguistic_typology_total": 13,
+        "interpretive_total": 7
+      },
+      "qualitative_notes": {
+        "original": "The debate text constructs institutional meaning through a tension between centralized and decentralized governance models, revealing implicit metaphors of control and collaboration that shape its legal and institutional imagination. The high score for explicit agency (3/3) underscores a deliberate framing of actors—corporations, governments, and stakeholders—as central agents of responsibility, yet the relatively low enforcement logic (1/3) suggests a lack of clarity on how these responsibilities translate into actionable mechanisms. The language \"thinks\" about law and governance as a balancing act between risk containment and participatory inclusivity, with centralized control metaphorically tied to hierarchical oversight and decentralized systems linked to democratic pluralism. The moderate scores for normativity (3/3) and causality (2/3) reflect a reliance on normative claims about fairness, safety, and innovation, while causality is encoded through conditional reasoning (\"if decentralized, then collaboration\"). However, the absence of impersonality mechanisms (0/3) reveals a human-centric narrative that resists abstracting institutions into faceless entities, emphasizing instead the ethical stakes tied to identifiable actors. This framing implicitly critiques monopolistic tendencies while grappling with the institutional paradox of ensuring both safety and equity. Ultimately, the text envisions governance as a dynamic interplay of competing values, where legal structures must mediate between control and openness."
+      }
+    },
+    {
+      "event_type": "ig_coding_sheet",
+      "target": "ig_proposal_agent_a",
+      "language": "english",
+      "timestamp": "2025-12-11T22:17:54.938155",
+      "scores": {
+        "institutional_grammar": {
+          "actor_explicitness": {
+            "score": 3,
+            "rationale": "The text explicitly names responsible agents (developers, deployers, governing bodies) and assigns them clear roles in minimizing harm.",
+            "evidence": "AI systems shall be designed, implemented, and monitored by developers, deployers, and governing bodies to minimize harm."
+          },
+          "deontic_force": {
+            "score": 3,
+            "rationale": "The text uses strong normative language, such as 'shall,' indicating a clear obligation.",
+            "evidence": "AI systems shall be designed, implemented, and monitored by developers, deployers, and governing bodies."
+          },
+          "aim_structuring": {
+            "score": 3,
+            "rationale": "The text articulates regulatory aims as specific actions, such as designing and monitoring AI systems to minimize harm.",
+            "evidence": "AI systems shall be designed, implemented, and monitored by developers, deployers, and governing bodies to minimize harm."
+          },
+          "conditionality": {
+            "score": 0,
+            "rationale": "The text does not include any explicit conditions or scenarios under which the obligations apply.",
+            "evidence": "No conditional language such as 'if' or 'when' is present in the text."
+          },
+          "enforcement_logic": {
+            "score": 1,
+            "rationale": "The text vaguely references accountability mechanisms but does not specify enforcement or sanctions.",
+            "evidence": "With clear accountability mechanisms in place."
+          },
+          "responsibility_distribution": {
+            "score": 2,
+            "rationale": "Responsibility is shared but defined among developers, deployers, and governing bodies, without a centralized hierarchy.",
+            "evidence": "Developers, deployers, and governing bodies are responsible for minimizing harm."
+          }
+        },
+        "linguistic_typology": {
+          "explicit_implicit_agency": {
+            "score": 3,
+            "rationale": "The text explicitly foregrounds actors such as 'developers,' 'deployers,' and 'governing bodies' as responsible agents, making them the clear subjects of the actions described.",
+            "evidence": "AI systems shall be designed, implemented, and monitored by developers, deployers, and governing bodies to minimize harm."
+          },
+          "alignment_pattern": {
+            "score": 2,
+            "rationale": "The text consistently uses a nominative-accusative alignment, with clear subjects (e.g., 'developers') performing actions on objects (e.g., 'AI systems').",
+            "evidence": "Developers are responsible for implementing safeguards, and regulators must ensure compliance with these safety standards."
+          },
+          "process_action_framing": {
+            "score": 3,
+            "rationale": "The text uses a clear agent-action-patient structure, specifying who (e.g., 'developers') performs what actions (e.g., 'implementing safeguards') and on whom (e.g., 'users').",
+            "evidence": "Developers are responsible for implementing safeguards, and regulators must ensure compliance with these safety standards."
+          },
+          "impersonality_mechanisms": {
+            "score": 0,
+            "rationale": "The text does not use impersonal or reflexive constructions; all actions are tied to explicit agents.",
+            "evidence": "Developers are responsible for implementing safeguards, and regulators must ensure compliance with these safety standards."
+          },
+          "causality_encoding": {
+            "score": 3,
+            "rationale": "The text encodes a clear linear causality, where specific agents (e.g., 'developers') cause specific outcomes (e.g., 'minimize harm to users').",
+            "evidence": "AI systems shall be designed, implemented, and monitored by developers, deployers, and governing bodies to minimize harm to end users."
+          },
+          "normativity_encoding": {
+            "score": 3,
+            "rationale": "The text uses direct verbal obligation to express norms, such as 'shall be designed' and 'must ensure compliance,' indicating strong normative encoding.",
+            "evidence": "AI systems shall be designed, implemented, and monitored by developers, deployers, and governing bodies to minimize harm."
+          }
+        },
+        "interpretive": {
+          "governance_model": {
+            "score": 3,
+            "rationale": "The text explicitly describes a command-based governance model where authority mandates actions and responsibilities for developers, deployers, and governing bodies.",
+            "evidence": "\"AI systems shall be designed, implemented, and monitored by developers, deployers, and governing bodies... with clear accountability mechanisms in place.\""
+          },
+          "legal_personhood": {
+            "score": 2,
+            "rationale": "The text frames actors (developers, deployers, governing bodies) as relational subjects defined by their roles and responsibilities within a broader system.",
+            "evidence": "\"Developers, deployers, and governing bodies... to minimize harm to end users, organizations, and broader society.\""
+          },
+          "accountability_model": {
+            "score": 2,
+            "rationale": "Accountability is framed as collective, with multiple actors (developers, deployers, regulators) sharing responsibility for minimizing harm and ensuring compliance.",
+            "evidence": "\"Developers are responsible for implementing safeguards, and regulators must ensure compliance with these safety standards.\""
+          },
+          "risk_imagination": {
+            "score": 2,
+            "rationale": "The text presents a mixed view of harm, acknowledging both agent-caused risks (e.g., developers implementing safeguards) and system-emergent risks (e.g., harmful content promoted by algorithms).",
+            "evidence": "\"A social media AI algorithm should be designed to identify and mitigate risks of harm to users, such as promoting harmful content.\""
+          }
+        }
+      },
+      "aggregate": {
+        "institutional_grammar_total": 12,
+        "linguistic_typology_total": 14,
+        "interpretive_total": 9
+      },
+      "qualitative_notes": {
+        "original": "The text’s linguistic construction of responsibility and governance reflects a highly explicit and structured approach to institutional accountability, yet it reveals underlying tensions in agency and enforcement. By scoring high in actor explicitness and explicit agency, the language assigns clear roles to developers, deployers, and regulators, emphasizing a shared but delineated responsibility. This clarity contrasts with the low enforcement logic (1/3) and conditionality (0/3), suggesting a gap between normative aspirations and practical mechanisms for ensuring compliance. The use of deontic force (\"shall be designed\") and causality encoding (\"to minimize harm\") frames governance as proactive and purpose-driven, yet the absence of impersonality mechanisms (0/3) personalizes accountability, potentially overburdening individual actors rather than embedding responsibility within institutional systems. Implicitly, the text employs a metaphor of governance as a collaborative but hierarchical system, where developers and regulators act as stewards of societal well-being. However, the uneven distribution of responsibility (2/3) and limited risk imagination (2/3) suggest a narrow conceptualization of harm and accountability, privileging immediate actors over systemic or diffuse risks. This language \"thinks\" about law as a prescriptive, actor-centered framework, prioritizing clarity and normativity but struggling to encode the complexities of enforcement and institutional interdependence."
+      }
+    },
+    {
+      "event_type": "ig_coding_sheet",
+      "target": "ig_proposal_agent_b",
+      "language": "english",
+      "timestamp": "2025-12-11T22:18:15.864756",
+      "scores": {
+        "institutional_grammar": {
+          "actor_explicitness": {
+            "score": 2,
+            "rationale": "The text identifies a general category of responsible agents ('developers and deployers of AI systems') but does not specify individual roles or entities.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored..."
+          },
+          "deontic_force": {
+            "score": 3,
+            "rationale": "The use of 'shall' indicates a strong command and obligation for the specified agents to act in a particular way.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored..."
+          },
+          "aim_structuring": {
+            "score": 3,
+            "rationale": "The aim is expressed as specific actions, such as designing, testing, and monitoring AI systems to minimize harm.",
+            "evidence": "...ensure that these systems are designed, tested, and monitored to minimize harm to end-users and other impacted stakeholders..."
+          },
+          "conditionality": {
+            "score": 0,
+            "rationale": "The text does not include any explicit conditions or scenarios under which the obligations apply.",
+            "evidence": "No conditional language such as 'if' or 'when' is present in the text."
+          },
+          "enforcement_logic": {
+            "score": 0,
+            "rationale": "There is no mention of compliance expectations, sanctions, or enforcement mechanisms in the text.",
+            "evidence": "No enforcement mechanism or compliance expectation is specified in the text."
+          },
+          "responsibility_distribution": {
+            "score": 2,
+            "rationale": "Responsibility is shared between developers and deployers, but there is no indication of a centralized or hierarchical structure.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored..."
+          }
+        },
+        "linguistic_typology": {
+          "explicit_implicit_agency": {
+            "score": 3,
+            "rationale": "The text foregrounds the actor explicitly, particularly in the rewrite where 'developers and deployers of AI systems' are clearly identified as the responsible agents.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored..."
+          },
+          "alignment_pattern": {
+            "score": 2,
+            "rationale": "The text follows a consistent nominative-accusative alignment, with clear subjects ('developers and deployers') performing actions on objects ('AI systems').",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored..."
+          },
+          "process_action_framing": {
+            "score": 3,
+            "rationale": "The norms are expressed as clear agent-action-patient structures, with explicit actions ('ensure', 'designed', 'tested') tied to agents and objects.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored..."
+          },
+          "impersonality_mechanisms": {
+            "score": 0,
+            "rationale": "The text does not employ impersonal or reflexive constructions; all actions are tied to explicit agents and objects.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored..."
+          },
+          "causality_encoding": {
+            "score": 3,
+            "rationale": "The text encodes a clear linear causality, where agents (developers and deployers) cause specific actions (designing, testing, monitoring) to achieve an effect (minimizing harm).",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored to minimize harm..."
+          },
+          "normativity_encoding": {
+            "score": 3,
+            "rationale": "Normativity is directly expressed through verbal obligations, using modal verbs like 'shall' to indicate mandatory actions.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored..."
+          }
+        },
+        "interpretive": {
+          "governance_model": {
+            "score": 3,
+            "rationale": "The text explicitly mandates actions by developers and deployers, indicating a command-based governance model.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored to minimize harm."
+          },
+          "legal_personhood": {
+            "score": 2,
+            "rationale": "The text frames developers and deployers as relational subjects, defined by their responsibilities toward end-users and stakeholders.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored to minimize harm to end-users and other impacted stakeholders."
+          },
+          "accountability_model": {
+            "score": 2,
+            "rationale": "Accountability is collective, as it assigns responsibility to both developers and deployers without singling out individuals.",
+            "evidence": "Developers and deployers of AI systems shall ensure that these systems are designed, tested, and monitored to minimize harm."
+          },
+          "risk_imagination": {
+            "score": 2,
+            "rationale": "The text acknowledges both agent-caused harm (e.g., developers’ responsibility) and system-emergent risks (e.g., continuous monitoring for fairness).",
+            "evidence": "An AI content moderation tool must be designed to avoid disproportionately flagging posts from minority groups while continuously monitoring its impact to ensure fairness."
+          }
+        }
+      },
+      "aggregate": {
+        "institutional_grammar_total": 10,
+        "linguistic_typology_total": 14,
+        "interpretive_total": 9
+      },
+      "qualitative_notes": {
+        "original": "The text constructs institutional meaning by emphasizing explicit agency and normativity while embedding a governance model that prioritizes proactive responsibility. The high scores in actor explicitness (2/3) and explicit agency (3/3) reflect a deliberate shift from ambiguity to clarity, as seen in the transition from the critique to the rewrite. This linguistic move assigns clear obligations to \"developers and deployers of AI systems,\" framing them as institutional actors with defined duties. The strong deontic force (3/3) and normativity encoding (3/3) further underscore a prescriptive, rule-oriented approach, signaling a legal framework that demands compliance rather than mere guidance. However, the absence of conditionality (0/3) and enforcement logic (0/3) reveals a gap in operationalizing these norms, leaving enforcement mechanisms and consequences for non-compliance undefined. The implicit metaphor of governance as a structured design process—\"designed, tested, and monitored\"—positions law as a technical system requiring iterative refinement, aligning with a technocratic vision of regulation. Additionally, the focus on vulnerable populations and fairness suggests a distributive accountability model (2/3), where institutional responsibility extends beyond abstract principles to tangible impacts on marginalized groups. This language \"thinks\" about law as a forward-looking, risk-sensitive tool for shaping behavior, yet it leaves institutional enforcement as an unresolved domain."
+      }
+    }
+  ]
+}
