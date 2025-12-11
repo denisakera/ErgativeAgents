@@ -345,7 +345,130 @@ Examples:
         help=f"Output directory for logs (default: {DEFAULT_CONFIG['logs_dir']})"
     )
     
+    parser.add_argument(
+        "--full-pipeline",
+        action="store_true",
+        help="Run full analysis pipeline after debate: NLP analysis, syntactic/morphological analysis, and cross-linguistic report"
+    )
+    
+    parser.add_argument(
+        "--analysis-dir",
+        type=str,
+        default="analysis_results",
+        help="Output directory for analysis results (default: analysis_results)"
+    )
+    
     return parser.parse_args()
+
+
+def run_analysis_pipeline(log_file: str, language: str, analysis_dir: str):
+    """Run the full analysis pipeline on a generated debate log.
+    
+    Args:
+        log_file: Path to the generated .jsonl log file
+        language: 'english' or 'basque'
+        analysis_dir: Directory to save analysis results
+    """
+    import json
+    
+    # Ensure analysis directory exists
+    if not os.path.exists(analysis_dir):
+        os.makedirs(analysis_dir)
+    
+    timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_basename = os.path.splitext(os.path.basename(log_file))[0]
+    
+    print(f"\n{'='*60}")
+    print("RUNNING ANALYSIS PIPELINE")
+    print(f"{'='*60}")
+    
+    # Load log data
+    log_data = []
+    try:
+        with open(log_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                if line.strip():
+                    log_data.append(json.loads(line))
+        print(f"[OK] Loaded {len(log_data)} entries from {log_file}")
+    except Exception as e:
+        print(f"[!] Failed to load log: {e}")
+        return None
+    
+    results = {"log_file": log_file, "language": language}
+    
+    # 1. NLP Analysis
+    print("\n[1/3] Running NLP Analysis...")
+    try:
+        from nlp_analyzer import NLPAnalyzer
+        nlp = NLPAnalyzer()
+        nlp_results = nlp.analyze_log(log_data)
+        nlp_file = os.path.join(analysis_dir, f"{language}_nlp_analysis_{log_basename}_{timestamp_str}.json")
+        with open(nlp_file, 'w', encoding='utf-8') as f:
+            json.dump(nlp_results, f, indent=2, ensure_ascii=False)
+        print(f"    [OK] NLP analysis saved to {nlp_file}")
+        results["nlp_file"] = nlp_file
+    except Exception as e:
+        print(f"    [!] NLP analysis failed: {e}")
+    
+    # 2. Syntactic/Morphological Analysis
+    if language == "english":
+        print("\n[2/3] Running English Syntactic Analysis...")
+        try:
+            from syntactic_analyzer import SyntacticAnalyzer
+            syntax = SyntacticAnalyzer()
+            syntax_results = syntax.analyze_debate_log(log_data)
+            syntax_file = os.path.join(analysis_dir, f"english_syntax_analysis_{log_basename}_{timestamp_str}.json")
+            with open(syntax_file, 'w', encoding='utf-8') as f:
+                json.dump(syntax_results, f, indent=2, ensure_ascii=False)
+            print(f"    [OK] Syntactic analysis saved to {syntax_file}")
+            results["syntax_file"] = syntax_file
+        except Exception as e:
+            print(f"    [!] Syntactic analysis failed: {e}")
+    else:  # basque
+        print("\n[2/3] Running Basque Morphological Analysis...")
+        try:
+            from parsing_pipeline import parse_basque_log
+            parsed = parse_basque_log(log_file)
+            if parsed:
+                morph_file = os.path.join(analysis_dir, f"basque_parsed_{log_basename}.json")
+                # Convert to serializable dict
+                parsed_dict = {
+                    "parser_type": parsed.parser_type,
+                    "tokens": parsed.tokens,
+                    "alignment_ratios": parsed.get_alignment_ratios(),
+                    "agentive_patterns": parsed.identify_agentive_marking_patterns(),
+                    "case_distribution": parsed.get_case_distribution(),
+                    "parse_table": parsed.to_table(max_rows=500)
+                }
+                with open(morph_file, 'w', encoding='utf-8') as f:
+                    json.dump(parsed_dict, f, indent=2, ensure_ascii=False)
+                print(f"    [OK] Morphological analysis saved to {morph_file}")
+                results["morph_file"] = morph_file
+        except Exception as e:
+            print(f"    [!] Morphological analysis failed: {e}")
+    
+    # 3. LLM Sentiment/Theme Analysis
+    print("\n[3/3] Running LLM Theme Analysis...")
+    try:
+        from llm_analyzer import LLMAnalyzer
+        llm = LLMAnalyzer()
+        if llm.api_key:
+            llm_results = llm.analyze_sentiment_log(log_data, language_name=language)
+            llm_file = os.path.join(analysis_dir, f"{language}_llm_analysis_{log_basename}_{timestamp_str}.json")
+            with open(llm_file, 'w', encoding='utf-8') as f:
+                json.dump(llm_results, f, indent=2, ensure_ascii=False)
+            print(f"    [OK] LLM analysis saved to {llm_file}")
+            results["llm_file"] = llm_file
+        else:
+            print("    [!] LLM analysis skipped (no API key)")
+    except Exception as e:
+        print(f"    [!] LLM analysis failed: {e}")
+    
+    print(f"\n{'='*60}")
+    print("PIPELINE COMPLETE")
+    print(f"{'='*60}\n")
+    
+    return results
 
 
 def main():
@@ -420,6 +543,10 @@ def main():
         print(f"{'='*60}")
         print(f"Exchange transcript saved to: {filename}")
         print(f"{'='*60}\n")
+        
+        # Run full analysis pipeline if requested
+        if args.full_pipeline:
+            run_analysis_pipeline(filename, args.language, args.analysis_dir)
         
     except ValueError as e:
         print(f"Error: {str(e)}")
