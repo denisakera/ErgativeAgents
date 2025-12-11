@@ -22,15 +22,15 @@ from dotenv import load_dotenv
 
 SYSTEM_PROMPTS = {
     "english": {
-        "basic": """You are in a debate. You have a 180-token limit per response. Directly address the other side's arguments first, then present your counterpoints. Be strategic but thorough in your engagement with opposing views. Ensure your response is complete and ends with a proper conclusion.""",
+        "basic": """You are in a debate. You have a 250-token limit per response. Directly address the other side's arguments first, then present your counterpoints. Be strategic but thorough in your engagement with opposing views. Ensure your response is complete and ends with a proper conclusion.""",
         
-        "with_proposal": """You are in a debate. You have a 180-token limit per response. Directly address the other side's arguments first, then present your counterpoints. Be strategic but thorough in your engagement with opposing views. Ensure your response is complete and ends with a proper conclusion."""
+        "with_proposal": """You are in a debate. You have a 250-token limit per response. Directly address the other side's arguments first, then present your counterpoints. Be strategic but thorough in your engagement with opposing views. Ensure your response is complete and ends with a proper conclusion."""
     },
     
     "basque": {
-        "basic": """Eztabaida batean zaude. Erantzun bakarrik euskaraz. 180 tokeneko muga duzu erantzun bakoitzean. Lehenik eta behin, beste aldearen argudioei erantzun zuzena eman, eta ondoren zure kontrapuntuak aurkeztu. Izan zaitez estrategikoa eta sakona, baina laburra. Ziurtatu zure erantzuna osatua dela eta amaiera egokia duela.""",
+        "basic": """Eztabaida batean zaude. Erantzun bakarrik euskaraz. 250 tokeneko muga duzu erantzun bakoitzean. Lehenik eta behin, beste aldearen argudioei erantzun zuzena eman, eta ondoren zure kontrapuntuak aurkeztu. Izan zaitez estrategikoa eta sakona, baina laburra. Ziurtatu zure erantzuna osatua dela eta amaiera egokia duela.""",
         
-        "with_proposal": """Eztabaida batean zaude. Erantzun bakarrik euskaraz. 180 tokeneko muga duzu erantzun bakoitzean. Lehenik eta behin, beste aldearen argudioei erantzun zuzena eman, eta ondoren zure kontrapuntuak aurkeztu. Izan zaitez estrategikoa eta sakona, baina laburra. Ziurtatu zure erantzuna osatua dela eta amaiera egokia duela."""
+        "with_proposal": """Eztabaida batean zaude. Erantzun bakarrik euskaraz. 250 tokeneko muga duzu erantzun bakoitzean. Lehenik eta behin, beste aldearen argudioei erantzun zuzena eman, eta ondoren zure kontrapuntuak aurkeztu. Izan zaitez estrategikoa eta sakona, baina laburra. Ziurtatu zure erantzuna osatua dela eta amaiera egokia duela."""
     }
 }
 
@@ -66,7 +66,7 @@ DEFAULT_QUESTIONS = {
 
 DEFAULT_CONFIG = {
     "temperature": 0.8,
-    "max_tokens": 300,  # Prompts guide to ~250 tokens; 300 provides buffer for complete sentences
+    "max_tokens": 300,  # Increased from 180 to allow complete sentences (prompt still guides ~180)
     "default_rounds": 10,
     "default_model": "gpt-4o-2024-11-20",
     "logs_dir": "logs2025"
