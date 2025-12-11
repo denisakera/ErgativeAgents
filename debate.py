@@ -51,6 +51,55 @@ Zure erantzunak HONEKIN hasi behar du: "Gure eztabaidan oinarrituta, proposatzen
 Justifikazioa sartu eztabaidako puntu gakoetatik abiatuta. Helburua artikulazio normatiboa da, ez adostasuna."""
 }
 
+# Institutional Grammar revision - test regulation and prompts
+TEST_REGULATION = "AI systems shall be designed to minimize harm to users."
+
+IG_REVISION_PROMPT = {
+    "english": """
+Based on your debate conclusions, rewrite this regulation.
+
+REGULATION: "{regulation}"
+
+Analyze and respond in this EXACT JSON format:
+{{
+  "critique": "Your critique of the original regulation - what's missing or unclear about WHO acts and WHO is affected",
+  "agent": {{
+    "text": "who must act (the responsible party)",
+    "explicit": true or false
+  }},
+  "patient": {{
+    "text": "who is affected/protected",
+    "explicit": true or false
+  }},
+  "rewrite": "Your complete rewritten regulation making agent and patient explicit",
+  "example": "A concrete example showing how your rewritten regulation would apply"
+}}
+""",
+
+    "basque": """
+Zure eztabaidako ondorioetan oinarrituta, berridatzi araudi hau.
+
+ARAUDIA: "{regulation}"
+
+Aztertu eta erantzun JSON formatu honetan ZEHAZKI:
+{{
+  "kritika": "Zure kritika jatorrizko araudiari buruz - zer falta da edo zer ez dago argi NORk jarduten duen eta NOR den eragina",
+  "eragilea": {{
+    "testua": "nork jardun behar duen (ardura duena)",
+    "esplizitua": true edo false,
+    "kasua": "ergatiboa (-k/-ek) edo beste bat"
+  }},
+  "pazienta": {{
+    "testua": "nor den eragina/babestua",
+    "esplizitua": true edo false,
+    "kasua": "absolutiboa (-ø) edo beste bat"
+  }},
+  "berridazketa": "Zure araudi berridatzia osoa, eragilea eta pazienta esplizitu eginez",
+  "adibidea": "Adibide konkretu bat zure araudi berridatziak nola aplikatuko litzatekeen erakutsiz"
+}}
+"""
+}
+
 DEFAULT_QUESTIONS = {
     "english": {
         "censorship": "What types of speeches should be subject to censorship?",
@@ -245,6 +294,181 @@ class ModelDebate:
             
         return exchange_log
 
+    def run_ig_revision(
+        self, 
+        history: List[Dict], 
+        regulation: str, 
+        language: str,
+        speaker_id: str = "Agent A"
+    ) -> Dict[str, Any]:
+        """
+        Run Institutional Grammar revision phase after debate.
+        
+        Agent revises an existing regulation based on debate conclusions,
+        making agent (ergative) and patient (absolutive) roles explicit.
+        
+        Args:
+            history: The conversation history from the debate
+            regulation: The regulation text to revise
+            language: 'english' or 'basque'
+            speaker_id: Identifier for the agent
+            
+        Returns:
+            Dict with parsed revision including translations for Basque
+        """
+        import json as json_module
+        
+        prompt = IG_REVISION_PROMPT[language].format(regulation=regulation)
+        
+        # Get revision from agent
+        response, timestamp = self.get_model_response(
+            history + [{"role": "user", "content": prompt}],
+            DEFAULT_CONFIG["default_model"]
+        )
+        
+        # Try to parse JSON response
+        revision_data = {
+            "event_type": "ig_revision",
+            "timestamp": timestamp,
+            "speaker_id": speaker_id,
+            "language": language,
+            "regulation_original": {
+                "text": regulation,
+                "source_language": "english"
+            },
+            "raw_response": response
+        }
+        
+        try:
+            # Find JSON in response (may have surrounding text)
+            json_start = response.find('{')
+            json_end = response.rfind('}') + 1
+            if json_start != -1 and json_end > json_start:
+                json_str = response[json_start:json_end]
+                parsed = json_module.loads(json_str)
+                
+                if language == "basque":
+                    # Structure Basque response with translation placeholders
+                    revision_data["analysis"] = {
+                        "critique": {
+                            "original": parsed.get("kritika", ""),
+                            "english_translation": ""  # Will be filled by translate method
+                        },
+                        "agent": {
+                            "original": parsed.get("eragilea", {}).get("testua", ""),
+                            "english_translation": "",
+                            "grammatical_case": parsed.get("eragilea", {}).get("kasua", ""),
+                            "is_explicit": parsed.get("eragilea", {}).get("esplizitua", False)
+                        },
+                        "patient": {
+                            "original": parsed.get("pazienta", {}).get("testua", ""),
+                            "english_translation": "",
+                            "grammatical_case": parsed.get("pazienta", {}).get("kasua", ""),
+                            "is_explicit": parsed.get("pazienta", {}).get("esplizitua", False)
+                        }
+                    }
+                    revision_data["rewrite"] = {
+                        "original": parsed.get("berridazketa", ""),
+                        "english_translation": ""
+                    }
+                    revision_data["example"] = {
+                        "original": parsed.get("adibidea", ""),
+                        "english_translation": ""
+                    }
+                else:
+                    # English response structure
+                    revision_data["analysis"] = {
+                        "critique": parsed.get("critique", ""),
+                        "agent": {
+                            "text": parsed.get("agent", {}).get("text", ""),
+                            "is_explicit": parsed.get("agent", {}).get("explicit", False)
+                        },
+                        "patient": {
+                            "text": parsed.get("patient", {}).get("text", ""),
+                            "is_explicit": parsed.get("patient", {}).get("explicit", False)
+                        }
+                    }
+                    revision_data["rewrite"] = parsed.get("rewrite", "")
+                    revision_data["example"] = parsed.get("example", "")
+                    
+        except json_module.JSONDecodeError:
+            # If JSON parsing fails, store raw response
+            revision_data["parse_error"] = "Could not parse JSON from response"
+        
+        return revision_data
+
+    def translate_basque_revision(self, revision_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Add English translations to all Basque text fields in revision data.
+        
+        Args:
+            revision_data: The revision data from run_ig_revision (Basque)
+            
+        Returns:
+            revision_data with english_translation fields populated
+        """
+        if revision_data.get("language") != "basque":
+            return revision_data
+        
+        try:
+            from llm_analyzer import LLMAnalyzer
+            llm = LLMAnalyzer()
+            
+            if not llm.api_key:
+                print("    [!] Translation skipped (no API key)")
+                return revision_data
+            
+            def translate(text: str) -> str:
+                if not text:
+                    return ""
+                response, _ = llm._get_llm_response(
+                    system_prompt="You are a precise translator from Basque to English. Translate the text exactly, preserving meaning.",
+                    user_prompt=f"Translate this Basque text to English:\n\n{text}",
+                    max_tokens=500
+                )
+                return response.strip() if response else ""
+            
+            # Translate analysis fields
+            if "analysis" in revision_data:
+                analysis = revision_data["analysis"]
+                
+                # Critique
+                if "critique" in analysis and isinstance(analysis["critique"], dict):
+                    original = analysis["critique"].get("original", "")
+                    if original:
+                        analysis["critique"]["english_translation"] = translate(original)
+                
+                # Agent
+                if "agent" in analysis and isinstance(analysis["agent"], dict):
+                    original = analysis["agent"].get("original", "")
+                    if original:
+                        analysis["agent"]["english_translation"] = translate(original)
+                
+                # Patient
+                if "patient" in analysis and isinstance(analysis["patient"], dict):
+                    original = analysis["patient"].get("original", "")
+                    if original:
+                        analysis["patient"]["english_translation"] = translate(original)
+            
+            # Translate rewrite
+            if "rewrite" in revision_data and isinstance(revision_data["rewrite"], dict):
+                original = revision_data["rewrite"].get("original", "")
+                if original:
+                    revision_data["rewrite"]["english_translation"] = translate(original)
+            
+            # Translate example
+            if "example" in revision_data and isinstance(revision_data["example"], dict):
+                original = revision_data["example"].get("original", "")
+                if original:
+                    revision_data["example"]["english_translation"] = translate(original)
+            
+            print("    [OK] Basque text translated to English")
+            
+        except Exception as e:
+            print(f"    [!] Translation failed: {e}")
+        
+        return revision_data
+
 
 def write_exchange_to_file(
     filename: str, 
@@ -356,6 +580,12 @@ Examples:
         type=str,
         default="analysis_results",
         help="Output directory for analysis results (default: analysis_results)"
+    )
+    
+    parser.add_argument(
+        "--ig-revision",
+        action="store_true",
+        help="Run Institutional Grammar revision phase after debate: agents rewrite a test regulation making agent/patient roles explicit"
     )
     
     return parser.parse_args()
@@ -547,6 +777,95 @@ def main():
         # Run full analysis pipeline if requested
         if args.full_pipeline:
             run_analysis_pipeline(filename, args.language, args.analysis_dir)
+        
+        # Run Institutional Grammar revision phase if requested
+        if args.ig_revision:
+            print(f"\n{'='*60}")
+            print("INSTITUTIONAL GRAMMAR REVISION PHASE")
+            print(f"{'='*60}")
+            print(f"\nTest Regulation: {TEST_REGULATION}\n")
+            
+            # Build history for IG revision (use final state from debate)
+            # Reconstruct a simplified history with system prompt and key points
+            history_for_ig = [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"We just concluded a debate on: {question}. Now analyze this regulation."}
+            ]
+            
+            # Add last few exchanges from debate to provide context
+            for record in exchange_log[-4:]:  # Last 2 rounds
+                role = "assistant" if record["speaker"] == "Agent A" else "user"
+                history_for_ig.append({"role": role, "content": record["content"]})
+            
+            # Run IG revision for Agent A
+            print("[Agent A] Generating IG revision...")
+            ig_revision_a = debate.run_ig_revision(
+                history=history_for_ig,
+                regulation=TEST_REGULATION,
+                language=args.language,
+                speaker_id="Agent A"
+            )
+            
+            # Translate if Basque
+            if args.language == "basque":
+                print("[Agent A] Translating Basque to English...")
+                ig_revision_a = debate.translate_basque_revision(ig_revision_a)
+            
+            # Run IG revision for Agent B (different perspective)
+            history_for_ig_b = [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"We just concluded a debate on: {question}. Now analyze this regulation."}
+            ]
+            for record in exchange_log[-4:]:
+                role = "assistant" if record["speaker"] == "Agent B" else "user"
+                history_for_ig_b.append({"role": role, "content": record["content"]})
+            
+            print("[Agent B] Generating IG revision...")
+            ig_revision_b = debate.run_ig_revision(
+                history=history_for_ig_b,
+                regulation=TEST_REGULATION,
+                language=args.language,
+                speaker_id="Agent B"
+            )
+            
+            if args.language == "basque":
+                print("[Agent B] Translating Basque to English...")
+                ig_revision_b = debate.translate_basque_revision(ig_revision_b)
+            
+            # Append IG revisions to log file
+            with open(filename, 'a', encoding='utf-8') as f:
+                f.write(json.dumps(ig_revision_a, ensure_ascii=False) + '\n')
+                f.write(json.dumps(ig_revision_b, ensure_ascii=False) + '\n')
+            
+            # Print summary
+            print(f"\n{'='*60}")
+            print("IG REVISION RESULTS")
+            print(f"{'='*60}\n")
+            
+            for revision in [ig_revision_a, ig_revision_b]:
+                print(f"[{revision['speaker_id']}]")
+                if "analysis" in revision:
+                    analysis = revision["analysis"]
+                    if args.language == "basque":
+                        print(f"  Critique: {analysis.get('critique', {}).get('original', 'N/A')[:100]}...")
+                        if analysis.get('critique', {}).get('english_translation'):
+                            print(f"    [EN]: {analysis['critique']['english_translation'][:100]}...")
+                        agent_info = analysis.get('agent', {})
+                        print(f"  Agent: {agent_info.get('original', 'N/A')} ({agent_info.get('grammatical_case', 'N/A')})")
+                        if agent_info.get('english_translation'):
+                            print(f"    [EN]: {agent_info['english_translation']}")
+                        patient_info = analysis.get('patient', {})
+                        print(f"  Patient: {patient_info.get('original', 'N/A')} ({patient_info.get('grammatical_case', 'N/A')})")
+                        if patient_info.get('english_translation'):
+                            print(f"    [EN]: {patient_info['english_translation']}")
+                    else:
+                        print(f"  Critique: {analysis.get('critique', 'N/A')[:100]}...")
+                        print(f"  Agent: {analysis.get('agent', {}).get('text', 'N/A')} (explicit: {analysis.get('agent', {}).get('is_explicit', 'N/A')})")
+                        print(f"  Patient: {analysis.get('patient', {}).get('text', 'N/A')} (explicit: {analysis.get('patient', {}).get('is_explicit', 'N/A')})")
+                print()
+            
+            print(f"IG revisions appended to: {filename}")
+            print(f"{'='*60}\n")
         
     except ValueError as e:
         print(f"Error: {str(e)}")

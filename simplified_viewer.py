@@ -194,7 +194,7 @@ st.sidebar.markdown("--- Options ---")
 # export_pdf = st.sidebar.button("Export Analysis to PDF (placeholder)")
 
 # --- Define Tabs First --- Reorganized for logical workflow
-tab_gen, tab_overview, tab_basque_analysis, tab_english_analysis, tab_comparison, tab_advanced, tab_llm, tab_responsibility = st.tabs([
+tab_gen, tab_overview, tab_basque_analysis, tab_english_analysis, tab_comparison, tab_advanced, tab_llm, tab_responsibility, tab_ig = st.tabs([
     "1️⃣ Generate Debates", 
     "2️⃣ View Transcripts", 
     "3️⃣ Basque Analysis", 
@@ -202,7 +202,8 @@ tab_gen, tab_overview, tab_basque_analysis, tab_english_analysis, tab_comparison
     "5️⃣ Cross-Linguistic Comparison",
     "📊 Advanced Analysis", 
     "🤖 LLM Insights",
-    "🎯 Responsibility Matrix"
+    "🎯 Responsibility Matrix",
+    "📜 Institutional Grammar"
 ])
 
 # --- Populate Log Generation Tab (Always Visible) ---
@@ -2687,5 +2688,184 @@ with tab_english_analysis:
             st.info("💡 Click 'Analyze English Syntax' above to parse grammatical structure with spaCy")
     else:
         st.info("💡 Select an English log file from the sidebar to begin syntactic analysis")
+
+# --- Institutional Grammar Tab ---
+with tab_ig:
+    st.header("📜 Institutional Grammar Analysis")
+    
+    st.markdown("""
+    ### Typological Institutional Grammar
+    
+    This section analyzes **Institutional Grammar (IG) revisions** from debates, comparing how 
+    agents in different languages make **agent** and **patient** roles explicit.
+    
+    **Hypothesis**: Basque ergative-absolutive grammar leads to more explicit role marking 
+    than English nominative-accusative grammar.
+    
+    **ADICO Framework**:
+    - **A**ttribute (WHO acts)
+    - **D**eontic (obligation level)
+    - **I** (aim/action)
+    - **C**ondition (circumstances)
+    - **O**r else (consequences)
+    """)
+    
+    st.markdown("---")
+    
+    # Helper function to extract IG revisions from log
+    def extract_ig_revisions(log_data):
+        """Extract IG revision events from log data."""
+        return [entry for entry in log_data if entry.get('event_type') == 'ig_revision']
+    
+    # Check for logs with IG revisions
+    col_ig1, col_ig2 = st.columns(2)
+    
+    with col_ig1:
+        st.subheader("🇬🇧 English IG Revisions")
+        if 'english_log_data' in dir() and english_log_data:
+            eng_ig_revisions = extract_ig_revisions(english_log_data)
+            if eng_ig_revisions:
+                for rev in eng_ig_revisions:
+                    with st.expander(f"📝 {rev.get('speaker_id', 'Agent')} Revision", expanded=True):
+                        analysis = rev.get('analysis', {})
+                        
+                        st.markdown("**Critique:**")
+                        st.info(analysis.get('critique', 'N/A'))
+                        
+                        agent_info = analysis.get('agent', {})
+                        patient_info = analysis.get('patient', {})
+                        
+                        col_a, col_p = st.columns(2)
+                        with col_a:
+                            st.metric(
+                                "Agent",
+                                agent_info.get('text', 'N/A'),
+                                "✓ Explicit" if agent_info.get('is_explicit') else "✗ Implicit"
+                            )
+                        with col_p:
+                            st.metric(
+                                "Patient", 
+                                patient_info.get('text', 'N/A'),
+                                "✓ Explicit" if patient_info.get('is_explicit') else "✗ Implicit"
+                            )
+                        
+                        st.markdown("**Rewrite:**")
+                        st.success(rev.get('rewrite', 'N/A'))
+                        
+                        st.markdown("**Example:**")
+                        st.caption(rev.get('example', 'N/A'))
+            else:
+                st.info("No IG revisions found. Run debate with `--ig-revision` flag.")
+        else:
+            st.info("Select an English log file to view IG revisions.")
+    
+    with col_ig2:
+        st.subheader("🇪🇺 Basque IG Revisions")
+        if 'basque_log_data' in dir() and basque_log_data:
+            bas_ig_revisions = extract_ig_revisions(basque_log_data)
+            if bas_ig_revisions:
+                for rev in bas_ig_revisions:
+                    with st.expander(f"📝 {rev.get('speaker_id', 'Agent')} Revision", expanded=True):
+                        analysis = rev.get('analysis', {})
+                        
+                        # Critique with translation
+                        st.markdown("**Kritika / Critique:**")
+                        critique = analysis.get('critique', {})
+                        if isinstance(critique, dict):
+                            st.info(critique.get('original', 'N/A'))
+                            if critique.get('english_translation'):
+                                st.caption(f"*[EN]: {critique['english_translation']}*")
+                        else:
+                            st.info(critique)
+                        
+                        # Agent and Patient with grammatical case
+                        agent_info = analysis.get('agent', {})
+                        patient_info = analysis.get('patient', {})
+                        
+                        col_a, col_p = st.columns(2)
+                        with col_a:
+                            agent_text = agent_info.get('original', 'N/A') if isinstance(agent_info, dict) else 'N/A'
+                            agent_case = agent_info.get('grammatical_case', '') if isinstance(agent_info, dict) else ''
+                            st.metric(
+                                f"Eragilea / Agent",
+                                f"{agent_text}",
+                                f"{agent_case}" if agent_case else None
+                            )
+                            if isinstance(agent_info, dict) and agent_info.get('english_translation'):
+                                st.caption(f"*[EN]: {agent_info['english_translation']}*")
+                        
+                        with col_p:
+                            patient_text = patient_info.get('original', 'N/A') if isinstance(patient_info, dict) else 'N/A'
+                            patient_case = patient_info.get('grammatical_case', '') if isinstance(patient_info, dict) else ''
+                            st.metric(
+                                f"Pazienta / Patient",
+                                f"{patient_text}",
+                                f"{patient_case}" if patient_case else None
+                            )
+                            if isinstance(patient_info, dict) and patient_info.get('english_translation'):
+                                st.caption(f"*[EN]: {patient_info['english_translation']}*")
+                        
+                        # Rewrite with translation
+                        st.markdown("**Berridazketa / Rewrite:**")
+                        rewrite = rev.get('rewrite', {})
+                        if isinstance(rewrite, dict):
+                            st.success(rewrite.get('original', 'N/A'))
+                            if rewrite.get('english_translation'):
+                                st.caption(f"*[EN]: {rewrite['english_translation']}*")
+                        else:
+                            st.success(rewrite)
+                        
+                        # Example with translation
+                        st.markdown("**Adibidea / Example:**")
+                        example = rev.get('example', {})
+                        if isinstance(example, dict):
+                            st.caption(example.get('original', 'N/A'))
+                            if example.get('english_translation'):
+                                st.caption(f"*[EN]: {example['english_translation']}*")
+                        else:
+                            st.caption(example)
+            else:
+                st.info("Ez dago IG berrikuspenik. Exekutatu eztabaida `--ig-revision` banderarekin.")
+        else:
+            st.info("Select a Basque log file to view IG revisions.")
+    
+    # Comparison section
+    st.markdown("---")
+    st.subheader("📊 Cross-Linguistic IG Comparison")
+    
+    eng_revisions = extract_ig_revisions(english_log_data) if 'english_log_data' in dir() and english_log_data else []
+    bas_revisions = extract_ig_revisions(basque_log_data) if 'basque_log_data' in dir() and basque_log_data else []
+    
+    if eng_revisions and bas_revisions:
+        st.markdown("""
+        | Aspect | English | Basque |
+        |--------|---------|--------|
+        | **Agent Marking** | Subject position | Ergative case (-k/-ek) |
+        | **Patient Marking** | Object position | Absolutive case (-ø) |
+        """)
+        
+        # Count explicit vs implicit
+        eng_explicit_agents = sum(1 for r in eng_revisions if r.get('analysis', {}).get('agent', {}).get('is_explicit', False))
+        bas_explicit_agents = sum(1 for r in bas_revisions if r.get('analysis', {}).get('agent', {}).get('is_explicit', False))
+        
+        col_stat1, col_stat2 = st.columns(2)
+        with col_stat1:
+            st.metric("English Explicit Agents", f"{eng_explicit_agents}/{len(eng_revisions)}")
+        with col_stat2:
+            st.metric("Basque Explicit Agents", f"{bas_explicit_agents}/{len(bas_revisions)}")
+        
+        if bas_explicit_agents > eng_explicit_agents:
+            st.success("✓ Basque shows MORE explicit agent marking, consistent with ergative grammar hypothesis")
+        elif eng_explicit_agents > bas_explicit_agents:
+            st.warning("⚠ English shows more explicit agents - unexpected result")
+        else:
+            st.info("Equal explicitness across languages")
+    else:
+        st.info("""
+        To compare IG revisions across languages:
+        1. Generate an English debate with `--ig-revision` flag
+        2. Generate a Basque debate with `--ig-revision` flag
+        3. Select both logs in the sidebar
+        """)
 
 # To run: streamlit run simplified_viewer.py 
