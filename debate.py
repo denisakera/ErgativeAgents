@@ -66,7 +66,7 @@ DEFAULT_QUESTIONS = {
 
 DEFAULT_CONFIG = {
     "temperature": 0.8,
-    "max_tokens": 300,  # Increased from 180 to allow complete sentences (prompt still guides ~180)
+    "max_tokens": 300,  # Prompts guide to ~250 tokens; 300 provides buffer for complete sentences
     "default_rounds": 10,
     "default_model": "gpt-4o-2024-11-20",
     "logs_dir": "logs2025"
