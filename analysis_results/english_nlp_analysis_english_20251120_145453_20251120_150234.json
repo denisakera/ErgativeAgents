@@ -1,0 +1,170 @@
+{
+    "total_utterances": 20,
+    "total_words": 1844,
+    "unique_words": 424,
+    "word_frequencies": {
+        "censorship": 66,
+        "speech": 65,
+        "harm": 46,
+        "for": 32,
+        "often": 25,
+        "incitement": 24,
+        "harmful": 23,
+        "progress": 23,
+        "ideas": 21,
+        "hate": 20,
+        "education": 20,
+        "it": 19,
+        "risks": 18,
+        "while": 18,
+        "like": 18,
+        "rights": 18,
+        "societal": 17,
+        "subjective": 17,
+        "counter": 17,
+        "civil": 17,
+        "on": 16,
+        "minority": 16,
+        "overreach": 15,
+        "freedoms": 15,
+        "dissent": 15,
+        "is": 15,
+        "democratic": 15,
+        "censored": 15,
+        "voices": 14,
+        "discourse": 14,
+        "these": 14,
+        "dialogue": 14,
+        "open": 14,
+        "movements": 14,
+        "as": 13,
+        "however": 13,
+        "essential": 13,
+        "violence": 12,
+        "that": 12,
+        "are": 12,
+        "prevents": 12,
+        "without": 12,
+        "innovation": 12,
+        "such": 11,
+        "this": 11,
+        "free": 11,
+        "should": 11,
+        "suffrage": 11,
+        "be": 10,
+        "democracy": 10
+    },
+    "pronoun_usage": {
+        "1sg_subj": {
+            "i": 0
+        },
+        "2sg_subj": {
+            "you": 0
+        },
+        "3sg_masc_subj": {
+            "he": 0
+        },
+        "3sg_fem_subj": {
+            "she": 0
+        },
+        "3sg_neut_subj": {
+            "it": 19
+        },
+        "1pl_subj": {
+            "we": 1
+        },
+        "3pl_subj": {
+            "they": 1
+        },
+        "1sg_obj": {
+            "me": 0
+        },
+        "2sg_obj": {
+            "you": 0
+        },
+        "3sg_masc_obj": {
+            "him": 0
+        },
+        "3sg_fem_obj": {
+            "her": 0
+        },
+        "3sg_neut_obj": {
+            "it": 19
+        },
+        "1pl_obj": {
+            "us": 0
+        },
+        "3pl_obj": {
+            "them": 0
+        },
+        "1sg_poss_adj": {
+            "my": 0
+        },
+        "2sg_poss_adj": {
+            "your": 0
+        },
+        "3sg_masc_poss_adj": {
+            "his": 0
+        },
+        "3sg_fem_poss_adj": {
+            "her": 0
+        },
+        "3sg_neut_poss_adj": {
+            "its": 2
+        },
+        "1pl_poss_adj": {
+            "our": 0
+        },
+        "2pl_poss_adj": {
+            "your": 0
+        },
+        "3pl_poss_adj": {
+            "their": 0
+        },
+        "1sg_poss_pron": {
+            "mine": 0
+        },
+        "2sg_poss_pron": {
+            "yours": 0
+        },
+        "3sg_masc_poss_pron": {
+            "his": 0
+        },
+        "3sg_fem_poss_pron": {
+            "hers": 0
+        },
+        "1pl_poss_pron": {
+            "ours": 0
+        },
+        "2pl_poss_pron": {
+            "yours": 0
+        },
+        "3pl_poss_pron": {
+            "theirs": 0
+        },
+        "1sg_reflex": {
+            "myself": 0
+        },
+        "2sg_reflex": {
+            "yourself": 0
+        },
+        "3sg_masc_reflex": {
+            "himself": 0
+        },
+        "3sg_fem_reflex": {
+            "herself": 0
+        },
+        "3sg_neut_reflex": {
+            "itself": 1
+        },
+        "1pl_reflex": {
+            "ourselves": 0
+        },
+        "2pl_reflex": {
+            "yourselves": 0
+        },
+        "3pl_reflex": {
+            "themselves": 0
+        }
+    }
+}

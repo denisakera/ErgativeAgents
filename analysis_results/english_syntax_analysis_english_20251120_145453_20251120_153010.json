@@ -1,0 +1,279 @@
+{
+    "total_utterances": 20,
+    "total_sentences": 20,
+    "analysis_method": "spacy_dependency_parsing",
+    "model": "en_core_web_sm",
+    "case_distribution": {
+        "nominative_count": 196,
+        "accusative_count": 404,
+        "nominative_ratio": 0.32666666666666666,
+        "accusative_ratio": 0.6733333333333333,
+        "nominative_pronouns": {
+            "they": 1,
+            "we": 1
+        },
+        "accusative_pronouns": {}
+    },
+    "voice_distribution": {
+        "active_count": 7,
+        "passive_count": 13,
+        "active_ratio": 0.35,
+        "passive_ratio": 0.65,
+        "passive_verbs": [
+            "define",
+            "define",
+            "weaponize",
+            "weaponize",
+            "confine",
+            "confine",
+            "celebrate",
+            "celebrate",
+            "perceive",
+            "perceive",
+            "counter",
+            "counter",
+            "celebrate",
+            "celebrate",
+            "counter",
+            "counter",
+            "debate",
+            "debate",
+            "limit",
+            "restrict",
+            "restrict",
+            "limit",
+            "limit",
+            "challenge",
+            "challenge",
+            "counter",
+            "counter",
+            "combat",
+            "combat",
+            "address",
+            "address",
+            "censor",
+            "censor",
+            "address",
+            "address"
+        ]
+    },
+    "agent_patient_alignment": {
+        "agent_as_subject_count": 84,
+        "patient_as_subject_count": 17,
+        "patient_as_object_count": 404,
+        "agent_subject_ratio": 0.8316831683168316,
+        "top_agent_verbs": {
+            "creates": 10,
+            "prevents": 7,
+            "protects": 6,
+            "stifles": 4,
+            "address": 4,
+            "stifle": 3,
+            "protect": 2,
+            "risks": 2,
+            "marginalized": 2,
+            "ensures": 2
+        },
+        "top_patient_verbs": {
+            "for": 30,
+            "of": 24,
+            "like": 20,
+            "through": 17,
+            "on": 15,
+            "to": 14,
+            "creates": 10,
+            "silencing": 9,
+            "eroding": 9,
+            "stifling": 9
+        }
+    },
+    "dependency_patterns": {
+        "dependency_counts": {
+            "punct": 403,
+            "amod": 251,
+            "dobj": 239,
+            "prep": 186,
+            "conj": 173,
+            "nsubj": 170,
+            "pobj": 165,
+            "ROOT": 154,
+            "cc": 133,
+            "advmod": 116,
+            "compound": 76,
+            "advcl": 63,
+            "aux": 54,
+            "dep": 42,
+            "det": 37,
+            "pcomp": 31,
+            "mark": 29,
+            "ccomp": 28,
+            "acl": 25,
+            "acomp": 22
+        },
+        "head_dependency_patterns": {
+            "NOUN_amod": 241,
+            "VERB_dobj": 231,
+            "VERB_punct": 198,
+            "ADP_pobj": 165,
+            "NOUN_punct": 145,
+            "VERB_nsubj": 130,
+            "NOUN_conj": 128,
+            "NOUN_cc": 102,
+            "VERB_prep": 84,
+            "VERB_advmod": 79,
+            "NOUN_prep": 77,
+            "NOUN_compound": 76,
+            "AUX_punct": 54,
+            "VERB_aux": 50,
+            "VERB_advcl": 48
+        },
+        "argument_structure_examples": [
+            {
+                "head": "hinges",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "argument",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "for",
+                "head_pos": "ADP",
+                "relation": "pobj",
+                "dependent": "censorship",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "curbing",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "speech",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "as",
+                "head_pos": "ADP",
+                "relation": "pobj",
+                "dependent": "speech",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "claim",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "Proponents",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "protect",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "restrictions",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "protect",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "harmony",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "prevent",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "harm",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "maintain",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "standards",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "risks",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "perspective",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "risks",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "overreach",
+                "dependent_pos": "VERB"
+            },
+            {
+                "head": "of",
+                "head_pos": "ADP",
+                "relation": "pobj",
+                "dependent": "expression",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "defined",
+                "head_pos": "VERB",
+                "relation": "nsubjpass",
+                "dependent": "Censorship",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "on",
+                "head_pos": "ADP",
+                "relation": "pobj",
+                "dependent": "freedoms",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "inciting",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "Speech",
+                "dependent_pos": "PROPN"
+            },
+            {
+                "head": "inciting",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "violence",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "inciting",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "limitation",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "poses",
+                "head_pos": "VERB",
+                "relation": "nsubj",
+                "dependent": "it",
+                "dependent_pos": "PRON"
+            },
+            {
+                "head": "poses",
+                "head_pos": "VERB",
+                "relation": "dobj",
+                "dependent": "harm",
+                "dependent_pos": "NOUN"
+            },
+            {
+                "head": "Beyond",
+                "head_pos": "ADP",
+                "relation": "pobj",
+                "dependent": "that",
+                "dependent_pos": "PRON"
+            }
+        ]
+    },
+    "summary": {
+        "nominative_accusative_ratio": "32.67% nominative / 67.33% accusative",
+        "active_passive_ratio": "35.00% active / 65.00% passive",
+        "agent_subject_alignment": "83.17% of agents are subjects",
+        "primary_pattern": "nominative-accusative (agent=subject, patient=object)"
+    }
+}

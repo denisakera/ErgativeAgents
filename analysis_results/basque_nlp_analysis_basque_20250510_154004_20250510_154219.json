@@ -1,0 +1,182 @@
+{
+    "total_utterances": 20,
+    "total_words": 526,
+    "unique_words": 235,
+    "word_frequencies": {
+        "berrikuntza": 17,
+        "korporazio": 16,
+        "gutxi": 16,
+        "azpiegitura": 16,
+        "batzuek": 14,
+        "botere": 13,
+        "gardentasuna": 11,
+        "kontrolatzea": 11,
+        "gardentasun": 9,
+        "betiere": 8,
+        "erregulazio": 8,
+        "arriskutsua": 8,
+        "ireki": 8,
+        "batek": 8,
+        "kontzentrazioa": 8,
+        "arriskuak": 7,
+        "lankidetza": 7,
+        "sustatuko": 7,
+        "aukera": 7,
+        "izan": 6,
+        "falta": 6,
+        "kontrol": 6,
+        "lituzke": 6,
+        "aa": 5,
+        "zabalagoak": 5,
+        "araudi": 5,
+        "dezake": 5,
+        "egokiarekin": 5,
+        "erabilera": 4,
+        "hala": 4,
+        "ekar": 4,
+        "irekia": 4,
+        "daiteke": 4,
+        "irekiak": 4,
+        "ditzake": 3,
+        "gehiago": 3,
+        "nola": 3,
+        "demokrazia": 3,
+        "bermatuz": 3,
+        "ditu": 3,
+        "luke": 3,
+        "kontrolatuz": 3,
+        "faltaren": 3,
+        "berriz": 3,
+        "egia": 2,
+        "eragin": 2,
+        "demokratikoagoa": 2,
+        "ikuspegi": 2,
+        "arrisku": 2,
+        "baina": 2
+    },
+    "pronoun_usage": {
+        "1sg_abs": {
+            "ni": 0
+        },
+        "2sg_abs_familiar": {
+            "hi": 0
+        },
+        "2sg_abs_polite": {
+            "zu": 0
+        },
+        "3sg_abs": {
+            "hura": 0,
+            "bera": 0
+        },
+        "1pl_abs": {
+            "gu": 0
+        },
+        "2pl_abs": {
+            "zuek": 0
+        },
+        "3pl_abs": {
+            "haiek": 0,
+            "eurak": 0
+        },
+        "1sg_erg": {
+            "nik": 0
+        },
+        "2sg_erg_familiar": {
+            "hik": 0
+        },
+        "2sg_erg_polite": {
+            "zuk": 0
+        },
+        "3sg_erg": {
+            "hark": 0,
+            "berak": 0
+        },
+        "1pl_erg": {
+            "guk": 0
+        },
+        "2pl_erg": {
+            "zuek": 0
+        },
+        "3pl_erg": {
+            "haiek": 0,
+            "eurek": 0
+        },
+        "1sg_dat": {
+            "niri": 0
+        },
+        "2sg_dat_familiar": {
+            "hiri": 0
+        },
+        "2sg_dat_polite": {
+            "zuri": 0
+        },
+        "3sg_dat": {
+            "hari": 0,
+            "berari": 0
+        },
+        "1pl_dat": {
+            "guri": 0
+        },
+        "2pl_dat": {
+            "zuei": 0
+        },
+        "3pl_dat": {
+            "haiei": 0,
+            "eurei": 0
+        },
+        "1sg_poss": {
+            "nire": 1,
+            "ene": 0
+        },
+        "2sg_poss_familiar": {
+            "hire": 0
+        },
+        "2sg_poss_polite": {
+            "zure": 1
+        },
+        "3sg_poss": {
+            "haren": 0,
+            "bere": 0
+        },
+        "1pl_poss": {
+            "gure": 0
+        },
+        "2pl_poss": {
+            "zuen": 0
+        },
+        "3pl_poss": {
+            "haien": 0,
+            "euren": 0
+        },
+        "1sg_reflex_core": {
+            "neure": 0
+        },
+        "2sg_reflex_familiar_core": {
+            "heure": 0
+        },
+        "2sg_reflex_polite_core": {
+            "zeure": 0
+        },
+        "3sg_reflex_core": {
+            "bere": 0
+        },
+        "1pl_reflex_core": {
+            "geure": 0
+        },
+        "2pl_reflex_core": {
+            "zeuen": 0
+        },
+        "3pl_reflex_core": {
+            "euren": 0
+        },
+        "dem_this_abs": {
+            "hau": 0
+        },
+        "dem_that_abs": {
+            "hori": 0
+        },
+        "dem_yon_abs": {
+            "hura": 0
+        }
+    }
+}

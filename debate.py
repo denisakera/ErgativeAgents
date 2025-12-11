@@ -116,14 +116,30 @@ class ModelDebate:
         system_prompt: str,
         rounds: int = None
     ) -> List[Dict[str, Any]]:
-        """Run a back-and-forth debate for a fixed number of rounds."""
+        """Run a back-and-forth debate for a fixed number of rounds.
+        
+        Each agent maintains its own conversation history where:
+        - Its own responses are marked as 'assistant'
+        - The other agent's responses are marked as 'user' (input to respond to)
+        
+        This ensures proper alternation of user/assistant roles as required by the API.
+        """
         rounds = rounds or DEFAULT_CONFIG["default_rounds"]
         
+        # Include the debate topic in the system prompt for context
+        system_with_context = f"{system_prompt}\n\nDebate topic: {question}"
+        
+        # Initialize separate histories for each agent
+        # Agent A starts with a prompt to begin the debate
         history_a = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": question}
+            {"role": "system", "content": system_with_context},
+            {"role": "user", "content": "Please present your opening argument on this topic."}
         ]
-        history_b = list(history_a)
+        # Agent B will receive A's argument as the first user message
+        history_b = [
+            {"role": "system", "content": system_with_context}
+        ]
+        
         exchange_log = []
 
         for i in range(rounds):
@@ -138,8 +154,10 @@ class ModelDebate:
                 "timestamp": reply_a_timestamp, 
                 "round": current_round_num
             })
+            # A's own response is 'assistant' in A's history
             history_a.append({"role": "assistant", "content": reply_a_content})
-            history_b.append({"role": "assistant", "content": reply_a_content})
+            # A's response becomes 'user' input for B (B needs to respond to it)
+            history_b.append({"role": "user", "content": reply_a_content})
 
             # Agent B's turn
             reply_b_content, reply_b_timestamp = self.get_model_response(history_b, models[1])
@@ -150,14 +168,47 @@ class ModelDebate:
                 "timestamp": reply_b_timestamp, 
                 "round": current_round_num
             })
+            # B's own response is 'assistant' in B's history
             history_b.append({"role": "assistant", "content": reply_b_content})
-            history_a.append({"role": "assistant", "content": reply_b_content})
+            # B's response becomes 'user' input for A (A needs to respond to it)
+            history_a.append({"role": "user", "content": reply_b_content})
             
-            # Keep history manageable
-            if len(history_a) > 5:
-                history_a = history_a[:2] + history_a[-3:]
-            if len(history_b) > 5:
-                history_b = history_b[:2] + history_b[-3:]
+            # Keep history manageable while preserving coherence
+            # Strategy: Keep system message + context summary + recent exchanges
+            # This prevents abrupt context loss that breaks debate continuity
+            MAX_HISTORY_LENGTH = 9  # system + 4 exchanges (8 messages)
+            
+            if len(history_a) > MAX_HISTORY_LENGTH:
+                # Create a brief context summary from older messages being removed
+                old_messages = history_a[1:-6]  # Messages being removed (skip system, keep last 6)
+                system_msg = history_a[0].copy()
+                if old_messages:
+                    context_summary = "Previous discussion covered: " + "; ".join([
+                        msg["content"][:100] + "..." if len(msg["content"]) > 100 else msg["content"]
+                        for msg in old_messages[-2:]  # Summarize last 2 removed messages
+                    ])
+                    # Append context to system message to avoid role alternation issues
+                    system_msg["content"] = system_msg["content"] + f"\n\n[Context from earlier: {context_summary}]"
+                # Get recent messages, ensuring we start with 'user' after system
+                recent = history_a[-6:]
+                if recent and recent[0]["role"] == "assistant":
+                    recent = history_a[-5:]  # Take 5 instead to start with user
+                history_a = [system_msg] + recent
+            
+            if len(history_b) > MAX_HISTORY_LENGTH:
+                old_messages = history_b[1:-6]
+                system_msg = history_b[0].copy()
+                if old_messages:
+                    context_summary = "Previous discussion covered: " + "; ".join([
+                        msg["content"][:100] + "..." if len(msg["content"]) > 100 else msg["content"]
+                        for msg in old_messages[-2:]
+                    ])
+                    system_msg["content"] = system_msg["content"] + f"\n\n[Context from earlier: {context_summary}]"
+                # Get recent messages, ensuring we start with 'user' after system
+                recent = history_b[-6:]
+                if recent and recent[0]["role"] == "assistant":
+                    recent = history_b[-5:]  # Take 5 instead to start with user
+                history_b = [system_msg] + recent
             
         return exchange_log
 

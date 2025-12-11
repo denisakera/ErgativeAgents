@@ -1,0 +1,71 @@
+{
+    "total_utterances": 20,
+    "total_words": 746,
+    "unique_words": 303,
+    "word_frequencies": {
+        "eta": 58,
+        "berrikuntza": 19,
+        "azpiegitura": 18,
+        "korporazio": 17,
+        "gutxi": 16,
+        "batzuek": 15,
+        "gardentasun": 14,
+        "da": 10,
+        "gizarte": 10,
+        "botere": 10,
+        "aa": 9,
+        "horrek": 9,
+        "kontrola": 9,
+        "du": 8,
+        "irekia": 8,
+        "baina": 8,
+        "ditzake": 7,
+        "osoaren": 7,
+        "sustatzen": 7,
+        "eza": 6,
+        "dezake": 6,
+        "irekiak": 6,
+        "aukera": 6,
+        "gardentasuna": 6,
+        "mesedetan": 6,
+        "behar": 6,
+        "izan": 6,
+        "baliabideak": 6,
+        "kontzentrazioa": 6,
+        "dute": 5,
+        "erabilera": 5,
+        "hala": 5,
+        "oreka": 5,
+        "daiteke": 5,
+        "kolektiboa": 5,
+        "dakar": 5,
+        "gehiegikeria": 5,
+        "parte": 5,
+        "falta": 5,
+        "demokratikoa": 5,
+        "ere": 4,
+        "sor": 4,
+        "gizartearen": 4,
+        "onurarako": 4,
+        "izateak": 4,
+        "ditu": 4,
+        "duela": 3,
+        "segurtasun": 3,
+        "arriskuak": 3,
+        "sustatuko": 3
+    },
+    "pronoun_usage": {
+        "collective_absolutive": {
+            "gu": 0
+        },
+        "collective_ergative": {
+            "guk": 0
+        },
+        "first_person_singular_absolutive": {
+            "ni": 0
+        },
+        "first_person_singular_ergative": {
+            "nik": 0
+        }
+    }
+}

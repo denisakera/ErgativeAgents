@@ -1,0 +1,4695 @@
+{
+  "language": "basque",
+  "parser_type": "pattern",
+  "parsed_at": "2025-11-20T12:21:56.633140",
+  "total_tokens": 779,
+  "case_distribution": {
+    "genitive": 90,
+    "ergative": 85,
+    "absolutive": 264,
+    "dative": 21
+  },
+  "alignment_ratios": {
+    "ergative_count": 85,
+    "absolutive_count": 264,
+    "total_core_arguments": 349,
+    "ergative_ratio": 0.24355300859598855,
+    "absolutive_ratio": 0.7564469914040115
+  },
+  "tokens": [
+    {
+      "token": "Zentsuraren",
+      "lemma": "zentsuraren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "aldeko",
+      "lemma": "aldeko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "argudioak",
+      "lemma": "argudioak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "askotan",
+      "lemma": "askotan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "komunitatearen",
+      "lemma": "komunitatearen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "harmonia",
+      "lemma": "harmonia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "babestean",
+      "lemma": "babestean",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "oinarritzen",
+      "lemma": "oinarritzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "dira,",
+      "lemma": "dira,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "horrek",
+      "lemma": "horrek",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "askatasunaren",
+      "lemma": "askatasunaren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "mugak",
+      "lemma": "mugak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "arriskuan",
+      "lemma": "arriskuan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "jar",
+      "lemma": "jar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ditzake.",
+      "lemma": "ditzake.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsurak",
+      "lemma": "zentsurak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "askatasunaren",
+      "lemma": "askatasunaren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "oinarrizko",
+      "lemma": "oinarrizko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "printzipioak",
+      "lemma": "printzipioak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "urratzeko",
+      "lemma": "urratzeko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskua",
+      "lemma": "arriskua",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "dakar,",
+      "lemma": "dakar,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "bereziki",
+      "lemma": "bereziki",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "gehiegikeriarako",
+      "lemma": "gehiegikeriarako",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "bide",
+      "lemma": "bide",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ematen",
+      "lemma": "ematen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "badu.",
+      "lemma": "badu.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gizarte",
+      "lemma": "gizarte",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "demokratikoetan,",
+      "lemma": "demokratikoetan,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hitz",
+      "lemma": "hitz",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "egiteko",
+      "lemma": "egiteko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbesteko",
+      "lemma": "ezinbesteko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "oinarria",
+      "lemma": "oinarria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "desatseginak",
+      "lemma": "desatseginak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eztabaidagarriak",
+      "lemma": "eztabaidagarriak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "babestu",
+      "lemma": "babestu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dira.",
+      "lemma": "dira.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsurak",
+      "lemma": "zentsurak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "justifikazioa",
+      "lemma": "justifikazioa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake",
+      "lemma": "dezake",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "mehatxu",
+      "lemma": "mehatxu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zuzena",
+      "lemma": "zuzena",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "dagoenean",
+      "lemma": "dagoenean",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "(adibidez,",
+      "lemma": "(adibidez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzean",
+      "lemma": "sustatzean",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gezur",
+      "lemma": "gezur",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsuak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "zabaltzean),",
+      "lemma": "zabaltzean),",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "interpretazio",
+      "lemma": "interpretazio",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "subjektiboarekin",
+      "lemma": "subjektiboarekin",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kontuz",
+      "lemma": "kontuz",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ibili",
+      "lemma": "ibili",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "botereek",
+      "lemma": "botereek",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "edukiak",
+      "lemma": "edukiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "manipula",
+      "lemma": "manipula",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ditzaketelako.",
+      "lemma": "ditzaketelako.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Arazoei",
+      "lemma": "arazoei",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "aurre",
+      "lemma": "aurre",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "egiteko,",
+      "lemma": "egiteko,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "heziketa",
+      "lemma": "heziketa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "irekiak",
+      "lemma": "irekiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "sustatu",
+      "lemma": "sustatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dira,",
+      "lemma": "dira,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ez",
+      "lemma": "ez",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "isiltasuna.",
+      "lemma": "isiltasuna.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura,",
+      "lemma": "zentsura,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "salbuespenetan",
+      "lemma": "salbuespenetan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "bakarrik.",
+      "lemma": "bakarrik.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eduki",
+      "lemma": "eduki",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "bazterkeria",
+      "lemma": "bazterkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kalte",
+      "lemma": "kalte",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "larriak",
+      "lemma": "larriak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "saihesteko",
+      "lemma": "saihesteko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "soilik",
+      "lemma": "soilik",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "aplikatu.",
+      "lemma": "aplikatu.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Hitz",
+      "lemma": "hitz",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "egiteko",
+      "lemma": "egiteko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "errespetatuz,",
+      "lemma": "errespetatuz,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "plural",
+      "lemma": "plural",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sendo",
+      "lemma": "sendo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "bat",
+      "lemma": "bat",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eraikitzen",
+      "lemma": "eraikitzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dakar.",
+      "lemma": "dakar.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Hitzaldi",
+      "lemma": "hitzaldi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "bat",
+      "lemma": "bat",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsuratzea",
+      "lemma": "zentsuratzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "behar-beharrezkoa",
+      "lemma": "behar-beharrezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "den",
+      "lemma": "den",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "kasuetan",
+      "lemma": "kasuetan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "soilik",
+      "lemma": "soilik",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "justifika",
+      "lemma": "justifika",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "daiteke,",
+      "lemma": "daiteke,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duenean.",
+      "lemma": "duenean.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Horrek",
+      "lemma": "horrek",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "justizia",
+      "lemma": "justizia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzen",
+      "lemma": "bermatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ditu.",
+      "lemma": "ditu.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kontu",
+      "lemma": "kontu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "handiz",
+      "lemma": "handiz",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "tratatu",
+      "lemma": "tratatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "den",
+      "lemma": "den",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "gai",
+      "lemma": "gai",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "delako.",
+      "lemma": "delako.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "soilik",
+      "lemma": "soilik",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "gorrotoa,",
+      "lemma": "gorrotoa,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gezur",
+      "lemma": "gezur",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "nabarmenak",
+      "lemma": "nabarmenak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "zabaltzen",
+      "lemma": "zabaltzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "direnean;",
+      "lemma": "direnean;",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "bestela,",
+      "lemma": "bestela,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasunak",
+      "lemma": "askatasunak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "lehentasuna",
+      "lemma": "lehentasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "du.",
+      "lemma": "du.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "adierazpenak",
+      "lemma": "adierazpenak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "kontrolatu",
+      "lemma": "kontrolatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dira,",
+      "lemma": "dira,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gehiegikeriak",
+      "lemma": "gehiegikeriak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "murriztu",
+      "lemma": "murriztu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake.",
+      "lemma": "dezake.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Eztabaida",
+      "lemma": "eztabaida",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "askea",
+      "lemma": "askea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "osasuntsuaren",
+      "lemma": "osasuntsuaren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "oinarria",
+      "lemma": "oinarria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Hitzaldi",
+      "lemma": "hitzaldi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "bat",
+      "lemma": "bat",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsuratzea,",
+      "lemma": "zentsuratzea,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegikeria",
+      "lemma": "gehiegikeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke,",
+      "lemma": "daiteke,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "urratuz.",
+      "lemma": "urratuz.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ere,",
+      "lemma": "ere,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "dituzten",
+      "lemma": "dituzten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "diskurtsoak",
+      "lemma": "diskurtsoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "kontrolatu",
+      "lemma": "kontrolatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dira,",
+      "lemma": "dira,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "besteak",
+      "lemma": "besteak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "babesteko.",
+      "lemma": "babesteko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Demokraziaren",
+      "lemma": "demokraziaren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke,",
+      "lemma": "daiteke,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "diskurtsoetan",
+      "lemma": "diskurtsoetan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "adibidez.",
+      "lemma": "adibidez.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ere,",
+      "lemma": "ere,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsurak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "mugatu",
+      "lemma": "mugatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "demokrazia",
+      "lemma": "demokrazia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ahultzeko",
+      "lemma": "ahultzeko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskua",
+      "lemma": "arriskua",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "du.",
+      "lemma": "du.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "bilatu",
+      "lemma": "bilatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dugu.",
+      "lemma": "dugu.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsurak",
+      "lemma": "zentsurak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "ezin",
+      "lemma": "ezin",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "du",
+      "lemma": "du",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zapaldu,",
+      "lemma": "zapaldu,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "dituzten",
+      "lemma": "dituzten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "kontrolatzea",
+      "lemma": "kontrolatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "osasuntsua",
+      "lemma": "osasuntsua",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzeko.",
+      "lemma": "bermatzeko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "delikatua",
+      "lemma": "delikatua",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Erantzun",
+      "lemma": "erantzun",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zuzena",
+      "lemma": "zuzena",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "adierazpenak",
+      "lemma": "adierazpenak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatzea,",
+      "lemma": "mugatzea,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "argudioen",
+      "lemma": "argudioen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "aurka",
+      "lemma": "aurka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "nago",
+      "lemma": "nago",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gehiegizkoa",
+      "lemma": "gehiegizkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "denean.",
+      "lemma": "denean.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsurak",
+      "lemma": "zentsurak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eraikitzailea",
+      "lemma": "eraikitzailea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "itzal",
+      "lemma": "itzal",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake,",
+      "lemma": "dezake,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "oinarrizkoa",
+      "lemma": "oinarrizkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "baita",
+      "lemma": "baita",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "demokrazian.",
+      "lemma": "demokrazian.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Nire",
+      "lemma": "nire",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ustez,",
+      "lemma": "ustez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezin",
+      "lemma": "ezin",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "erabiltzen",
+      "lemma": "erabiltzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "edonola;",
+      "lemma": "edonola;",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hortaz,",
+      "lemma": "hortaz,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "arrazoi",
+      "lemma": "arrazoi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "bidez",
+      "lemma": "bidez",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontu",
+      "lemma": "kontu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "handiz",
+      "lemma": "handiz",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "epaitzea.",
+      "lemma": "epaitzea.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "nago",
+      "lemma": "nago",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "dituzten",
+      "lemma": "dituzten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "adierazpenak",
+      "lemma": "adierazpenak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatu",
+      "lemma": "mugatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "direla,",
+      "lemma": "direla,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "nork",
+      "lemma": "nork",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "ezartzen",
+      "lemma": "ezartzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duen",
+      "lemma": "duen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "\"zentsura\"",
+      "lemma": "\"zentsura\"",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zein",
+      "lemma": "zein",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "irizpide",
+      "lemma": "irizpide",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "erabiltzen",
+      "lemma": "erabiltzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "diren",
+      "lemma": "diren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "oso",
+      "lemma": "oso",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "garrantzitsua",
+      "lemma": "garrantzitsua",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gehiegikeriak",
+      "lemma": "gehiegikeriak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zapaldu",
+      "lemma": "zapaldu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake",
+      "lemma": "dezake",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "iritzi",
+      "lemma": "iritzi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "legitimoak",
+      "lemma": "legitimoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "isildu.",
+      "lemma": "isildu.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Horren",
+      "lemma": "horren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ordez,",
+      "lemma": "ordez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "elkarrizketa",
+      "lemma": "elkarrizketa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzea",
+      "lemma": "sustatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "hobe",
+      "lemma": "hobe",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "anitza",
+      "lemma": "anitza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "demokratikoa",
+      "lemma": "demokratikoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indartzeko.",
+      "lemma": "indartzeko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "nago",
+      "lemma": "nago",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatu",
+      "lemma": "mugatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "direla,",
+      "lemma": "direla,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "definizio",
+      "lemma": "definizio",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "horiek",
+      "lemma": "horiek",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "argiak",
+      "lemma": "argiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zehatzak",
+      "lemma": "zehatzak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dute",
+      "lemma": "dute",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegikeriarik",
+      "lemma": "gehiegikeriarik",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "saihesteko.",
+      "lemma": "saihesteko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gehiegizkoa",
+      "lemma": "gehiegizkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "daiteke",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "mugatu",
+      "lemma": "mugatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "osasuntsuak",
+      "lemma": "osasuntsuak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "ito",
+      "lemma": "ito",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ditzakeenean.",
+      "lemma": "ditzakeenean.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Horren",
+      "lemma": "horren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ordez,",
+      "lemma": "ordez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "alternatiba",
+      "lemma": "alternatiba",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "hobea",
+      "lemma": "hobea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "izango",
+      "lemma": "izango",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "litzateke",
+      "lemma": "litzateke",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "diskurtso",
+      "lemma": "diskurtso",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "negatiboak",
+      "lemma": "negatiboak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "argudiatuz",
+      "lemma": "argudiatuz",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrajartzea",
+      "lemma": "kontrajartzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzea,",
+      "lemma": "sustatzea,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "demokratiko",
+      "lemma": "demokratiko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ireki",
+      "lemma": "ireki",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "bat",
+      "lemma": "bat",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "bermatzeko.",
+      "lemma": "bermatzeko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "arrazionaltasunarekin",
+      "lemma": "arrazionaltasunarekin",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "jokatu",
+      "lemma": "jokatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dugu.",
+      "lemma": "dugu.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsuratzea",
+      "lemma": "zentsuratzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "arazo",
+      "lemma": "arazo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "mingarria",
+      "lemma": "mingarria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "nago",
+      "lemma": "nago",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "bultzatzen",
+      "lemma": "bultzatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "diskurtsoak",
+      "lemma": "diskurtsoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatu",
+      "lemma": "mugatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "direla,",
+      "lemma": "direla,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontuz",
+      "lemma": "kontuz",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ibili",
+      "lemma": "ibili",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Nork",
+      "lemma": "nork",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "erabakitzen",
+      "lemma": "erabakitzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "du",
+      "lemma": "du",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zer",
+      "lemma": "zer",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "den",
+      "lemma": "den",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "zentsuragarria?",
+      "lemma": "zentsuragarria?",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Irizpide",
+      "lemma": "irizpide",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "lausoek",
+      "lemma": "lausoek",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrolak",
+      "lemma": "kontrolak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "legitimoak",
+      "lemma": "legitimoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "isilarazi",
+      "lemma": "isilarazi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "ditzakete.",
+      "lemma": "ditzakete.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Horren",
+      "lemma": "horren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ordez,",
+      "lemma": "ordez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontrapuntu",
+      "lemma": "kontrapuntu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "argudioak",
+      "lemma": "argudioak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "erabilita,",
+      "lemma": "erabilita,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ideiak",
+      "lemma": "ideiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "borrokatzeko",
+      "lemma": "borrokatzeko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "aukera",
+      "lemma": "aukera",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "demokratikoagoa",
+      "lemma": "demokratikoagoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Askatasun",
+      "lemma": "askatasun",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "segurtasunaren",
+      "lemma": "segurtasunaren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "arteko",
+      "lemma": "arteko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "mantentzea",
+      "lemma": "mantentzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbestekoa",
+      "lemma": "ezinbestekoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "nago",
+      "lemma": "nago",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "dituzten",
+      "lemma": "dituzten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "adierazpenak",
+      "lemma": "adierazpenak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatu",
+      "lemma": "mugatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "direla,",
+      "lemma": "direla,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gehiegizkoa",
+      "lemma": "gehiegizkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskutsua",
+      "lemma": "arriskutsua",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasunerako.",
+      "lemma": "askatasunerako.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Nork",
+      "lemma": "nork",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "nola",
+      "lemma": "nola",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "erabakitzen",
+      "lemma": "erabakitzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "du",
+      "lemma": "du",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zer",
+      "lemma": "zer",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsuratu?",
+      "lemma": "zentsuratu?",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrolak",
+      "lemma": "kontrolak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "iritzi",
+      "lemma": "iritzi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "legitimoak",
+      "lemma": "legitimoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "isil",
+      "lemma": "isil",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ditzake.",
+      "lemma": "ditzake.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Horren",
+      "lemma": "horren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ordez,",
+      "lemma": "ordez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "elkarrizketa",
+      "lemma": "elkarrizketa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatu",
+      "lemma": "sustatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dira,",
+      "lemma": "dira,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "demokratiko",
+      "lemma": "demokratiko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "inklusiboago",
+      "lemma": "inklusiboago",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baterantz",
+      "lemma": "baterantz",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "jotzeko.",
+      "lemma": "jotzeko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "bateratuz.",
+      "lemma": "bateratuz.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatzea",
+      "lemma": "mugatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "onargarria",
+      "lemma": "onargarria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsuraren",
+      "lemma": "zentsuraren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "definizio",
+      "lemma": "definizio",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "lausoek",
+      "lemma": "lausoek",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "arrisku",
+      "lemma": "arrisku",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "demokratikoak",
+      "lemma": "demokratikoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "dakartzate.",
+      "lemma": "dakartzate.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Norbaiti",
+      "lemma": "norbaiti",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "iritzia",
+      "lemma": "iritzia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "isiltzea",
+      "lemma": "isiltzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gehiegikeria",
+      "lemma": "gehiegikeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "bihur",
+      "lemma": "bihur",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke.",
+      "lemma": "daiteke.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Horren",
+      "lemma": "horren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ordez,",
+      "lemma": "ordez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontrajarriko",
+      "lemma": "kontrajarriko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "argudioak",
+      "lemma": "argudioak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "sustatzea",
+      "lemma": "sustatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eraginkorragoa",
+      "lemma": "eraginkorragoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbestekoa",
+      "lemma": "ezinbestekoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizartearen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "uztartzeko,",
+      "lemma": "uztartzeko,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "bi",
+      "lemma": "bi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "balio",
+      "lemma": "balio",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "horiek",
+      "lemma": "horiek",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "elkar",
+      "lemma": "elkar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "indartzeko.",
+      "lemma": "indartzeko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "nago",
+      "lemma": "nago",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatu",
+      "lemma": "mugatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "direla,",
+      "lemma": "direla,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsuraren",
+      "lemma": "zentsuraren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "definizioa",
+      "lemma": "definizioa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "argia",
+      "lemma": "argia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "objektiboa",
+      "lemma": "objektiboa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Definizio",
+      "lemma": "definizio",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "lausoek",
+      "lemma": "lausoek",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrolak",
+      "lemma": "kontrolak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "legitimoak",
+      "lemma": "legitimoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "isilarazten",
+      "lemma": "isilarazten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "dituzte.",
+      "lemma": "dituzte.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsuraren",
+      "lemma": "zentsuraren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ordez,",
+      "lemma": "ordez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontrajarriko",
+      "lemma": "kontrajarriko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "argudioak",
+      "lemma": "argudioak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "erabilita,",
+      "lemma": "erabilita,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ideia",
+      "lemma": "ideia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "okerrak",
+      "lemma": "okerrak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "gizartean",
+      "lemma": "gizartean",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "desaktiba",
+      "lemma": "desaktiba",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "daitezke.",
+      "lemma": "daitezke.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "mantenduz,",
+      "lemma": "mantenduz,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "bateragarriak",
+      "lemma": "bateragarriak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "dira.",
+      "lemma": "dira.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "dituzten",
+      "lemma": "dituzten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatzea",
+      "lemma": "mugatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ulertzekoa",
+      "lemma": "ulertzekoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsurak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "iritzi",
+      "lemma": "iritzi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "legitimoak",
+      "lemma": "legitimoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "isilarazi",
+      "lemma": "isilarazi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "ditzake.",
+      "lemma": "ditzake.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Nork",
+      "lemma": "nork",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "nola",
+      "lemma": "nola",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "erabakitzen",
+      "lemma": "erabakitzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duen",
+      "lemma": "duen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "kritikoa",
+      "lemma": "kritikoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da;",
+      "lemma": "da;",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrolak",
+      "lemma": "kontrolak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "demokrazia",
+      "lemma": "demokrazia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "bera",
+      "lemma": "bera",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ahultzen",
+      "lemma": "ahultzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "du.",
+      "lemma": "du.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Horren",
+      "lemma": "horren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ordez,",
+      "lemma": "ordez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "elkarrizketa",
+      "lemma": "elkarrizketa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "irekiak",
+      "lemma": "irekiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzea",
+      "lemma": "sustatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eraginkorragoa",
+      "lemma": "eraginkorragoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ideia",
+      "lemma": "ideia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarriak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "errefusatzeko.",
+      "lemma": "errefusatzeko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "nahitaezkoa",
+      "lemma": "nahitaezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatzea",
+      "lemma": "mugatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbestekoa",
+      "lemma": "ezinbestekoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizarte-ongizatea",
+      "lemma": "gizarte-ongizatea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "babesteko,",
+      "lemma": "babesteko,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "lauso",
+      "lemma": "lauso",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "selektiboa",
+      "lemma": "selektiboa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskutsua",
+      "lemma": "arriskutsua",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Nork",
+      "lemma": "nork",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "erabakitzen",
+      "lemma": "erabakitzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "du",
+      "lemma": "du",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldien",
+      "lemma": "hitzaldien",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "muga?",
+      "lemma": "muga?",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrolak",
+      "lemma": "kontrolak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "iritzi",
+      "lemma": "iritzi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "aniztasuna",
+      "lemma": "aniztasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zapal",
+      "lemma": "zapal",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake.",
+      "lemma": "dezake.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Horren",
+      "lemma": "horren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ordez,",
+      "lemma": "ordez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontra-argudioak",
+      "lemma": "kontra-argudioak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "bultzatu",
+      "lemma": "bultzatu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dira,",
+      "lemma": "dira,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "sendoagoa",
+      "lemma": "sendoagoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "askatasunarekin",
+      "lemma": "askatasunarekin",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "orekatua",
+      "lemma": "orekatua",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "lortzeko.",
+      "lemma": "lortzeko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatzea",
+      "lemma": "mugatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "garrantzitsua",
+      "lemma": "garrantzitsua",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsuraren",
+      "lemma": "zentsuraren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "inguruko",
+      "lemma": "inguruko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "definizio",
+      "lemma": "definizio",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "lausoek",
+      "lemma": "lausoek",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "arazoak",
+      "lemma": "arazoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "sortzen",
+      "lemma": "sortzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "dituzte.",
+      "lemma": "dituzte.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Nork",
+      "lemma": "nork",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "nola",
+      "lemma": "nola",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "erabakitzen",
+      "lemma": "erabakitzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duen",
+      "lemma": "duen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "hitzaldien",
+      "lemma": "hitzaldien",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "muga",
+      "lemma": "muga",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "funtsezkoa",
+      "lemma": "funtsezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrolak",
+      "lemma": "kontrolak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "iritzi",
+      "lemma": "iritzi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "legitimoak",
+      "lemma": "legitimoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "zapal",
+      "lemma": "zapal",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "ditzakeelako.",
+      "lemma": "ditzakeelako.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Alternatiboki,",
+      "lemma": "alternatiboki,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "elkarrizketa",
+      "lemma": "elkarrizketa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzea",
+      "lemma": "sustatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eraginkorragoa",
+      "lemma": "eraginkorragoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizartea",
+      "lemma": "gizartea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "babesteko",
+      "lemma": "babesteko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sendotzeko.",
+      "lemma": "sendotzeko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezkoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotoa",
+      "lemma": "gorrotoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "duten",
+      "lemma": "duten",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldiak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "mugatzea",
+      "lemma": "mugatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ulertzen",
+      "lemma": "ulertzen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "da,",
+      "lemma": "da,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsuraren",
+      "lemma": "zentsuraren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "muga",
+      "lemma": "muga",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "argia",
+      "lemma": "argia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsurak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "iritzi",
+      "lemma": "iritzi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "legitimoak",
+      "lemma": "legitimoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "isilarazi",
+      "lemma": "isilarazi",
+      "pos": "unknown",
+      "case": "dative"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasuna",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskuan",
+      "lemma": "arriskuan",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "jar",
+      "lemma": "jar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake.",
+      "lemma": "dezake.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsuraren",
+      "lemma": "zentsuraren",
+      "pos": "unknown",
+      "case": "genitive"
+    },
+    {
+      "token": "ordez,",
+      "lemma": "ordez,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza,",
+      "lemma": "hezkuntza,",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "argudio",
+      "lemma": "argudio",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "sendoak",
+      "lemma": "sendoak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "elkarrizketa",
+      "lemma": "elkarrizketa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "zabala",
+      "lemma": "zabala",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzea",
+      "lemma": "sustatzea",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "eraginkorragoa",
+      "lemma": "eraginkorragoa",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "da",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "ideia",
+      "lemma": "ideia",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarriak",
+      "pos": "unknown",
+      "case": "ergative"
+    },
+    {
+      "token": "gizartean",
+      "lemma": "gizartean",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "desaktibatzeko.",
+      "lemma": "desaktibatzeko.",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "unknown",
+      "case": "absolutive"
+    },
+    {
+      "token": "mantendu",
+      "lemma": "mantendu",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "unknown",
+      "case": "unknown"
+    },
+    {
+      "token": "da.",
+      "lemma": "da.",
+      "pos": "unknown",
+      "case": "unknown"
+    }
+  ]
+}

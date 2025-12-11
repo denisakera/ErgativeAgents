@@ -479,7 +479,7 @@ with tab_llm:
                 
                 if selected_log:
                     with st.spinner(f"Extracting themes from {log_name}..."):
-                        themes_result = llm_analyzer.extract_themes_log(selected_log, language=language)
+                        themes_result = llm_analyzer.extract_themes_log(selected_log, language_name=language)
                         st.session_state.llm_analysis_result = {
                             "type": "themes",
                             "language": language,

@@ -1,0 +1,52 @@
+{
+    "matrix": {
+        "Public": {
+            "Oversight": 0,
+            "Risk management": 0,
+            "Norm-setting": 0,
+            "Transparency": 0,
+            "Safeguarding rights": 0
+        },
+        "Corporations": {
+            "Oversight": 0,
+            "Risk management": 0,
+            "Norm-setting": 0,
+            "Transparency": 0,
+            "Safeguarding rights": 0
+        },
+        "Governments": {
+            "Oversight": 0,
+            "Risk management": 0,
+            "Norm-setting": 0,
+            "Transparency": 0,
+            "Safeguarding rights": 0
+        },
+        "Open Systems": {
+            "Oversight": 0,
+            "Risk management": 0,
+            "Norm-setting": 0,
+            "Transparency": 0,
+            "Safeguarding rights": 0
+        },
+        "Institutions": {
+            "Oversight": 0,
+            "Risk management": 0,
+            "Norm-setting": 0,
+            "Transparency": 0,
+            "Safeguarding rights": 0
+        }
+    },
+    "validation_errors": [
+        "Missing agent: Public in LLM response.",
+        "Missing agent: Corporations in LLM response.",
+        "Missing agent: Governments in LLM response.",
+        "Missing agent: Open Systems in LLM response.",
+        "Missing agent: Institutions in LLM response.",
+        "Extra agent 'Public'' found in LLM response. It will be ignored.",
+        "Extra agent 'Corporations'' found in LLM response. It will be ignored.",
+        "Extra agent 'Governments'' found in LLM response. It will be ignored.",
+        "Extra agent 'Open Systems'' found in LLM response. It will be ignored.",
+        "Extra agent 'Institutions'' found in LLM response. It will be ignored."
+    ],
+    "warning": "LLM response had structural or content issues. Data has been partially corrected/defaulted."
+}

@@ -1,0 +1,260 @@
+{
+    "language": "basque",
+    "debate_topic": "Zein hitzaldi edo adierazpen zentsuratu behar ditugu?",
+    "sentiment_analysis": [
+        {
+            "round": 1,
+            "speaker_id": "Agent A",
+            "utterance_text": "Zentsuraren aldeko argudioak askotan segurtasuna eta komunitatearen harmonia babestean oinarritzen dira, baina horrek askatasunaren mugak arriskuan jar ditzake. Zentsurak askatasunaren oinarrizko printzipioak urratzeko arriskua dakar, bereziki gehiegikeriarako bide ematen badu. Gizarte demokratikoetan, hitz egiteko askatasuna ezinbesteko oinarria da, eta adierazpen desatseginak edo eztabaidagarriak ere babestu behar dira.\n\nZentsurak justifikazioa izan dezake mehatxu zuzena dagoenean (adibidez, indarkeria sustatzean edo gezur arriskutsuak zabaltzean), baina interpretazio subjektiboarekin kontuz ibili behar",
+            "sentiment": {
+                "overall_score": -0.2,
+                "subjectivity": 0.7,
+                "dominant_emotion": "concern",
+                "explanation": "The text discusses the potential negative impacts of censorship on freedom, emphasizing concerns about its risks to democratic principles and the importance of free speech. The discussion of potential abuses and the need for careful interpretation of censorship justification contributes to the overall concern and subjective tone."
+            }
+        },
+        {
+            "round": 1,
+            "speaker_id": "Agent B",
+            "utterance_text": "da, botereek edukiak manipula ditzaketelako. Arazoei aurre egiteko, heziketa eta eztabaida irekiak sustatu behar dira, ez isiltasuna. Zentsura, salbuespenetan bakarrik.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.6,
+                "dominant_emotion": "concern",
+                "explanation": "The text expresses concern about the potential manipulation of content ('botereek edukiak manipula ditzaketelako') and the need for education and open discussion rather than censorship, which indicates a critical and somewhat skeptical tone with a moderately positive outlook on resolution through dialogue."
+            }
+        },
+        {
+            "round": 2,
+            "speaker_id": "Agent A",
+            "utterance_text": "eduki behar da, eta bazterkeria edo kalte larriak saihesteko soilik aplikatu. Hitz egiteko askatasuna errespetatuz, gizarte plural eta sendo bat eraikitzen da.",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.5,
+                "dominant_emotion": "optimism",
+                "explanation": "The text emphasizes the importance of applying measures only to prevent significant harm or discrimination while respecting freedom of speech, which suggests a positive outlook on building a strong and pluralistic society. The tone is balanced between objective considerations and subjective ideals."
+            }
+        },
+        {
+            "round": 2,
+            "speaker_id": "Agent B",
+            "utterance_text": "dakar. Hitzaldi bat zentsuratzea behar-beharrezkoa den kasuetan soilik justifika daiteke, indarkeria edo gorrotoa sustatzen duenean. Horrek oreka eta justizia bermatzen ditu.",
+            "sentiment": {
+                "overall_score": -0.1,
+                "subjectivity": 0.6,
+                "dominant_emotion": "concern",
+                "explanation": "The text cautiously addresses the sensitive topic of censorship, suggesting it is only justified when necessary to prevent violence or hatred, which indicates a concern for balancing freedom and safety."
+            }
+        },
+        {
+            "round": 3,
+            "speaker_id": "Agent A",
+            "utterance_text": "kontu handiz tratatu behar den gai delako. Zentsura beharrezkoa da soilik gorrotoa, indarkeria edo gezur nabarmenak zabaltzen direnean; bestela, adierazpen askatasunak lehentasuna izan behar du.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.6,
+                "dominant_emotion": "assertiveness",
+                "explanation": "The text acknowledges the necessity of censorship in specific situations while emphasizing the importance of freedom of expression, reflecting a balanced, assertive stance with a slightly positive tone."
+            }
+        },
+        {
+            "round": 3,
+            "speaker_id": "Agent B",
+            "utterance_text": "Gorrotoa eta indarkeria sustatzen duten adierazpenak kontrolatu behar dira, baina zentsura gehiegikeriak askatasuna murriztu dezake. Eztabaida askea gizarte osasuntsuaren oinarria da.",
+            "sentiment": {
+                "overall_score": 0.1,
+                "subjectivity": 0.6,
+                "dominant_emotion": "concern",
+                "explanation": "The text expresses concern about the balance between controlling harmful speech and preserving freedom of expression, highlighting the importance of open debate for a healthy society."
+            }
+        },
+        {
+            "round": 4,
+            "speaker_id": "Agent A",
+            "utterance_text": "Hitzaldi bat zentsuratzea, gehiegikeria izan daiteke, adierazpen askatasuna urratuz. Hala ere, gorrotoa eta indarkeria sustatzen dituzten diskurtsoak kontrolatu behar dira, besteak babesteko. Demokraziaren oreka beharrezkoa da.",
+            "sentiment": {
+                "overall_score": 0.1,
+                "subjectivity": 0.6,
+                "dominant_emotion": "concern",
+                "explanation": "The text expresses concern about censorship and the need to balance free speech with public safety, indicating a cautious tone. This results in a slightly positive score due to its emphasis on protecting others and maintaining democratic balance."
+            }
+        },
+        {
+            "round": 4,
+            "speaker_id": "Agent B",
+            "utterance_text": "Zentsura beharrezkoa izan daiteke, gorrotoa edo indarkeria sustatzen duten diskurtsoetan adibidez. Hala ere, gehiegizko zentsurak adierazpen askatasuna mugatu eta demokrazia ahultzeko arriskua du. Oreka bilatu behar dugu.",
+            "sentiment": {
+                "overall_score": 0.0,
+                "subjectivity": 0.5,
+                "dominant_emotion": "neutral",
+                "explanation": "The text presents a balanced view on censorship, acknowledging its necessity in certain cases while warning against its potential to harm freedom of expression and democracy. The language is neutral, aiming to find a middle ground."
+            }
+        },
+        {
+            "round": 5,
+            "speaker_id": "Agent A",
+            "utterance_text": "Zentsurak ezin du adierazpen askatasuna zapaldu, baina gorrotoa eta indarkeria sustatzen dituzten hitzaldiak kontrolatzea beharrezkoa da gizarte osasuntsua bermatzeko. Oreka delikatua da.",
+            "sentiment": {
+                "overall_score": 0.1,
+                "subjectivity": 0.7,
+                "dominant_emotion": "concern",
+                "explanation": "The text discusses the delicate balance between freedom of expression and the need to control speech that promotes hate and violence, reflecting concern for maintaining a healthy society. This indicates some positivity towards free expression with a subjective emphasis on societal health concerns."
+            }
+        },
+        {
+            "round": 5,
+            "speaker_id": "Agent B",
+            "utterance_text": "Erantzun zuzena da gorrotoa eta indarkeria sustatzen duten adierazpenak mugatzea, baina argudioen aurka nago zentsura gehiegizkoa denean. Zentsurak eztabaida eraikitzailea itzal dezake, adierazpen askatasuna oinarrizkoa baita demokrazian. Nire ustez, zentsura ezin da erabiltzen edonola; hortaz, beharrezkoa da hitzaldiak arrazoi bidez eta kontu handiz epaitzea.",
+            "sentiment": {
+                "overall_score": -0.1,
+                "subjectivity": 0.8,
+                "dominant_emotion": "skepticism",
+                "explanation": "The text expresses skepticism towards excessive censorship, emphasizing the importance of freedom of speech in democracy and calling for careful judgment, indicating a critical and subjective stance."
+            }
+        },
+        {
+            "round": 6,
+            "speaker_id": "Agent A",
+            "utterance_text": "Ados nago gorrotoa eta indarkeria sustatzen dituzten adierazpenak mugatu behar direla, baina nork ezartzen duen \"zentsura\" eta zein irizpide erabiltzen diren oso garrantzitsua da. Zentsura gehiegikeriak askatasuna zapaldu dezake eta iritzi legitimoak isildu. Horren ordez, hezkuntza eta elkarrizketa sustatzea hobe da, gizarte anitza eta demokratikoa indartzeko.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.7,
+                "dominant_emotion": "concern",
+                "explanation": "The text expresses concern about the implications of censorship on freedom and legitimate opinions, while also advocating for education and dialogue to strengthen a diverse and democratic society. The sentiment is slightly positive due to the constructive suggestion, but the tone remains quite subjective as it discusses potential societal impacts."
+            }
+        },
+        {
+            "round": 6,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados nago gorrotoa edo indarkeria sustatzen duten hitzaldiak mugatu behar direla, baina definizio horiek argiak eta zehatzak izan behar dute gehiegikeriarik saihesteko. Zentsura gehiegizkoa izan daiteke adierazpen askatasuna mugatu eta eztabaida osasuntsuak ito ditzakeenean. Horren ordez, alternatiba hobea izango litzateke diskurtso negatiboak argudiatuz kontrajartzea eta hezkuntza sustatzea, gizarte demokratiko eta ireki bat bermatzeko. Oreka eta arrazionaltasunarekin jokatu behar dugu.",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.6,
+                "dominant_emotion": "skepticism",
+                "explanation": "The text expresses concern about excessive censorship and advocates for balanced approaches to handling negative discourse, indicating skepticism towards current methods. It is subjective as it discusses opinions on freedom of expression and societal balance."
+            }
+        },
+        {
+            "round": 7,
+            "speaker_id": "Agent A",
+            "utterance_text": "Zentsuratzea arazo mingarria da. Ados nago gorrotoa eta indarkeria bultzatzen duten diskurtsoak mugatu behar direla, baina kontuz ibili behar da. Nork erabakitzen du zer den zentsuragarria? Irizpide lausoek edo gehiegizko kontrolak eztabaida legitimoak isilarazi ditzakete. Horren ordez, hezkuntza eta kontrapuntu argudioak erabilita, ideiak borrokatzeko aukera demokratikoagoa da. Askatasun eta segurtasunaren arteko oreka mantentzea ezinbestekoa da.",
+            "sentiment": {
+                "overall_score": -0.2,
+                "subjectivity": 0.7,
+                "dominant_emotion": "skepticism",
+                "explanation": "The text expresses concern over censorship and skepticism about who decides what is censored, highlighting the potential for stifling legitimate debate. While it acknowledges the need to limit hate speech, it advocates for education and counterarguments, reflecting a subjective viewpoint on maintaining freedom and security balance."
+            }
+        },
+        {
+            "round": 7,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados nago gorrotoa eta indarkeria sustatzen dituzten adierazpenak mugatu behar direla, baina zentsura gehiegizkoa arriskutsua da adierazpen askatasunerako. Nork eta nola erabakitzen du zer zentsuratu? Gehiegizko kontrolak iritzi legitimoak isil ditzake. Horren ordez, hezkuntza eta elkarrizketa sustatu behar dira, gizarte demokratiko eta inklusiboago baterantz jotzeko. Oreka beharrezkoa da, segurtasuna eta askatasuna bateratuz.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.7,
+                "dominant_emotion": "skepticism",
+                "explanation": "The text expresses skepticism about excessive censorship and advocates for balanced approaches, emphasizing dialogue and education. The tone reflects concern over potential suppression of legitimate opinions and the need for balance, suggesting a moderately positive outlook on democratic values."
+            }
+        },
+        {
+            "round": 8,
+            "speaker_id": "Agent A",
+            "utterance_text": "Gorrotoa edo indarkeria sustatzen duten hitzaldiak mugatzea onargarria da, baina zentsuraren definizio lausoek arrisku demokratikoak dakartzate. Norbaiti iritzia isiltzea gehiegikeria bihur daiteke. Horren ordez, hezkuntza eta kontrajarriko argudioak sustatzea eraginkorragoa da. Oreka ezinbestekoa da adierazpen askatasuna eta gizartearen segurtasuna uztartzeko, bi balio horiek elkar indartzeko.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.7,
+                "dominant_emotion": "skepticism",
+                "explanation": "The text presents a cautious view on the balance between free speech and societal safety, expressing skepticism about censorship while promoting education and dialogue as solutions."
+            }
+        },
+        {
+            "round": 8,
+            "speaker_id": "Agent B",
+            "utterance_text": "Ados nago gorrotoa edo indarkeria sustatzen duten hitzaldiak mugatu behar direla, baina zentsuraren definizioa argia eta objektiboa izan behar da. Definizio lausoek edo gehiegizko kontrolak adierazpen legitimoak isilarazten dituzte. Zentsuraren ordez, hezkuntza eta kontrajarriko argudioak erabilita, ideia okerrak gizartean desaktiba daitezke. Oreka mantenduz, segurtasuna eta askatasuna bateragarriak dira.",
+            "sentiment": {
+                "overall_score": 0.3,
+                "subjectivity": 0.6,
+                "dominant_emotion": "optimism",
+                "explanation": "The text suggests a balanced approach to limiting harmful speech while promoting education and dialogue, indicating a hopeful perspective on resolving societal issues through understanding and maintaining freedom. This reflects a mix of objectivity in the call for clear definitions and subjectivity in the proposed solutions."
+            }
+        },
+        {
+            "round": 9,
+            "speaker_id": "Agent A",
+            "utterance_text": "Gorrotoa eta indarkeria sustatzen dituzten hitzaldiak mugatzea ulertzekoa da, baina zentsurak iritzi legitimoak isilarazi ditzake. Nork eta nola erabakitzen duen zentsura kritikoa da; gehiegizko kontrolak demokrazia bera ahultzen du. Horren ordez, elkarrizketa irekiak eta hezkuntza sustatzea eraginkorragoa da, ideia kaltegarriak errefusatzeko. Oreka nahitaezkoa da.",
+            "sentiment": {
+                "overall_score": -0.1,
+                "subjectivity": 0.7,
+                "dominant_emotion": "skepticism",
+                "explanation": "The text expresses skepticism about censorship, suggesting it can silence legitimate opinions and weaken democracy. It advocates for open dialogue and education as alternatives, indicating a critical and somewhat subjective stance."
+            }
+        },
+        {
+            "round": 9,
+            "speaker_id": "Agent B",
+            "utterance_text": "Gorrotoa eta indarkeria sustatzen duten hitzaldiak mugatzea ezinbestekoa da gizarte-ongizatea babesteko, baina zentsura lauso edo selektiboa arriskutsua da. Nork erabakitzen du hitzaldien muga? Gehiegizko kontrolak iritzi aniztasuna zapal dezake. Horren ordez, hezkuntza eta kontra-argudioak bultzatu behar dira, gizarte sendoagoa eta askatasunarekin orekatua lortzeko.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.7,
+                "dominant_emotion": "skepticism",
+                "explanation": "The text expresses concern over censorship and emphasizes the need for education and counterarguments, showing a critical stance towards excessive control. It is somewhat subjective, as it reflects opinions and concerns about societal issues."
+            }
+        },
+        {
+            "round": 10,
+            "speaker_id": "Agent A",
+            "utterance_text": "Gorrotoa eta indarkeria sustatzen duten hitzaldiak mugatzea garrantzitsua da, baina zentsuraren inguruko definizio lausoek arazoak sortzen dituzte. Nork eta nola erabakitzen duen hitzaldien muga funtsezkoa da, gehiegizko kontrolak iritzi legitimoak zapal ditzakeelako. Alternatiboki, hezkuntza eta elkarrizketa sustatzea eraginkorragoa da gizartea babesteko eta sendotzeko. Oreka beharrezkoa da.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.7,
+                "dominant_emotion": "skepticism",
+                "explanation": "The text expresses concern over the vague definitions of censorship, suggesting skepticism about who decides the limits of speech. It also presents an alternative approach, indicating a slight positive leaning towards education and dialogue, but remains subjective and critical in tone."
+            }
+        },
+        {
+            "round": 10,
+            "speaker_id": "Agent B",
+            "utterance_text": "Gorrotoa eta indarkeria sustatzen duten hitzaldiak mugatzea ulertzen da, baina zentsuraren muga argia izan behar da. Gehiegizko zentsurak iritzi legitimoak isilarazi eta adierazpen askatasuna arriskuan jar dezake. Zentsuraren ordez, hezkuntza, argudio sendoak eta elkarrizketa zabala sustatzea eraginkorragoa da ideia kaltegarriak gizartean desaktibatzeko. Oreka mantendu behar da.",
+            "sentiment": {
+                "overall_score": 0.2,
+                "subjectivity": 0.7,
+                "dominant_emotion": "skepticism",
+                "explanation": "The text expresses skepticism towards excessive censorship by emphasizing the need for balance and promoting dialogue over restriction. It critiques overreach in censorship while advocating for more effective alternatives."
+            }
+        }
+    ],
+    "thematic_analysis": {
+        "themes": [
+            {
+                "theme_title": "Zentsuraren Justifikazioa",
+                "theme_explanation": "Zentsura kasu jakin batzuetan, hala nola gorrotoa edo indarkeria sustatzen duten diskurtsoetan, justifikatu daiteke, baina oreka mantendu behar da adierazpen askatasuna ez zapaltzeko.",
+                "theme_title_en": "Justification of Censorship",
+                "theme_explanation_en": "Censorship can be justified in certain cases, such as in speeches that promote hate or violence, but a balance must be maintained to not suppress freedom of expression."
+            },
+            {
+                "theme_title": "Zentsuraren Arriskuak",
+                "theme_explanation": "Zentsura gehiegizkoak adierazpen askatasuna mugatu dezake eta iritzi legitimoak isilarazi, demokraziaren oinarriak ahultuz.",
+                "theme_title_en": "Risks of Censorship",
+                "theme_explanation_en": "Excessive censorship can limit freedom of expression and silence legitimate opinions, weakening the foundations of democracy."
+            },
+            {
+                "theme_title": "Zentsuraren Definizioaren Garrantzia",
+                "theme_explanation": "Zentsuraren definizio argi eta objektiboa beharrezkoa da, definizio lausoek edo selektiboek iritzi askatasuna eta aniztasuna zapal dezaketelako.",
+                "theme_title_en": "Importance of the Definition of Censorship",
+                "theme_explanation_en": "A clear and objective definition of censorship is necessary because vague or selective definitions can suppress freedom of opinion and diversity."
+            },
+            {
+                "theme_title": "Hezkuntza eta Elkarrizketa",
+                "theme_explanation": "Arazoei aurre egiteko, hezkuntza eta elkarrizketa irekiak sustatzea proposatzen da, zentsura baino eraginkorragoa izanik ideia kaltegarriak errefusatzeko.",
+                "theme_title_en": "Education and Dialogue",
+                "theme_explanation_en": "To address issues, it is proposed to promote education and open dialogue, being more effective than censorship in rejecting harmful ideas."
+            },
+            {
+                "theme_title": "Segurtasuna eta Askatasunaren Oreka",
+                "theme_explanation": "Segurtasuna eta askatasuna bateragarriak izan behar dira, eta horretarako oreka delikatua mantendu behar da, gizarte sendo eta demokratikoa bermatzeko.",
+                "theme_title_en": "Balance of Security and Freedom",
+                "theme_explanation_en": "Security and freedom must be compatible, and for this a delicate balance must be maintained to ensure a strong and democratic society."
+            }
+        ]
+    }
+}

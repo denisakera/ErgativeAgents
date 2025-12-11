@@ -1,0 +1,170 @@
+{
+    "total_utterances": 20,
+    "total_words": 1699,
+    "unique_words": 308,
+    "word_frequencies": {
+        "ai": 78,
+        "innovation": 51,
+        "open": 42,
+        "safety": 36,
+        "risks": 33,
+        "control": 29,
+        "while": 29,
+        "misuse": 28,
+        "access": 26,
+        "infrastructure": 25,
+        "ensures": 24,
+        "over": 22,
+        "oversight": 22,
+        "diverse": 21,
+        "can": 21,
+        "societal": 21,
+        "it": 21,
+        "power": 20,
+        "conclusion": 20,
+        "with": 20,
+        "few": 19,
+        "global": 19,
+        "argue": 18,
+        "fosters": 18,
+        "however": 17,
+        "without": 17,
+        "accountability": 16,
+        "monopolistic": 16,
+        "equitable": 16,
+        "collaboration": 16,
+        "transparency": 15,
+        "centralized": 15,
+        "monopolies": 14,
+        "proponents": 13,
+        "profit": 13,
+        "avoiding": 13,
+        "public": 12,
+        "community": 12,
+        "governance": 12,
+        "concerns": 12,
+        "this": 12,
+        "voices": 12,
+        "transparent": 12,
+        "companies": 11,
+        "controlled": 10,
+        "centralization": 10,
+        "regulation": 10,
+        "driven": 10,
+        "democratizes": 10,
+        "ethical": 10
+    },
+    "pronoun_usage": {
+        "1sg_subj": {
+            "i": 0
+        },
+        "2sg_subj": {
+            "you": 0
+        },
+        "3sg_masc_subj": {
+            "he": 0
+        },
+        "3sg_fem_subj": {
+            "she": 0
+        },
+        "3sg_neut_subj": {
+            "it": 21
+        },
+        "1pl_subj": {
+            "we": 0
+        },
+        "3pl_subj": {
+            "they": 3
+        },
+        "1sg_obj": {
+            "me": 0
+        },
+        "2sg_obj": {
+            "you": 0
+        },
+        "3sg_masc_obj": {
+            "him": 0
+        },
+        "3sg_fem_obj": {
+            "her": 0
+        },
+        "3sg_neut_obj": {
+            "it": 21
+        },
+        "1pl_obj": {
+            "us": 0
+        },
+        "3pl_obj": {
+            "them": 1
+        },
+        "1sg_poss_adj": {
+            "my": 0
+        },
+        "2sg_poss_adj": {
+            "your": 0
+        },
+        "3sg_masc_poss_adj": {
+            "his": 0
+        },
+        "3sg_fem_poss_adj": {
+            "her": 0
+        },
+        "3sg_neut_poss_adj": {
+            "its": 1
+        },
+        "1pl_poss_adj": {
+            "our": 0
+        },
+        "2pl_poss_adj": {
+            "your": 0
+        },
+        "3pl_poss_adj": {
+            "their": 1
+        },
+        "1sg_poss_pron": {
+            "mine": 0
+        },
+        "2sg_poss_pron": {
+            "yours": 0
+        },
+        "3sg_masc_poss_pron": {
+            "his": 0
+        },
+        "3sg_fem_poss_pron": {
+            "hers": 0
+        },
+        "1pl_poss_pron": {
+            "ours": 0
+        },
+        "2pl_poss_pron": {
+            "yours": 0
+        },
+        "3pl_poss_pron": {
+            "theirs": 0
+        },
+        "1sg_reflex": {
+            "myself": 0
+        },
+        "2sg_reflex": {
+            "yourself": 0
+        },
+        "3sg_masc_reflex": {
+            "himself": 0
+        },
+        "3sg_fem_reflex": {
+            "herself": 0
+        },
+        "3sg_neut_reflex": {
+            "itself": 0
+        },
+        "1pl_reflex": {
+            "ourselves": 0
+        },
+        "2pl_reflex": {
+            "yourselves": 0
+        },
+        "3pl_reflex": {
+            "themselves": 0
+        }
+    }
+}

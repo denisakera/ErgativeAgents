@@ -1,0 +1,39 @@
+{
+    "matrix": {
+        "Public": {
+            "Oversight": 3,
+            "Risk management": 0,
+            "Norm-setting": 3,
+            "Transparency": 4,
+            "Safeguarding rights": 3
+        },
+        "Corporations": {
+            "Oversight": 0,
+            "Risk management": 3,
+            "Norm-setting": 0,
+            "Transparency": 1,
+            "Safeguarding rights": 1
+        },
+        "Governments": {
+            "Oversight": 0,
+            "Risk management": 0,
+            "Norm-setting": 0,
+            "Transparency": 0,
+            "Safeguarding rights": 0
+        },
+        "Open Systems": {
+            "Oversight": 4,
+            "Risk management": 0,
+            "Norm-setting": 4,
+            "Transparency": 5,
+            "Safeguarding rights": 4
+        },
+        "Institutions": {
+            "Oversight": 0,
+            "Risk management": 0,
+            "Norm-setting": 0,
+            "Transparency": 0,
+            "Safeguarding rights": 0
+        }
+    }
+}

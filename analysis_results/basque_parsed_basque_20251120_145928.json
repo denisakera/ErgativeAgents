@@ -1,0 +1,8316 @@
+{
+  "language": "basque",
+  "parser_type": "stanza",
+  "parsed_at": "2025-11-20T15:29:34.520790",
+  "total_tokens": 1382,
+  "case_distribution": {
+    "absolutive": 357,
+    "genitive": 47,
+    "locative": 27,
+    "ergative": 29,
+    "allative": 3,
+    "instrumental": 14,
+    "dative": 8
+  },
+  "alignment_ratios": {
+    "ergative_count": 29,
+    "absolutive_count": 357,
+    "total_core_arguments": 386,
+    "ergative_ratio": 0.07512953367875648,
+    "absolutive_ratio": 0.9248704663212435
+  },
+  "tokens": [
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "justifikatzeko",
+      "lemma": "justifikatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasunaren",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "segurtasunaren",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "arteko",
+      "lemma": "arte",
+      "pos": "ADP",
+      "case": "locative"
+    },
+    {
+      "token": "oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Baduzu",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "puntua",
+      "lemma": "puntu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "hitzaldiek",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatu",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeriara",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "allative"
+    },
+    {
+      "token": "bultzatzen",
+      "lemma": "bultzatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dutenean",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daitezkeela",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "esatean",
+      "lemma": "esan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "debekatzea",
+      "lemma": "debekatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "azken",
+      "lemma": "azken",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "aukera",
+      "lemma": "aukera",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "beharko",
+      "lemma": "behar_izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "litzateke",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hitzaldien",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "gehiegizkoa",
+      "lemma": "gehiegizko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "murriztu",
+      "lemma": "murriztu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hobe",
+      "lemma": "hobe",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaidatu",
+      "lemma": "eztabaidatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gezurtatzea",
+      "lemma": "gezurtatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "errepresioak",
+      "lemma": "errepresio",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrako",
+      "lemma": "kontrako",
+      "pos": "ADP",
+      "case": "locative"
+    },
+    {
+      "token": "efektuak",
+      "lemma": "efektu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sor",
+      "lemma": "sortu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "baititzake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "demokratiko",
+      "lemma": "demokratiko",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "baten",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": "oinarrietako",
+      "lemma": "oinarri",
+      "pos": "NOUN",
+      "case": "locative"
+    },
+    {
+      "token": "bat",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "horren",
+      "lemma": "hori",
+      "pos": "DET",
+      "case": "genitive"
+    },
+    {
+      "token": "defentsa",
+      "lemma": "defentsa",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezin",
+      "lemma": "ezin",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "ahaztu",
+      "lemma": "ahaztu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "gai",
+      "lemma": "gai",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "delikatua",
+      "lemma": "delikatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "nire",
+      "lemma": "ni",
+      "pos": "PRON",
+      "case": "unknown"
+    },
+    {
+      "token": "ustez",
+      "lemma": "uste",
+      "pos": "NOUN",
+      "case": "instrumental"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "muturreko",
+      "lemma": "mutur",
+      "pos": "NOUN",
+      "case": "locative"
+    },
+    {
+      "token": "kasuetan",
+      "lemma": "kasu",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "bakarrik",
+      "lemma": "bakarrik",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "hartu",
+      "lemma": "hartu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "beharko",
+      "lemma": "behar_izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "litzateke",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "kontuan",
+      "lemma": "kontu",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ez",
+      "lemma": "ez",
+      "pos": "PART",
+      "case": "unknown"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "erraz",
+      "lemma": "erraz",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "konpontzen",
+      "lemma": "konpondu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "hemen",
+      "lemma": "hemen",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "nire",
+      "lemma": "ni",
+      "pos": "PRON",
+      "case": "unknown"
+    },
+    {
+      "token": "erantzuna",
+      "lemma": "erantzun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ":",
+      "lemma": ":",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "*bortizkeria",
+      "lemma": "*bortizkeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "zuzena",
+      "lemma": "zuzen",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "badu",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "*",
+      "lemma": "*",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "*gorroto",
+      "lemma": "*gorroto",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "delituak",
+      "lemma": "delitu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "*",
+      "lemma": "*",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "bultzatzen",
+      "lemma": "bultzatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dituenean",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daitezke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "horietan",
+      "lemma": "horiek",
+      "pos": "DET",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "justifikatu",
+      "lemma": "justifikatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "liteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "horrelako",
+      "lemma": "horrelako",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "kasuak",
+      "lemma": "kasu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "oso",
+      "lemma": "oso",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "zehatzak",
+      "lemma": "zehatz",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "objektiboki",
+      "lemma": "objektiboki",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "frogagarriak",
+      "lemma": "frogagarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Bestalde",
+      "lemma": "bestalde",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ideien",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbestekoa",
+      "lemma": "ezinbesteko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "plural",
+      "lemma": "plural",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "batean",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotozko",
+      "lemma": "Gorrotoz",
+      "pos": "PROPN",
+      "case": "unknown"
+    },
+    {
+      "token": "diskurtsoa",
+      "lemma": "diskurtso",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "desegokia",
+      "lemma": "desegoki",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "beti",
+      "lemma": "beti",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "hobe",
+      "lemma": "hobe",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "eztabaidaren",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "bidez",
+      "lemma": "bide",
+      "pos": "ADP",
+      "case": "instrumental"
+    },
+    {
+      "token": "aurre",
+      "lemma": "aurre",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egitea",
+      "lemma": "egin",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "z",
+      "lemma": "z",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "oso",
+      "lemma": "oso",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "delikatua",
+      "lemma": "delikatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "ados",
+      "lemma": "ados",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "nago",
+      "lemma": "egon",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldi",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "batzuk",
+      "lemma": "batzuk",
+      "pos": "DET",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daitezkeela",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "zuzenean",
+      "lemma": "zuzenean",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeriara",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "allative"
+    },
+    {
+      "token": "bultzatzen",
+      "lemma": "bultzatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiek",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "mugak",
+      "lemma": "muga",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dituzte",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ";",
+      "lemma": ";",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "horrek",
+      "lemma": "hori",
+      "pos": "DET",
+      "case": "ergative"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzen",
+      "lemma": "bermatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "du",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "arazo",
+      "lemma": "arazo",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiago",
+      "lemma": "gehiago",
+      "pos": "DET",
+      "case": "absolutive"
+    },
+    {
+      "token": "sor",
+      "lemma": "sortu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "ditzake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasunak",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "murrizten",
+      "lemma": "murriztu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "badira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "polemikoekin",
+      "lemma": "polemiko",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "aurrez",
+      "lemma": "aurrez",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "aurre",
+      "lemma": "aurre",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "aritzea",
+      "lemma": "aritu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "eraginkorragoa",
+      "lemma": "eraginkor",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "erabiliz",
+      "lemma": "erabili",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "gehiegizkoa",
+      "lemma": "gehiegizko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "oinarrizko",
+      "lemma": "oinarrizko",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "printzipioak",
+      "lemma": "printzipio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "kaltetzeko",
+      "lemma": "kaltetu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "arriskua",
+      "lemma": "arrisku",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "du",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "gaude",
+      "lemma": "egon",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldi",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontrolatzean",
+      "lemma": "kontrolatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "neurtua",
+      "lemma": "neurtu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "du",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bultzatzen",
+      "lemma": "bultzatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzak",
+      "lemma": "hitz",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "horrelakoetan",
+      "lemma": "horrelako",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "esku-hartzea",
+      "lemma": "esku+-+hartze",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "erabilerak",
+      "lemma": "erabilera",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrako",
+      "lemma": "kontrako",
+      "pos": "ADP",
+      "case": "locative"
+    },
+    {
+      "token": "efektua",
+      "lemma": "efektu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartea",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "polarizatuz",
+      "lemma": "polarizatu",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "ideien",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "oztopatuz",
+      "lemma": "oztopatu",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Arauak",
+      "lemma": "arau",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "argiak",
+      "lemma": "argi",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "proportzionalak",
+      "lemma": "proportzional",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dute",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "babestu",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartean",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "elkarbizitza",
+      "lemma": "elkarbizitza",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzeko",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbestekoa",
+      "lemma": "ezinbesteko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeriara",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "allative"
+    },
+    {
+      "token": "zuzenean",
+      "lemma": "zuzenean",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "bultzatzen",
+      "lemma": "bultzatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gorroto",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "delituak",
+      "lemma": "delitu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dituzten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "horiek",
+      "lemma": "horiek",
+      "pos": "DET",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontrolatzea",
+      "lemma": "kontrolatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "ulertzekoa",
+      "lemma": "ulertu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Egungo",
+      "lemma": "egun",
+      "pos": "ADV",
+      "case": "locative"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "plural",
+      "lemma": "plural",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "batean",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ezinbestekoa",
+      "lemma": "ezinbesteko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "lehenestea",
+      "lemma": "leheneste",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizkoa",
+      "lemma": "gehiegizko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskutsua",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "murriztu",
+      "lemma": "murriztu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gatazka",
+      "lemma": "gatazka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "gehiago",
+      "lemma": "gehiago",
+      "pos": "DET",
+      "case": "absolutive"
+    },
+    {
+      "token": "sortuz",
+      "lemma": "sortu",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "negatiboei",
+      "lemma": "negatibo",
+      "pos": "ADJ",
+      "case": "dative"
+    },
+    {
+      "token": "erantzuteko",
+      "lemma": "erantzun",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "modurik",
+      "lemma": "modu",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eraginkorrena",
+      "lemma": "eraginkor",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ireki",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "arrazionala",
+      "lemma": "arrazional",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "denean",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "oso",
+      "lemma": "oso",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "zehatz",
+      "lemma": "zehatz",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "proportzionatua",
+      "lemma": "proportzionatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "du",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldi",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarri",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontrolatzeak",
+      "lemma": "kontrolatu",
+      "pos": "VERB",
+      "case": "ergative"
+    },
+    {
+      "token": "garrantzia",
+      "lemma": "garrantzi",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "du",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "batez",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dutenean",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Halako",
+      "lemma": "halako",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "egoeretan",
+      "lemma": "egoera",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kohesioa",
+      "lemma": "kohesio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "babestea",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegikeria",
+      "lemma": "gehiegikeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskutsua",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ideiak",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaidatzeko",
+      "lemma": "eztabaidatu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "aukera",
+      "lemma": "aukera",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "mugatu",
+      "lemma": "mugatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasun",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "oinarria",
+      "lemma": "oinarri",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ahultzen",
+      "lemma": "ahuldu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duelako",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "desegokiei",
+      "lemma": "desegoki",
+      "pos": "NOUN",
+      "case": "dative"
+    },
+    {
+      "token": "aurre",
+      "lemma": "aurre",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egiteko",
+      "lemma": "egin",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "tresnarik",
+      "lemma": "tresna",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eraginkorrena",
+      "lemma": "eraginkor",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "argia",
+      "lemma": "argi",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ez",
+      "lemma": "ez",
+      "pos": "PART",
+      "case": "unknown"
+    },
+    {
+      "token": "isiltasuna",
+      "lemma": "isiltasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "giltzarria",
+      "lemma": "giltzarri",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "nago",
+      "lemma": "egon",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "zuzenean",
+      "lemma": "zuzenean",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "babesteko",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "neurriak",
+      "lemma": "neurri",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "justifikatuak",
+      "lemma": "justifikatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daitezke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Halako",
+      "lemma": "halako",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiek",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "askatasunarekiko",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "locative"
+    },
+    {
+      "token": "muga",
+      "lemma": "muga",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "argi",
+      "lemma": "argi",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "bat",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": "gainditzen",
+      "lemma": "gainditu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dute",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Alabaina",
+      "lemma": "alabaina",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "neurrizkoa",
+      "lemma": "neurrizko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ez",
+      "lemma": "ez",
+      "pos": "PART",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltetzeko",
+      "lemma": "kaltetu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideiei",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "dative"
+    },
+    {
+      "token": "aurre",
+      "lemma": "aurre",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egiteko",
+      "lemma": "egin",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "modurik",
+      "lemma": "modu",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "onena",
+      "lemma": "on",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ireki",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "informatua",
+      "lemma": "informatu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizkoa",
+      "lemma": "gehiegizko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "gatazkak",
+      "lemma": "gatazka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "areagotzeko",
+      "lemma": "areagotu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "tresna",
+      "lemma": "tresna",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bihur",
+      "lemma": "bihurtu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbestekoa",
+      "lemma": "ezinbesteko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ezin",
+      "lemma": "ezin",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "onartu",
+      "lemma": "onartu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzea",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskuan",
+      "lemma": "arrisku",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "jartzen",
+      "lemma": "jarri",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "badu",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Halako",
+      "lemma": "halako",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "kasuetan",
+      "lemma": "kasu",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "baina",
+      "lemma": "baina",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "neurritsu",
+      "lemma": "neurritsu",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "argudio",
+      "lemma": "argudio",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "sendoetan",
+      "lemma": "sendo",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "oinarrituta",
+      "lemma": "oinarritu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizko",
+      "lemma": "gehiegizko",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "zapaldu",
+      "lemma": "zapaldu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "osasuntsuak",
+      "lemma": "osasuntsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "galarazten",
+      "lemma": "galaraz",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "ditu",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "demokratiko",
+      "lemma": "demokratiko",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "batean",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "elkarrizketa",
+      "lemma": "elkarrizketa",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekiak",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "ideien",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "aurre",
+      "lemma": "aurre",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egiteko",
+      "lemma": "egin",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "tresnarik",
+      "lemma": "tresna",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eraginkorrenak",
+      "lemma": "eraginkor",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "azken",
+      "lemma": "azken",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "baliabidea",
+      "lemma": "baliabide",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "beharko",
+      "lemma": "behar_izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "litzateke",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Argi",
+      "lemma": "argi",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "dago",
+      "lemma": "egon",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "diskriminazioa",
+      "lemma": "diskriminazio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bultzatzen",
+      "lemma": "bultzatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "badu",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ondorio",
+      "lemma": "ondorio",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "saihesteko",
+      "lemma": "saihestu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "justifikatu",
+      "lemma": "justifikatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "daitekeela",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "kohesioa",
+      "lemma": "kohesio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "babesten",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "tresna",
+      "lemma": "tresna",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskutsua",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegikeria",
+      "lemma": "gehiegikeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ekar",
+      "lemma": "ekarri",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "baitezake",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "zapal",
+      "lemma": "zapali",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "okerrei",
+      "lemma": "oker",
+      "pos": "NOUN",
+      "case": "dative"
+    },
+    {
+      "token": "aurre",
+      "lemma": "aurre",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egiteko",
+      "lemma": "egin",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "bidea",
+      "lemma": "bide",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ireki",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "informatua",
+      "lemma": "informatu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ez",
+      "lemma": "ez",
+      "pos": "PART",
+      "case": "unknown"
+    },
+    {
+      "token": "isiltzea",
+      "lemma": "isili",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbestekoa",
+      "lemma": "ezinbesteko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "beti",
+      "lemma": "beti",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "diskriminazioa",
+      "lemma": "diskriminazio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "badu",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "proposatzen",
+      "lemma": "proposatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duen",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "argudioa",
+      "lemma": "argudio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ulergarria",
+      "lemma": "ulergarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "kohesioa",
+      "lemma": "kohesio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "babesteko",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Gisa",
+      "lemma": "gisa",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "honetan",
+      "lemma": "hau",
+      "pos": "DET",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "kalteak",
+      "lemma": "kalte",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "prebenitu",
+      "lemma": "prebenitu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "daitezke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizkoa",
+      "lemma": "gehiegizko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "zapaltzeko",
+      "lemma": "zapaldu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "aukera",
+      "lemma": "aukera",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "zabaltzen",
+      "lemma": "zabaldu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "du",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "neutralizatzeko",
+      "lemma": "neutralizatu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "biderik",
+      "lemma": "bide",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eraginkorrena",
+      "lemma": "eraginkor",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekia",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ez",
+      "lemma": "ez",
+      "pos": "PART",
+      "case": "unknown"
+    },
+    {
+      "token": "isiltasuna",
+      "lemma": "isiltasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "azken",
+      "lemma": "azken",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "aukera",
+      "lemma": "aukera",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "mantenduz",
+      "lemma": "mantendu",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsuratzea",
+      "lemma": "zentsuratu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "segurtasun",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "kohesio",
+      "lemma": "kohesio",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "soziala",
+      "lemma": "sozial",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzeko",
+      "lemma": "bermatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "justifika",
+      "lemma": "justifika",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "liteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "modernoetan",
+      "lemma": "moderno",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasunaren",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "mugak",
+      "lemma": "muga",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbestean",
+      "lemma": "ezinbestean",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ezarri",
+      "lemma": "ezarri",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "halako",
+      "lemma": "halako",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "kasuetan",
+      "lemma": "kasu",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskua",
+      "lemma": "arrisku",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "du",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ":",
+      "lemma": ":",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "boterearen",
+      "lemma": "botere",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "gehiegikeria",
+      "lemma": "gehiegikeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "ideien",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "kontrola",
+      "lemma": "kontrol",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ekar",
+      "lemma": "ekarri",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Horregatik",
+      "lemma": "horregatik",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "azken",
+      "lemma": "azken",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "irtenbidea",
+      "lemma": "irtenbide",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "elkarrizketa",
+      "lemma": "elkarrizketa",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekiak",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "lehenetsi",
+      "lemma": "lehenetsi",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "okerrei",
+      "lemma": "oker",
+      "pos": "NOUN",
+      "case": "dative"
+    },
+    {
+      "token": "aurre",
+      "lemma": "aurre",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egiteko",
+      "lemma": "egin",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "tresna",
+      "lemma": "tresna",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eraginkor",
+      "lemma": "eraginkor",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gisa",
+      "lemma": "gisa",
+      "pos": "ADP",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "gakoa",
+      "lemma": "gako",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zure",
+      "lemma": "zu",
+      "pos": "PRON",
+      "case": "unknown"
+    },
+    {
+      "token": "argudioa",
+      "lemma": "argudio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "ulertzen",
+      "lemma": "ulertu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dut",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ":",
+      "lemma": ":",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsuratzea",
+      "lemma": "zentsuratu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "segurutzat",
+      "lemma": "seguru",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "har",
+      "lemma": "hartu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "liteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Baliteke",
+      "lemma": "edin",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "kohesioa",
+      "lemma": "kohesio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzea",
+      "lemma": "bermatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "horrela",
+      "lemma": "horrela",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "nor",
+      "lemma": "nor",
+      "pos": "PRON",
+      "case": "unknown"
+    },
+    {
+      "token": "zehazten",
+      "lemma": "zehaztu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "du",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "zer",
+      "lemma": "zer",
+      "pos": "DET",
+      "case": "absolutive"
+    },
+    {
+      "token": "den",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "\"",
+      "lemma": "\"",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "bidegabea",
+      "lemma": "bidegabe",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "\"",
+      "lemma": "\"",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "?",
+      "lemma": "?",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegizkoa",
+      "lemma": "gehiegizko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "erraz",
+      "lemma": "erraz",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "gerta",
+      "lemma": "gertatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "boterearen",
+      "lemma": "botere",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "gehiegikeria",
+      "lemma": "gehiegikeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "justifikatu",
+      "lemma": "justifikatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "elkarrizketa",
+      "lemma": "elkarrizketa",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekiak",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "eraso",
+      "lemma": "eraso",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "horiei",
+      "lemma": "horiek",
+      "pos": "DET",
+      "case": "dative"
+    },
+    {
+      "token": "aurre",
+      "lemma": "aurre",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egiteko",
+      "lemma": "egin",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "bitartekorik",
+      "lemma": "bitarteko",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "sendoenak",
+      "lemma": "sendo",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "babestea",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "ezinbestekoa",
+      "lemma": "ezinbesteko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ados",
+      "lemma": "ados",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldi",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "bortitzak",
+      "lemma": "bortitz",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dutenak",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "absolutive"
+    },
+    {
+      "token": "zentsuratzea",
+      "lemma": "zentsuratu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "tentsio",
+      "lemma": "tentsio",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "sozialak",
+      "lemma": "sozial",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "saihesteko",
+      "lemma": "saihestu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "tresna",
+      "lemma": "tresna",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Segurtasun",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kolektiboa",
+      "lemma": "kolektibo",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "lehentasunezkoa",
+      "lemma": "lehentasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "batean",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskutsua",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daiteke",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "askotan",
+      "lemma": "asko",
+      "pos": "DET",
+      "case": "unknown"
+    },
+    {
+      "token": "botere",
+      "lemma": "botere",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egiturek",
+      "lemma": "egitura",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "abusatu",
+      "lemma": "abusatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dezaketelako",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Norbaitek",
+      "lemma": "norbait",
+      "pos": "PRON",
+      "case": "ergative"
+    },
+    {
+      "token": "hitzaldi",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "bat",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": "\"",
+      "lemma": "\"",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarri",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "\"",
+      "lemma": "\"",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "bezala",
+      "lemma": "bezala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "etiketatzeak",
+      "lemma": "etiketatu",
+      "pos": "VERB",
+      "case": "ergative"
+    },
+    {
+      "token": "interpretazio",
+      "lemma": "interpretazio",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "subjektiboak",
+      "lemma": "subjektibo",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "sor",
+      "lemma": "sortu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "ditzake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ideien",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "errepresioaren",
+      "lemma": "errepresio",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "arriskupean",
+      "lemma": "arriskupe",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "jarriz",
+      "lemma": "jarri",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekia",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "heziketa",
+      "lemma": "heziketa",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "tresna",
+      "lemma": "tresna",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eraginkorragoak",
+      "lemma": "eraginkor",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsuraren",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "aldekoek",
+      "lemma": "aldeko",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "diote",
+      "lemma": "esan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldi",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "nola",
+      "lemma": "nola",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bultzatzen",
+      "lemma": "bultzatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dutenak",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "kaltetzen",
+      "lemma": "kaltetu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dutela",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Horregatik",
+      "lemma": "horregatik",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "izan",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "daitekeela",
+      "lemma": "edin",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "uste",
+      "lemma": "uste",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dute",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ordena",
+      "lemma": "ordena",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "soziala",
+      "lemma": "sozial",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "babesteko",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "erabaki",
+      "lemma": "erabaki",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "horiek",
+      "lemma": "horiek",
+      "pos": "DET",
+      "case": "absolutive"
+    },
+    {
+      "token": "nork",
+      "lemma": "nor",
+      "pos": "PRON",
+      "case": "unknown"
+    },
+    {
+      "token": "hartzen",
+      "lemma": "hartu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dituen",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "gakoa",
+      "lemma": "gako",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsurak",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "botere",
+      "lemma": "botere",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "gehiegikeria",
+      "lemma": "gehiegikeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasunaren",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "murrizketa",
+      "lemma": "murrizketa",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sor",
+      "lemma": "sortu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "ditzake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaidatzea",
+      "lemma": "eztabaidatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "kontrastatzea",
+      "lemma": "kontrastatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "bide",
+      "lemma": "bide",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "hobea",
+      "lemma": "hobe",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "heldu",
+      "lemma": "heldu",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "demokratiko",
+      "lemma": "demokratiko",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "batek",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "duen",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "mantenduz",
+      "lemma": "mantendu",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsuraren",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "aldekoek",
+      "lemma": "aldeko",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "diote",
+      "lemma": "esan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "kalumnia",
+      "lemma": "kalumnia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "mugatzea",
+      "lemma": "mugatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "harmonia",
+      "lemma": "harmoni",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzeko",
+      "lemma": "bermatu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "tresna",
+      "lemma": "tresna",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eraginkorra",
+      "lemma": "eraginkor",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "dela",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Horrek",
+      "lemma": "hori",
+      "pos": "DET",
+      "case": "ergative"
+    },
+    {
+      "token": "bizikidetza",
+      "lemma": "bizikidetza",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "hobea",
+      "lemma": "hobe",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "sor",
+      "lemma": "sortu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dezakeela",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "argudiatzen",
+      "lemma": "argudiatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dute",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sarritan",
+      "lemma": "sarritan",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "interpretazio",
+      "lemma": "interpretazio",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "subjektiboetan",
+      "lemma": "subjektibo",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "oinarritzen",
+      "lemma": "oinarritu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "horrek",
+      "lemma": "hori",
+      "pos": "DET",
+      "case": "ergative"
+    },
+    {
+      "token": "botere",
+      "lemma": "botere",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "abusuak",
+      "lemma": "abusu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasunaren",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "urraketa",
+      "lemma": "urraketa",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sor",
+      "lemma": "sortu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "ditzake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideiak",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaidatuz",
+      "lemma": "eztabaidatu",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "kritikoki",
+      "lemma": "kritikoki",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "aztertuz",
+      "lemma": "aztertu",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "heldutasuna",
+      "lemma": "heldutasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "indartzen",
+      "lemma": "indartu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "horrek",
+      "lemma": "hori",
+      "pos": "DET",
+      "case": "ergative"
+    },
+    {
+      "token": "azkenean",
+      "lemma": "azkenean",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "benetako",
+      "lemma": "benetako",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "harmonia",
+      "lemma": "harmoni",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "du",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "delikatua",
+      "lemma": "delikatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsuraren",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "aldekoek",
+      "lemma": "aldeko",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "diote",
+      "lemma": "esan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "diskriminazioa",
+      "lemma": "diskriminazio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bultzatzen",
+      "lemma": "bultzatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "mugatzeak",
+      "lemma": "mugatu",
+      "pos": "VERB",
+      "case": "ergative"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzen",
+      "lemma": "bermatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duela",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Horrek",
+      "lemma": "hori",
+      "pos": "DET",
+      "case": "ergative"
+    },
+    {
+      "token": "talde",
+      "lemma": "talde",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "zaurgarrien",
+      "lemma": "zaurgarri",
+      "pos": "ADJ",
+      "case": "genitive"
+    },
+    {
+      "token": "babesa",
+      "lemma": "babes",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "indartu",
+      "lemma": "indartu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "lezake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askotan",
+      "lemma": "asko",
+      "pos": "DET",
+      "case": "unknown"
+    },
+    {
+      "token": "subjektiboa",
+      "lemma": "subjektiboa",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "boterearen",
+      "lemma": "botere",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "gehiegikeria",
+      "lemma": "gehiegikeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "erraztu",
+      "lemma": "erraztu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideien",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekia",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatuz",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "gizarteak",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "diskurtso",
+      "lemma": "diskurtso",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "gailendu",
+      "lemma": "gailendu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "babestu",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "tresnarik",
+      "lemma": "tresna",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "onena",
+      "lemma": "on",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "hitzaldi",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "okerrak",
+      "lemma": "oker",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "neutralizatzeko",
+      "lemma": "neutralizatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsuraren",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "aldekoek",
+      "lemma": "aldeko",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "diote",
+      "lemma": "esan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "gorroto-hizkerak",
+      "lemma": "gorroto-hizkera",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiek",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "gizarteari",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "dative"
+    },
+    {
+      "token": "kalte",
+      "lemma": "kalte",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "egiten",
+      "lemma": "egin",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "diotela",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "dela",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "harmonia",
+      "lemma": "harmoni",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzeko",
+      "lemma": "bermatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Talde",
+      "lemma": "talde",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "zaurgarriak",
+      "lemma": "zaurgarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "babestea",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "justifikazio",
+      "lemma": "justifikazio",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "nagusia",
+      "lemma": "nagusi",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "erabakitzea",
+      "lemma": "erabaki",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "zer",
+      "lemma": "zer",
+      "pos": "DET",
+      "case": "unknown"
+    },
+    {
+      "token": "\"",
+      "lemma": "\"",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarria",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "\"",
+      "lemma": "\"",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "den",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "norbanakoen",
+      "lemma": "norbanako",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "askatasunari",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "dative"
+    },
+    {
+      "token": "kalte",
+      "lemma": "kalte",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "egin",
+      "lemma": "egin",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "diezaioke",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "botere-abusuak",
+      "lemma": "botere-abusu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "tarteko",
+      "lemma": "tarte",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Diskurtso",
+      "lemma": "diskurtso",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekia",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "ideiak",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "kontrastatzeko",
+      "lemma": "kontrastatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "ideologia",
+      "lemma": "ideologia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "desegiteko",
+      "lemma": "desegin",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "biderik",
+      "lemma": "bide",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egokiena",
+      "lemma": "egoki",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsuran",
+      "lemma": "zentsu",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "oinarritu",
+      "lemma": "oinarritu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "beharrean",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Balantza",
+      "lemma": "balantza",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "delikatua",
+      "lemma": "delikatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsuraren",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "aldekoek",
+      "lemma": "aldeko",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "diote",
+      "lemma": "esan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "desinformazioa",
+      "lemma": "desinformazio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "harmoniarako",
+      "lemma": "harmonia",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "direla",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "horiek",
+      "lemma": "horiek",
+      "pos": "DET",
+      "case": "absolutive"
+    },
+    {
+      "token": "mugatzea",
+      "lemma": "mugatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "dela",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "babes",
+      "lemma": "babes",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kolektiborako",
+      "lemma": "kolektibo",
+      "pos": "ADJ",
+      "case": "locative"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsuraren",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "arriskua",
+      "lemma": "arrisku",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "botere-abusuetan",
+      "lemma": "botere-abusu",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "datza",
+      "lemma": "etzan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ";",
+      "lemma": ";",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "nork",
+      "lemma": "nor",
+      "pos": "PRON",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "nola",
+      "lemma": "nola",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "definitzen",
+      "lemma": "definitu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "du",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "\"",
+      "lemma": "\"",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarria",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "\"",
+      "lemma": "\"",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "?",
+      "lemma": "?",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "txarrak",
+      "lemma": "txar",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekian",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "desegiten",
+      "lemma": "desegin",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ez",
+      "lemma": "ez",
+      "pos": "PART",
+      "case": "unknown"
+    },
+    {
+      "token": "isiltzean",
+      "lemma": "isili",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "demokratiko",
+      "lemma": "demokratiko",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "baten",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": "zutabea",
+      "lemma": "zutabe",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "oreka",
+      "lemma": "oreka",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "findua",
+      "lemma": "findu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "du",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsuraren",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "aldekoek",
+      "lemma": "aldeko",
+      "pos": "NOUN",
+      "case": "ergative"
+    },
+    {
+      "token": "diote",
+      "lemma": "esan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "gorrotoa",
+      "lemma": "gorroto",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "desinformazioa",
+      "lemma": "desinformazio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "hitzaldiak",
+      "lemma": "hitzaldi",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "mugatu",
+      "lemma": "mugatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "direla",
+      "lemma": "izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzeko",
+      "lemma": "bermatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "talde",
+      "lemma": "talde",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "zaurgarriak",
+      "lemma": "zaurgarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "babesteko",
+      "lemma": "babestu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Haien",
+      "lemma": "haiek",
+      "pos": "DET",
+      "case": "genitive"
+    },
+    {
+      "token": "ustez",
+      "lemma": "uste",
+      "pos": "NOUN",
+      "case": "instrumental"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "arduratsua",
+      "lemma": "arduratsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizartearen",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "harmoniarako",
+      "lemma": "harmonia",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "botere-abusua",
+      "lemma": "botere-abusu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "norberaren",
+      "lemma": "norbera",
+      "pos": "PRON",
+      "case": "genitive"
+    },
+    {
+      "token": "interpretazio",
+      "lemma": "interpretazio",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "subjektiboak",
+      "lemma": "subjektibo",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "eragin",
+      "lemma": "eragin",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "ditzake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Diskurtso",
+      "lemma": "diskurtso",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekia",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntza",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "ideia",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "kaltegarriak",
+      "lemma": "kaltegarri",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "neutralizatzeko",
+      "lemma": "neutralizatu",
+      "pos": "VERB",
+      "case": "locative"
+    },
+    {
+      "token": "bide",
+      "lemma": "bide",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "egokiak",
+      "lemma": "egoki",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ohartuz",
+      "lemma": "ohartu",
+      "pos": "VERB",
+      "case": "instrumental"
+    },
+    {
+      "token": "gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "demokratikoek",
+      "lemma": "demokratiko",
+      "pos": "ADJ",
+      "case": "ergative"
+    },
+    {
+      "token": "askatasunaren",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "aldeko",
+      "lemma": "aldeko",
+      "pos": "ADP",
+      "case": "locative"
+    },
+    {
+      "token": "balioa",
+      "lemma": "balio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "lehenetsi",
+      "lemma": "lehenetsi",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "behar",
+      "lemma": "behar",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "dutela",
+      "lemma": "ukan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Zentsura",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "defendatzen",
+      "lemma": "defendatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dutenek",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "absolutive"
+    },
+    {
+      "token": "gorroto-hizkera",
+      "lemma": "gorroto-hizkera",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "indarkeria",
+      "lemma": "indarkeria",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "sustatzen",
+      "lemma": "sustatu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "duten",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "mezuak",
+      "lemma": "mezu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "edo",
+      "lemma": "edo",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "desinformazioa",
+      "lemma": "desinformazio",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "gizartearentzat",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "arriskutsuak",
+      "lemma": "arriskutsu",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "direla",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "diote",
+      "lemma": "esan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "horiek",
+      "lemma": "horiek",
+      "pos": "DET",
+      "case": "absolutive"
+    },
+    {
+      "token": "mugatzea",
+      "lemma": "mugatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": "beharrezkoa",
+      "lemma": "beharrezko",
+      "pos": "ADJ",
+      "case": "absolutive"
+    },
+    {
+      "token": "dela",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": "segurtasuna",
+      "lemma": "segurtasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "harmonia",
+      "lemma": "harmoni",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "bermatzeko",
+      "lemma": "bermatu",
+      "pos": "VERB",
+      "case": "absolutive"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Hala",
+      "lemma": "hala",
+      "pos": "ADV",
+      "case": "unknown"
+    },
+    {
+      "token": "ere",
+      "lemma": "ere",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "adierazpen",
+      "lemma": "adierazpen",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "askatasuna",
+      "lemma": "askatasun",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "oinarrizko",
+      "lemma": "oinarrizko",
+      "pos": "ADJ",
+      "case": "unknown"
+    },
+    {
+      "token": "eskubidea",
+      "lemma": "eskubide",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "da",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "zentsurak",
+      "lemma": "zentsura",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "botere-abusua",
+      "lemma": "botere-abusu",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eragin",
+      "lemma": "eragin",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dezake",
+      "lemma": "ezan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "subjektibotasunaren",
+      "lemma": "subjektibotasun",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "menpe",
+      "lemma": "menpe",
+      "pos": "ADP",
+      "case": "unknown"
+    },
+    {
+      "token": "egonik",
+      "lemma": "egon",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Ideiak",
+      "lemma": "ideia",
+      "pos": "NOUN",
+      "case": "absolutive"
+    },
+    {
+      "token": "eztabaida",
+      "lemma": "eztabaida",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "irekian",
+      "lemma": "ireki",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "gainditzen",
+      "lemma": "gainditu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "dira",
+      "lemma": "izan",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ",",
+      "lemma": ",",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "ez",
+      "lemma": "ez",
+      "pos": "PART",
+      "case": "unknown"
+    },
+    {
+      "token": "isiltzean",
+      "lemma": "isili",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    },
+    {
+      "token": "Gizarte",
+      "lemma": "gizarte",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "erresiliente",
+      "lemma": "erresiliente",
+      "pos": "NOUN",
+      "case": "genitive"
+    },
+    {
+      "token": "batek",
+      "lemma": "bat",
+      "pos": "NUM",
+      "case": "unknown"
+    },
+    {
+      "token": "hezkuntzan",
+      "lemma": "hezkuntza",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "eta",
+      "lemma": "eta",
+      "pos": "CCONJ",
+      "case": "unknown"
+    },
+    {
+      "token": "elkarrizketan",
+      "lemma": "elkarrizketa",
+      "pos": "NOUN",
+      "case": "unknown"
+    },
+    {
+      "token": "inbertitu",
+      "lemma": "inbertitu",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "beharko",
+      "lemma": "behar_izan",
+      "pos": "VERB",
+      "case": "unknown"
+    },
+    {
+      "token": "luke",
+      "lemma": "edun",
+      "pos": "AUX",
+      "case": "unknown"
+    },
+    {
+      "token": ".",
+      "lemma": ".",
+      "pos": "PUNCT",
+      "case": "unknown"
+    }
+  ]
+}

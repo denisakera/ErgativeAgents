@@ -1,0 +1,93 @@
+{
+    "matrix": {
+        "Publikoa": {
+            "Ikuskapena": 3,
+            "Arrisku kudeaketa": 3,
+            "Arau-ezarpena": 2,
+            "Gardentasuna": 4,
+            "Eskubideen babesa": 4
+        },
+        "Korporazioak": {
+            "Ikuskapena": 2,
+            "Arrisku kudeaketa": 4,
+            "Arau-ezarpena": 3,
+            "Gardentasuna": 1,
+            "Eskubideen babesa": 1
+        },
+        "Gobernuak": {
+            "Ikuskapena": 2,
+            "Arrisku kudeaketa": 2,
+            "Arau-ezarpena": 3,
+            "Gardentasuna": 2,
+            "Eskubideen babesa": 2
+        },
+        "Sistema Irekiak": {
+            "Ikuskapena": 4,
+            "Arrisku kudeaketa": 3,
+            "Arau-ezarpena": 2,
+            "Gardentasuna": 5,
+            "Eskubideen babesa": 4
+        },
+        "Erakundeak": {
+            "Ikuskapena": 2,
+            "Arrisku kudeaketa": 2,
+            "Arau-ezarpena": 2,
+            "Gardentasuna": 2,
+            "Eskubideen babesa": 2
+        }
+    },
+    "language": "basque",
+    "translated_matrix": {
+        "Public": {
+            "Oversight": 3,
+            "Risk management": 3,
+            "Norm-setting": 2,
+            "Transparency": 4,
+            "Safeguarding rights": 4
+        },
+        "Corporations": {
+            "Oversight": 2,
+            "Risk management": 4,
+            "Norm-setting": 3,
+            "Transparency": 1,
+            "Safeguarding rights": 1
+        },
+        "Governments": {
+            "Oversight": 2,
+            "Risk management": 2,
+            "Norm-setting": 3,
+            "Transparency": 2,
+            "Safeguarding rights": 2
+        },
+        "Open Systems": {
+            "Oversight": 4,
+            "Risk management": 3,
+            "Norm-setting": 2,
+            "Transparency": 5,
+            "Safeguarding rights": 4
+        },
+        "Institutions": {
+            "Oversight": 2,
+            "Risk management": 2,
+            "Norm-setting": 2,
+            "Transparency": 2,
+            "Safeguarding rights": 2
+        }
+    },
+    "translations": {
+        "agents": {
+            "Publikoa": "Public",
+            "Korporazioak": "Corporations",
+            "Gobernuak": "Governments",
+            "Sistema Irekiak": "Open Systems",
+            "Erakundeak": "Institutions"
+        },
+        "responsibilities": {
+            "Ikuskapena": "Oversight",
+            "Arrisku kudeaketa": "Risk management",
+            "Arau-ezarpena": "Norm-setting",
+            "Gardentasuna": "Transparency",
+            "Eskubideen babesa": "Safeguarding rights"
+        }
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "total_utterances": 20,
+    "total_words": 1960,
+    "unique_words": 316,
+    "word_frequencies": {
+        "and": 105,
+        "ai": 78,
+        "innovation": 51,
+        "open": 42,
+        "safety": 36,
+        "risks": 33,
+        "of": 32,
+        "a": 31,
+        "in": 30,
+        "control": 29,
+        "while": 29,
+        "misuse": 28,
+        "access": 26,
+        "infrastructure": 25,
+        "ensures": 24,
+        "over": 22,
+        "oversight": 22,
+        "diverse": 21,
+        "can": 21,
+        "societal": 21,
+        "it": 21,
+        "power": 20,
+        "conclusion": 20,
+        "with": 20,
+        "to": 19,
+        "few": 19,
+        "global": 19,
+        "argue": 18,
+        "fosters": 18,
+        "the": 18,
+        "however": 17,
+        "without": 17,
+        "accountability": 16,
+        "monopolistic": 16,
+        "equitable": 16,
+        "collaboration": 16,
+        "transparency": 15,
+        "by": 15,
+        "centralized": 15,
+        "monopolies": 14,
+        "proponents": 13,
+        "profit": 13,
+        "avoiding": 13,
+        "public": 12,
+        "community": 12,
+        "governance": 12,
+        "concerns": 12,
+        "this": 12,
+        "voices": 12,
+        "transparent": 12
+    },
+    "pronoun_usage": {
+        "collective_nominative": {
+            "we": 0
+        },
+        "collective_accusative": {
+            "us": 0
+        },
+        "first_person_singular_nominative": {
+            "i": 0
+        }
+    }
+}
