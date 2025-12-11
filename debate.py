@@ -60,19 +60,19 @@ Based on your debate conclusions, rewrite this regulation.
 
 REGULATION: "{regulation}"
 
-Analyze and respond in this EXACT JSON format:
+Respond with ONLY valid JSON (no markdown code blocks). Use this EXACT format:
 {{
-  "critique": "Your critique of the original regulation - what's missing or unclear about WHO acts and WHO is affected",
+  "critique": "Your critique - what's missing about WHO acts and WHO is affected",
   "agent": {{
-    "text": "who must act (the responsible party)",
+    "text": "who must act",
     "explicit": true or false
   }},
   "patient": {{
-    "text": "who is affected/protected",
+    "text": "who is affected",
     "explicit": true or false
   }},
-  "rewrite": "Your complete rewritten regulation making agent and patient explicit",
-  "example": "A concrete example showing how your rewritten regulation would apply"
+  "rewrite": "Your rewritten regulation",
+  "example": "A concrete example"
 }}
 """,
 
@@ -81,13 +81,13 @@ Zure eztabaidako ondorioetan oinarrituta, berridatzi araudi hau.
 
 ARAUDIA: "{regulation}"
 
-Aztertu eta erantzun JSON formatu honetan ZEHAZKI:
+Erantzun BAKARRIK JSON baliozkoarekin (ez erabili markdown kode blokeak). Formatu hau erabili:
 {{
-  "kritika": "Zure kritika jatorrizko araudiari buruz - zer falta da edo zer ez dago argi NORk jarduten duen eta NOR den eragina",
+  "kritika": "Zure kritika - zer falta da NORk jarduten duen eta NOR den eragina argitzeko",
   "eragilea": {{
-    "testua": "nork jardun behar duen (ardura duena)",
+    "testua": "nork jardun behar duen",
     "esplizitua": true edo false,
-    "kasua": "ergatiboa (-k/-ek) edo beste bat"
+    "kasua": "ergatiboa edo absolutiboa"
   }},
   "pazienta": {{
     "testua": "nor den eragina/babestua",
@@ -136,7 +136,7 @@ class ModelDebate:
         self.api_base = "https://api.openai.com/v1/chat/completions"
         self.temperature = temperature or DEFAULT_CONFIG["temperature"]
 
-    def get_model_response(self, history: List[dict], model: str) -> Tuple[str, str]:
+    def get_model_response(self, history: List[dict], model: str, max_tokens: int = None) -> Tuple[str, str]:
         """Get response from specified model via OpenAI and its generation timestamp."""
         headers = {
             "Authorization": f"Bearer {self.api_key}",
@@ -147,7 +147,7 @@ class ModelDebate:
             "model": model,
             "messages": history,
             "temperature": self.temperature,
-            "max_tokens": DEFAULT_CONFIG["max_tokens"]
+            "max_tokens": max_tokens or DEFAULT_CONFIG["max_tokens"]
         }
         
         try:
@@ -320,10 +320,11 @@ class ModelDebate:
         
         prompt = IG_REVISION_PROMPT[language].format(regulation=regulation)
         
-        # Get revision from agent
+        # Get revision from agent (use more tokens for complete JSON)
         response, timestamp = self.get_model_response(
             history + [{"role": "user", "content": prompt}],
-            DEFAULT_CONFIG["default_model"]
+            DEFAULT_CONFIG["default_model"],
+            max_tokens=800  # More tokens for complete JSON response
         )
         
         # Try to parse JSON response
@@ -340,11 +341,18 @@ class ModelDebate:
         }
         
         try:
+            # Strip markdown code blocks if present
+            clean_response = response
+            if '```json' in clean_response:
+                clean_response = clean_response.replace('```json', '').replace('```', '')
+            elif '```' in clean_response:
+                clean_response = clean_response.replace('```', '')
+            
             # Find JSON in response (may have surrounding text)
-            json_start = response.find('{')
-            json_end = response.rfind('}') + 1
+            json_start = clean_response.find('{')
+            json_end = clean_response.rfind('}') + 1
             if json_start != -1 and json_end > json_start:
-                json_str = response[json_start:json_end]
+                json_str = clean_response[json_start:json_end]
                 parsed = json_module.loads(json_str)
                 
                 if language == "basque":
@@ -898,12 +906,8 @@ def main():
                 for line in f:
                     log_data_for_coding.append(json.loads(line))
             
-            # Find IG proposals first to calculate total items
-            ig_revisions = [e for e in log_data_for_coding if e.get('event_type') == 'ig_revision']
-            total_items = 1 + len(ig_revisions)  # 1 for debate + number of proposals
-            
             # Code entire debate
-            print(f"[1/{total_items}] Coding entire debate...")
+            print("[1/3] Coding entire debate...")
             debate_coding = coder.code_debate(log_data_for_coding, args.language)
             coding_results.append(debate_coding)
             
@@ -915,9 +919,10 @@ def main():
                 print(f"    Interpretive Total: {agg.get('interpretive_total', 'N/A')}/12")
             
             # Code IG proposals if they exist
+            ig_revisions = [e for e in log_data_for_coding if e.get('event_type') == 'ig_revision']
             if ig_revisions:
                 for i, revision in enumerate(ig_revisions):
-                    print(f"[{i+2}/{total_items}] Coding {revision.get('speaker_id', 'Unknown')}'s IG proposal...")
+                    print(f"[{i+2}/3] Coding {revision.get('speaker_id', 'Unknown')}'s IG proposal...")
                     proposal_coding = coder.code_ig_proposal(revision, args.language)
                     coding_results.append(proposal_coding)
             else:
