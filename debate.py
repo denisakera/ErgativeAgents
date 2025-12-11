@@ -820,6 +820,10 @@ def main():
                 role = "assistant" if record["speaker"] == "Agent B" else "user"
                 history_for_ig_b.append({"role": role, "content": record["content"]})
             
+            # Ensure history ends with "assistant" before IG prompt
+            if history_for_ig_b[-1]["role"] == "user":
+                history_for_ig_b.append({"role": "assistant", "content": "I understand. Let me now analyze the regulation."})
+            
             print("[Agent B] Generating IG revision...")
             ig_revision_b = debate.run_ig_revision(
                 history=history_for_ig_b,
@@ -877,4 +881,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
