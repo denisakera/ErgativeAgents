@@ -427,8 +427,8 @@ def run_analysis_pipeline(log_file: str, language: str, analysis_dir: str):
     else:  # basque
         print("\n[2/3] Running Basque Morphological Analysis...")
         try:
-            from parsing_pipeline import parse_basque_log
-            parsed = parse_basque_log(log_file)
+            from parsing_pipeline import parse_debate_log
+            parsed = parse_debate_log(log_data, language='basque')
             if parsed:
                 morph_file = os.path.join(analysis_dir, f"basque_parsed_{log_basename}.json")
                 # Convert to serializable dict
