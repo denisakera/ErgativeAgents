@@ -290,3 +290,130 @@ with open("analysis_results/english_llm_analysis_english_20251120_145453_2025112
     analysis = json.load(f)
 ```
 
+---
+
+## IG Coding Sheet Schema
+
+IG Coding Sheets provide automated LLM-based scoring of debates on 18 dimensions.
+
+### File Naming Convention
+```
+coding_sheet_{language}_{debate_timestamp}_{analysis_timestamp}.json
+```
+
+Example: `coding_sheet_basque_20251211_155603_20251211_195530.json`
+
+### Top-Level Structure
+```json
+{
+  "source_log": "logs2025/basque_20251211_155603.jsonl",
+  "generated_at": "2025-12-11T19:55:30.123456",
+  "coding_sheets": [
+    { /* debate coding */ },
+    { /* agent_a proposal coding */ },
+    { /* agent_b proposal coding */ }
+  ]
+}
+```
+
+### Individual Coding Sheet Schema
+```json
+{
+  "event_type": "ig_coding_sheet",
+  "target": "debate" | "ig_proposal_agent_a" | "ig_proposal_agent_b",
+  "language": "english" | "basque",
+  "timestamp": "2025-12-11T19:55:30.123456",
+  "scores": {
+    "institutional_grammar": {
+      "actor_explicitness": {
+        "score": 2,
+        "rationale": "Agent category named but not specific",
+        "evidence": "\"companies should ensure...\""
+      },
+      "deontic_force": { /* ... */ },
+      "aim_structuring": { /* ... */ },
+      "conditionality": { /* ... */ },
+      "enforcement_logic": { /* ... */ },
+      "responsibility_distribution": { /* ... */ }
+    },
+    "linguistic_typology": {
+      "explicit_implicit_agency": { /* ... */ },
+      "alignment_pattern": { /* ... */ },
+      "process_action_framing": { /* ... */ },
+      "impersonality_mechanisms": { /* ... */ },
+      "causality_encoding": { /* ... */ },
+      "normativity_encoding": { /* ... */ }
+    },
+    "interpretive": {
+      "governance_model": { /* ... */ },
+      "legal_personhood": { /* ... */ },
+      "accountability_model": { /* ... */ },
+      "risk_imagination": { /* ... */ }
+    }
+  },
+  "aggregate": {
+    "institutional_grammar_total": 12,
+    "linguistic_typology_total": 10,
+    "interpretive_total": 8
+  },
+  "qualitative_notes": {
+    "original": "This debate shows strong ergative marking...",
+    "english_translation": "..." // Only for Basque
+  }
+}
+```
+
+### Scoring Scale
+
+Each dimension is scored 0-3:
+- **0 = Absent**: Feature not present
+- **1 = Weak**: Feature implied or minimal
+- **2 = Moderate**: Feature present but not dominant
+- **3 = Strong**: Feature explicit and prominent
+
+### Dimension Categories
+
+#### Institutional Grammar (6 dimensions, max 18 points)
+Based on Crawford-Ostrom ADICO framework:
+- `actor_explicitness`: Is a responsible agent explicitly named?
+- `deontic_force`: Is obligation expressed through commands?
+- `aim_structuring`: Are aims expressed as actions or states?
+- `conditionality`: Are conditions explicitly encoded?
+- `enforcement_logic`: Is an "Or else" present?
+- `responsibility_distribution`: Is agency centralized or diffused?
+
+#### Linguistic Typology (6 dimensions, max 18 points)
+- `explicit_implicit_agency`: Does grammar foreground the actor?
+- `alignment_pattern`: Nominative-accusative vs ergative patterns
+- `process_action_framing`: Norms as processes or actions?
+- `impersonality_mechanisms`: Reflexive/impersonal forms
+- `causality_encoding`: Linear vs distributed causation
+- `normativity_encoding`: How is obligation expressed?
+
+#### Interpretive (4 dimensions, max 12 points)
+Legal theory dimensions:
+- `governance_model`: Command, coordination, or emergence?
+- `legal_personhood`: Autonomous actor or relational subject?
+- `accountability_model`: Individual, collective, or systemic?
+- `risk_imagination`: Agent-caused or system-emergent harm?
+
+### Example Usage
+
+```python
+import json
+
+# Load coding sheet
+with open("analysis_results/coding_sheet_basque_20251211_155603_20251211_195530.json", 'r') as f:
+    data = json.load(f)
+
+# Get debate-level coding
+debate_sheet = next(s for s in data['coding_sheets'] if s['target'] == 'debate')
+
+# Check aggregate scores
+print(f"IG Score: {debate_sheet['aggregate']['institutional_grammar_total']}/18")
+
+# Get individual dimension score
+actor_score = debate_sheet['scores']['institutional_grammar']['actor_explicitness']
+print(f"Actor Explicitness: {actor_score['score']}/3 - {actor_score['rationale']}")
+```
+

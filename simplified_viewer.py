@@ -2867,5 +2867,223 @@ with tab_ig:
         2. Generate a Basque debate with `--ig-revision` flag
         3. Select both logs in the sidebar
         """)
+    
+    # --- IG Coding Sheet Section ---
+    st.markdown("---")
+    st.subheader("📋 IG Coding Sheets")
+    
+    st.markdown("""
+    **Automated Coding Analysis**: Score debates on 18 dimensions using LLM analysis.
+    - 6 **Institutional Grammar** dimensions (Crawford-Ostrom)
+    - 6 **Linguistic Typology** dimensions
+    - 4 **Interpretive** dimensions (legal theory)
+    - Plus qualitative notes
+    """)
+    
+    # Helper to load coding sheets
+    def get_coding_sheet_files():
+        """Get available coding sheet files."""
+        if os.path.exists(ANALYSIS_RESULTS_DIR):
+            return sorted([f for f in os.listdir(ANALYSIS_RESULTS_DIR) 
+                          if f.startswith('coding_sheet_') and f.endswith('.json')], 
+                         reverse=True)
+        return []
+    
+    def load_coding_sheet(filename):
+        """Load coding sheet from file."""
+        filepath = os.path.join(ANALYSIS_RESULTS_DIR, filename)
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    
+    def display_score_table(scores_dict, category_name):
+        """Display a category's scores as a table."""
+        if not scores_dict or "error" in scores_dict:
+            st.warning(f"No valid scores for {category_name}")
+            return
+        
+        rows = []
+        for dim, data in scores_dict.items():
+            if isinstance(data, dict) and "score" in data:
+                rows.append({
+                    "Dimension": dim.replace("_", " ").title(),
+                    "Score": f"{data['score']}/3",
+                    "Rationale": data.get('rationale', 'N/A')[:100] + "..." if len(data.get('rationale', '')) > 100 else data.get('rationale', 'N/A')
+                })
+        
+        if rows:
+            st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+    
+    def display_radar_chart(coding_data, title):
+        """Display radar/spider chart for scores."""
+        import math
+        
+        # Collect all scores
+        categories = []
+        scores = []
+        
+        for cat_name, cat_scores in coding_data.get('scores', {}).items():
+            if isinstance(cat_scores, dict) and "error" not in cat_scores:
+                for dim, data in cat_scores.items():
+                    if isinstance(data, dict) and "score" in data:
+                        categories.append(dim.replace("_", " ").title()[:15])
+                        scores.append(data['score'])
+        
+        if not scores:
+            return
+        
+        # Create radar chart data
+        chart_data = pd.DataFrame({
+            'Dimension': categories,
+            'Score': scores
+        })
+        
+        st.bar_chart(chart_data.set_index('Dimension'))
+    
+    # Load and display coding sheets
+    coding_files = get_coding_sheet_files()
+    
+    if coding_files:
+        selected_coding = st.selectbox(
+            "Select Coding Sheet",
+            coding_files,
+            key="ig_coding_select"
+        )
+        
+        if selected_coding:
+            coding_data = load_coding_sheet(selected_coding)
+            
+            st.markdown(f"**Source:** `{coding_data.get('source_log', 'Unknown')}`")
+            st.markdown(f"**Generated:** {coding_data.get('generated_at', 'Unknown')}")
+            
+            sheets = coding_data.get('coding_sheets', [])
+            
+            if sheets:
+                # Tabs for each coding target
+                sheet_tabs = st.tabs([s.get('target', 'Unknown').replace('_', ' ').title() for s in sheets])
+                
+                for tab, sheet in zip(sheet_tabs, sheets):
+                    with tab:
+                        lang = sheet.get('language', 'unknown')
+                        st.markdown(f"**Language:** {lang.capitalize()}")
+                        
+                        # Aggregate scores
+                        agg = sheet.get('aggregate', {})
+                        if agg:
+                            col1, col2, col3 = st.columns(3)
+                            with col1:
+                                st.metric("IG Score", f"{agg.get('institutional_grammar_total', 0)}/18")
+                            with col2:
+                                st.metric("Typology Score", f"{agg.get('linguistic_typology_total', 0)}/18")
+                            with col3:
+                                st.metric("Interpretive Score", f"{agg.get('interpretive_total', 0)}/12")
+                        
+                        # Score tables by category
+                        scores = sheet.get('scores', {})
+                        
+                        with st.expander("📊 Institutional Grammar Dimensions", expanded=True):
+                            display_score_table(scores.get('institutional_grammar', {}), "Institutional Grammar")
+                        
+                        with st.expander("🔤 Linguistic Typology Dimensions"):
+                            display_score_table(scores.get('linguistic_typology', {}), "Linguistic Typology")
+                        
+                        with st.expander("⚖️ Interpretive Dimensions"):
+                            display_score_table(scores.get('interpretive', {}), "Interpretive")
+                        
+                        # Qualitative notes
+                        notes = sheet.get('qualitative_notes', {})
+                        if notes:
+                            with st.expander("📝 Qualitative Analysis", expanded=True):
+                                if isinstance(notes, dict):
+                                    st.markdown(notes.get('original', 'No notes available'))
+                                    if notes.get('english_translation'):
+                                        st.caption(f"*[EN]: {notes['english_translation']}*")
+                                else:
+                                    st.markdown(notes)
+                        
+                        # Score visualization
+                        with st.expander("📈 Score Visualization"):
+                            display_radar_chart(sheet, f"{sheet.get('target', '')} Scores")
+            else:
+                st.warning("No coding sheets found in this file.")
+    else:
+        st.info("""
+        No coding sheets available yet. Generate one with:
+        ```
+        python debate.py --language english --rounds 15 --ig-revision --ig-coding
+        ```
+        """)
+    
+    # Cross-linguistic coding comparison
+    st.markdown("---")
+    st.subheader("🔄 Cross-Linguistic Coding Comparison")
+    
+    # Find English and Basque coding sheets
+    eng_coding_files = [f for f in coding_files if 'english' in f.lower()]
+    bas_coding_files = [f for f in coding_files if 'basque' in f.lower()]
+    
+    if eng_coding_files and bas_coding_files:
+        col_comp1, col_comp2 = st.columns(2)
+        
+        with col_comp1:
+            eng_file = st.selectbox("English Coding Sheet", eng_coding_files, key="eng_coding_comp")
+        with col_comp2:
+            bas_file = st.selectbox("Basque Coding Sheet", bas_coding_files, key="bas_coding_comp")
+        
+        if eng_file and bas_file:
+            eng_data = load_coding_sheet(eng_file)
+            bas_data = load_coding_sheet(bas_file)
+            
+            # Get debate-level sheets
+            eng_debate = next((s for s in eng_data.get('coding_sheets', []) if s.get('target') == 'debate'), None)
+            bas_debate = next((s for s in bas_data.get('coding_sheets', []) if s.get('target') == 'debate'), None)
+            
+            if eng_debate and bas_debate:
+                st.markdown("### Aggregate Comparison")
+                
+                eng_agg = eng_debate.get('aggregate', {})
+                bas_agg = bas_debate.get('aggregate', {})
+                
+                comparison_data = []
+                for key in ['institutional_grammar_total', 'linguistic_typology_total', 'interpretive_total']:
+                    label = key.replace('_total', '').replace('_', ' ').title()
+                    max_score = 18 if 'interpretive' not in key else 12
+                    comparison_data.append({
+                        'Category': label,
+                        'English': eng_agg.get(key, 0),
+                        'Basque': bas_agg.get(key, 0),
+                        'Max': max_score
+                    })
+                
+                comp_df = pd.DataFrame(comparison_data)
+                st.dataframe(comp_df, use_container_width=True, hide_index=True)
+                
+                # Visual comparison
+                st.bar_chart(comp_df.set_index('Category')[['English', 'Basque']])
+                
+                # Hypothesis testing
+                eng_ig = eng_agg.get('institutional_grammar_total', 0)
+                bas_ig = bas_agg.get('institutional_grammar_total', 0)
+                eng_typ = eng_agg.get('linguistic_typology_total', 0)
+                bas_typ = bas_agg.get('linguistic_typology_total', 0)
+                
+                st.markdown("### Hypothesis Results")
+                
+                if bas_ig > eng_ig:
+                    st.success(f"✓ Basque shows HIGHER IG explicitness ({bas_ig} vs {eng_ig})")
+                elif eng_ig > bas_ig:
+                    st.warning(f"⚠ English shows higher IG explicitness ({eng_ig} vs {bas_ig})")
+                else:
+                    st.info(f"Equal IG scores ({eng_ig})")
+                
+                if bas_typ > eng_typ:
+                    st.success(f"✓ Basque shows MORE typological marking ({bas_typ} vs {eng_typ})")
+                elif eng_typ > bas_typ:
+                    st.info(f"English shows more typological marking ({eng_typ} vs {bas_typ})")
+                else:
+                    st.info(f"Equal typology scores ({eng_typ})")
+            else:
+                st.warning("Could not find debate-level coding in selected files.")
+    else:
+        st.info("Generate coding sheets for both English and Basque debates to compare.")
 
 # To run: streamlit run simplified_viewer.py 

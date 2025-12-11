@@ -588,6 +588,12 @@ Examples:
         help="Run Institutional Grammar revision phase after debate: agents rewrite a test regulation making agent/patient roles explicit"
     )
     
+    parser.add_argument(
+        "--ig-coding",
+        action="store_true",
+        help="Run IG coding sheet analysis: score debate on 18 dimensions (requires --ig-revision for proposal coding)"
+    )
+    
     return parser.parse_args()
 
 
@@ -873,6 +879,50 @@ def main():
                 print()
             
             print(f"IG revisions appended to: {filename}")
+            print(f"{'='*60}\n")
+        
+        # Run IG Coding Sheet analysis if requested
+        if args.ig_coding:
+            print(f"\n{'='*60}")
+            print("IG CODING SHEET ANALYSIS")
+            print(f"{'='*60}\n")
+            
+            from ig_coding import IGCodingAnalyzer, save_coding_results
+            
+            coder = IGCodingAnalyzer()
+            coding_results = []
+            
+            # Load log data for analysis
+            log_data_for_coding = []
+            with open(filename, 'r', encoding='utf-8') as f:
+                for line in f:
+                    log_data_for_coding.append(json.loads(line))
+            
+            # Code entire debate
+            print("[1/3] Coding entire debate...")
+            debate_coding = coder.code_debate(log_data_for_coding, args.language)
+            coding_results.append(debate_coding)
+            
+            # Print debate summary
+            if "aggregate" in debate_coding:
+                agg = debate_coding["aggregate"]
+                print(f"    Institutional Grammar Total: {agg.get('institutional_grammar_total', 'N/A')}/18")
+                print(f"    Linguistic Typology Total: {agg.get('linguistic_typology_total', 'N/A')}/18")
+                print(f"    Interpretive Total: {agg.get('interpretive_total', 'N/A')}/12")
+            
+            # Code IG proposals if they exist
+            ig_revisions = [e for e in log_data_for_coding if e.get('event_type') == 'ig_revision']
+            if ig_revisions:
+                for i, revision in enumerate(ig_revisions):
+                    print(f"[{i+2}/3] Coding {revision.get('speaker_id', 'Unknown')}'s IG proposal...")
+                    proposal_coding = coder.code_ig_proposal(revision, args.language)
+                    coding_results.append(proposal_coding)
+            else:
+                print("[!] No IG proposals found. Run with --ig-revision to generate proposals.")
+            
+            # Save results
+            coding_file = save_coding_results(coding_results, filename, args.analysis_dir)
+            print(f"\n[OK] Coding sheet saved to: {coding_file}")
             print(f"{'='*60}\n")
         
     except ValueError as e:
