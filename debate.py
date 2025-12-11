@@ -898,8 +898,12 @@ def main():
                 for line in f:
                     log_data_for_coding.append(json.loads(line))
             
+            # Find IG proposals first to calculate total items
+            ig_revisions = [e for e in log_data_for_coding if e.get('event_type') == 'ig_revision']
+            total_items = 1 + len(ig_revisions)  # 1 for debate + number of proposals
+            
             # Code entire debate
-            print("[1/3] Coding entire debate...")
+            print(f"[1/{total_items}] Coding entire debate...")
             debate_coding = coder.code_debate(log_data_for_coding, args.language)
             coding_results.append(debate_coding)
             
@@ -911,10 +915,9 @@ def main():
                 print(f"    Interpretive Total: {agg.get('interpretive_total', 'N/A')}/12")
             
             # Code IG proposals if they exist
-            ig_revisions = [e for e in log_data_for_coding if e.get('event_type') == 'ig_revision']
             if ig_revisions:
                 for i, revision in enumerate(ig_revisions):
-                    print(f"[{i+2}/3] Coding {revision.get('speaker_id', 'Unknown')}'s IG proposal...")
+                    print(f"[{i+2}/{total_items}] Coding {revision.get('speaker_id', 'Unknown')}'s IG proposal...")
                     proposal_coding = coder.code_ig_proposal(revision, args.language)
                     coding_results.append(proposal_coding)
             else:
