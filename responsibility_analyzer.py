@@ -148,7 +148,10 @@ Ez idatzi beste inolako testu, azalpen edo laburpenik JSON objektutik kanpo.
             max_tokens=2000  # Allow enough tokens for the full JSON matrix
         )
 
-        if response_str.startswith("Error:") or response_str.startswith("API error"):
+        if not response_str or not response_str.strip():
+            return {"error": "Empty response received from LLM"}
+        
+        if response_str.startswith("Error") or response_str.startswith("API error"):
             return {"error": f"API communication failed: {response_str}"}
 
         try:

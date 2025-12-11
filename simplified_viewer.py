@@ -1378,7 +1378,9 @@ else:
                                     adv_result_text = advanced_analyzer.analyze_cultural_rhetoric(contextual_text_content)
                                     st.session_state.advanced_analysis_result = adv_result_text
                                     
-                                    if adv_result_text.startswith("Error:"):
+                                    if not adv_result_text or not adv_result_text.strip():
+                                        st.session_state.advanced_analysis_status = {"message": "❌ Advanced analysis on English log failed: Empty response received", "type": "error"}
+                                    elif adv_result_text.startswith("Error"):
                                         st.session_state.advanced_analysis_status = {"message": f"❌ Advanced analysis on English log failed: {adv_result_text}", "type": "error"}
                                     else:
                                         timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1404,7 +1406,9 @@ else:
                                     adv_result_text = advanced_analyzer.analyze_cultural_rhetoric(contextual_text_content)
                                     st.session_state.advanced_analysis_result = adv_result_text # Overwrites previous if any
                                     
-                                    if adv_result_text.startswith("Error:"):
+                                    if not adv_result_text or not adv_result_text.strip():
+                                        st.session_state.advanced_analysis_status = {"message": "❌ Advanced analysis on Basque log failed: Empty response received", "type": "error"}
+                                    elif adv_result_text.startswith("Error"):
                                         st.session_state.advanced_analysis_status = {"message": f"❌ Advanced analysis on Basque log failed: {adv_result_text}", "type": "error"}
                                     else:
                                         timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1429,7 +1433,7 @@ else:
                     # Display results
                     if st.session_state.advanced_analysis_result:
                         st.markdown("### Advanced Analysis Output")
-                        if st.session_state.advanced_analysis_result.startswith("Error:"):
+                        if st.session_state.advanced_analysis_result.startswith("Error"):
                             st.error(st.session_state.advanced_analysis_result) # Show error directly if it's an error string
                         else:
                             st.markdown(st.session_state.advanced_analysis_result)
@@ -1561,7 +1565,9 @@ else:
                                             custom_user_query=st.session_state.custom_query_text
                                         )
                                         st.session_state.custom_query_result = query_response
-                                        if query_response.startswith("Error:"):
+                                        if not query_response or not query_response.strip():
+                                            st.session_state.custom_query_status = {"message": "Custom query failed: Empty response received", "type": "error"}
+                                        elif query_response.startswith("Error"):
                                             st.session_state.custom_query_status = {"message": f"Custom query failed: {query_response}", "type": "error"}
                                         else:
                                             st.session_state.custom_query_status = {"message": f"Custom query on {chosen_log_name_for_query} complete.", "type": "success"}
@@ -1580,7 +1586,7 @@ else:
                         # Display custom query result
                         if st.session_state.custom_query_result:
                             st.markdown("#### Custom Query Response:")
-                            if st.session_state.custom_query_result.startswith("Error:"):
+                            if st.session_state.custom_query_result.startswith("Error"):
                                 st.error(st.session_state.custom_query_result)
                             else:
                                 st.markdown(st.session_state.custom_query_result)
@@ -1824,7 +1830,9 @@ else:
                                                     custom_user_query=st.session_state.resp_custom_query_text
                                                 )
                                                 st.session_state.resp_custom_query_result = query_response_resp
-                                                if query_response_resp.startswith("Error:"):
+                                                if not query_response_resp or not query_response_resp.strip():
+                                                    st.session_state.resp_custom_query_status = {"message": "Query failed: Empty response received", "type": "error"}
+                                                elif query_response_resp.startswith("Error"):
                                                     st.session_state.resp_custom_query_status = {"message": f"Query failed: {query_response_resp}", "type": "error"}
                                                 else:
                                                     st.session_state.resp_custom_query_status = {"message": f"Query on {chosen_log_name_for_query_resp} complete.", "type": "success"}
@@ -1843,7 +1851,7 @@ else:
                                     # Display custom query result in Responsibility Tab
                                     if st.session_state.resp_custom_query_result:
                                         st.markdown("#### Query Response (Responsibility Context):")
-                                        if st.session_state.resp_custom_query_result.startswith("Error:"):
+                                        if st.session_state.resp_custom_query_result.startswith("Error"):
                                             st.error(st.session_state.resp_custom_query_result)
                                         else:
                                             st.markdown(st.session_state.resp_custom_query_result)

@@ -7,6 +7,7 @@ import pandas as pd
 import io
 import subprocess
 import sys
+import threading
 
 from llm_analyzer import LLMAnalyzer
 from advanced_analyzer import AdvancedAnalyzer, save_advanced_analysis_results
@@ -26,11 +27,11 @@ ensure_dir_exists(LOGS_DIR)
 ensure_dir_exists(ANALYSIS_RESULTS_DIR)
 
 def get_log_files(log_dir, prefix=None):
-    """Get log files from directory, optionally filtering by prefix."""
+    """Get log files from directory, optionally filtering by prefix. Returns newest first."""
     ensure_dir_exists(log_dir)
     if prefix:
-        return sorted([f for f in os.listdir(log_dir) if f.startswith(prefix) and f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))])
-    return sorted([f for f in os.listdir(log_dir) if f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))])
+        return sorted([f for f in os.listdir(log_dir) if f.startswith(prefix) and f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))], reverse=True)
+    return sorted([f for f in os.listdir(log_dir) if f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))], reverse=True)
 
 def get_saved_analysis_files(prefix=None):
     """Get saved analysis files, optionally filtering by prefix."""
@@ -247,26 +248,36 @@ with tab_generation:
                 
                 output_placeholder = st.empty()
                 full_output = ""
+                stderr_output = []
+                
+                # Read stderr in a separate thread to prevent deadlock
+                # (subprocess can block if stderr buffer fills while we read stdout)
+                def read_stderr():
+                    stderr_output.append(process.stderr.read())
+                
+                stderr_thread = threading.Thread(target=read_stderr)
+                stderr_thread.start()
                 
                 # Stream stdout
                 for line in process.stdout:
                     full_output += line
                     output_placeholder.text_area("Live Output:", full_output, height=300)
                 
-                # Get stderr
-                stderr_output = process.stderr.read()
+                # Wait for stderr thread to complete
+                stderr_thread.join()
+                stderr_text = stderr_output[0] if stderr_output else ""
                 
                 # Check return code
                 return_code = process.wait()
                 
                 if return_code == 0:
                     st.success(f"✅ {debate_language.capitalize()} debate generation complete!")
-                    if stderr_output.strip():
+                    if stderr_text.strip():
                         st.warning("Warnings during generation:")
-                        st.text(stderr_output)
+                        st.text(stderr_text)
                 else:
                     st.error(f"Error generating debate (Return code: {return_code})")
-                    st.text(stderr_output)
+                    st.text(stderr_text)
                 
                 # Refresh log file list
                 english_logs = get_log_files(LOGS_DIR, "english")
@@ -377,7 +388,9 @@ with tab_advanced:
                         adv_result = advanced_analyzer.analyze_cultural_rhetoric(contextual_text)
                         st.session_state.advanced_analysis_result = adv_result
                         
-                        if adv_result.startswith("Error:"):
+                        if not adv_result or not adv_result.strip():
+                            st.session_state.advanced_analysis_status = {"message": "Analysis failed: Empty response received", "type": "error"}
+                        elif adv_result.startswith("Error"):
                             st.session_state.advanced_analysis_status = {"message": f"Analysis failed: {adv_result}", "type": "error"}
                         else:
                             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -397,7 +410,9 @@ with tab_advanced:
                         adv_result = advanced_analyzer.analyze_cultural_rhetoric(contextual_text)
                         st.session_state.advanced_analysis_result = adv_result
                         
-                        if adv_result.startswith("Error:"):
+                        if not adv_result or not adv_result.strip():
+                            st.session_state.advanced_analysis_status = {"message": "Analysis failed: Empty response received", "type": "error"}
+                        elif adv_result.startswith("Error"):
                             st.session_state.advanced_analysis_status = {"message": f"Analysis failed: {adv_result}", "type": "error"}
                         else:
                             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -607,9 +622,8 @@ with tab_bilingual:
                                 basque_log=basque_text
                             )
                             
-                            # Initialize LLM analyzer if not already done
-                            if 'llm_analyzer' not in locals():
-                                llm_analyzer = LLMAnalyzer()
+                            # Initialize LLM analyzer for this analysis
+                            llm_analyzer = LLMAnalyzer()
                             
                             # Get response
                             response, _ = llm_analyzer._get_llm_response(
@@ -623,7 +637,12 @@ with tab_bilingual:
                             # Store result
                             st.session_state.bilingual_analysis_result = response
                             
-                            if response.startswith("Error:") or response.startswith("API error"):
+                            if not response or not response.strip():
+                                st.session_state.bilingual_analysis_status = {
+                                    "message": "Analysis failed: Empty response received from LLM",
+                                    "type": "error"
+                                }
+                            elif response.startswith("Error") or response.startswith("API error"):
                                 st.session_state.bilingual_analysis_status = {
                                     "message": f"Analysis failed: {response}",
                                     "type": "error"
