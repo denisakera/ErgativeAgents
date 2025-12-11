@@ -1,2073 +1,2579 @@
 import streamlit as st
-import json
-import glob
 import os
-from openai import OpenAI
-from dotenv import load_dotenv
-from collections import Counter
-import re
+import json
 from datetime import datetime
-import plotly.express as px
-import plotly.graph_objects as go
-import matplotlib.pyplot as plt
-import io
-import networkx as nx
-import pandas as pd
-import numpy as np
-from plotly.subplots import make_subplots
-import tempfile
-import base64
-from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib import colors
-from reportlab.lib.units import inch
+import subprocess # Added for running external scripts
+import sys # Added for getting python executable path
+import io # For decoding stdout/stderr
+import altair as alt # ADDED
+import pandas as pd # Ensure pandas is imported at the top
+import plotly.express as px # ADDED for heatmaps
 
-# Load environment variables
-load_dotenv()
-client = OpenAI(
-    api_key=os.getenv('OPENROUTER_API_KEY'),
-    base_url="https://openrouter.ai/api/v1"
+from utils import load_jsonl_log
+from nlp_analyzer import run_nlp_analysis, save_nlp_results
+from llm_analyzer import LLMAnalyzer, run_llm_analysis, save_llm_results # MODIFIED: Ensure save_llm_results is imported
+from advanced_analyzer import AdvancedAnalyzer, save_advanced_analysis_results # ADDED
+from responsibility_analyzer import ResponsibilityAnalyzer, save_responsibility_matrix # ADDED
+from parsing_pipeline import parse_debate_log, save_parsed_transcript, compute_cross_linguistic_metrics # ADDED
+from syntactic_analyzer import SyntacticAnalyzer, analyze_english_syntax # ADDED for English dependency parsing
+from cross_linguistic_interpreter import CrossLinguisticInterpreter # ADDED for cross-linguistic interpretation
+
+# --- Configuration & Constants ---
+LOGS_DIR = "logs2025"
+ANALYSIS_RESULTS_DIR = "analysis_results"
+# Attempt to find some default logs if they exist, otherwise leave empty
+DEFAULT_ENGLISH_LOG = ""
+DEFAULT_BASQUE_LOG = ""
+
+# Function to get current python interpreter path
+def get_python_executable():
+    return sys.executable
+
+if os.path.exists(LOGS_DIR):
+    log_files_temp = sorted([f for f in os.listdir(LOGS_DIR) if f.endswith('.jsonl')])
+    if len(log_files_temp) > 0:
+        DEFAULT_ENGLISH_LOG = log_files_temp[0]
+    if len(log_files_temp) > 1:
+        DEFAULT_BASQUE_LOG = log_files_temp[1]
+    # A more robust way would be to look for 'english' or 'basque' in filenames if conventions exist
+
+# --- Helper Functions ---
+def get_log_files(log_dir):
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir) # Ensure logs directory exists
+        return []
+    return sorted([f for f in os.listdir(log_dir) if f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))])
+
+def ensure_dir_exists(dir_path):
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+
+ensure_dir_exists(LOGS_DIR)
+ensure_dir_exists(ANALYSIS_RESULTS_DIR)
+
+def get_language_log_files(log_dir, prefix):
+    ensure_dir_exists(log_dir)
+    return sorted([f for f in os.listdir(log_dir) if f.startswith(prefix) and f.endswith('.jsonl') and os.path.isfile(os.path.join(log_dir, f))])
+
+# --- Function to list saved LLM analysis files ---
+def get_saved_llm_analysis_files(prefix: str):
+    ensure_dir_exists(ANALYSIS_RESULTS_DIR)
+    return sorted([
+        f for f in os.listdir(ANALYSIS_RESULTS_DIR) 
+        if f.startswith(prefix) and f.endswith('.json') and # MODIFIED: Changed from .jsonl to .json
+        os.path.isfile(os.path.join(ANALYSIS_RESULTS_DIR, f))
+    ], reverse=True) # Show newest first
+
+# --- Function to list saved NLP analysis files ---
+def get_saved_nlp_analysis_files(prefix: str):
+    ensure_dir_exists(ANALYSIS_RESULTS_DIR)
+    return sorted([
+        f for f in os.listdir(ANALYSIS_RESULTS_DIR)
+        if f.startswith(prefix) and f.endswith('.json') and # .json for NLP
+        os.path.isfile(os.path.join(ANALYSIS_RESULTS_DIR, f))
+    ], reverse=True) # Show newest first
+
+# --- Function to list saved Advanced analysis files ---
+def get_saved_advanced_analysis_files(prefix: str):
+    ensure_dir_exists(ANALYSIS_RESULTS_DIR)
+    return sorted([
+        f for f in os.listdir(ANALYSIS_RESULTS_DIR)
+        if f.startswith(prefix) and f.endswith('.md') and
+        os.path.isfile(os.path.join(ANALYSIS_RESULTS_DIR, f))
+    ], reverse=True) # Show newest first
+
+# --- Function to list saved Responsibility Matrix files ---
+def get_saved_responsibility_matrix_files(prefix: str):
+    ensure_dir_exists(ANALYSIS_RESULTS_DIR)
+    return sorted([
+        f for f in os.listdir(ANALYSIS_RESULTS_DIR)
+        if f.startswith(prefix) and f.endswith('.json') and # Saved as JSON
+        os.path.isfile(os.path.join(ANALYSIS_RESULTS_DIR, f))
+    ], reverse=True)
+
+# NEW HELPER FUNCTION
+def find_example_utterances_for_definitions(log_data, term_to_find, max_examples=2):
+    if not log_data:
+        return []
+    
+    examples = []
+    term_to_find_lower = term_to_find.lower()
+
+    for entry in log_data:
+        if len(examples) >= max_examples:
+            break
+        if entry.get('event_type') == 'utterance':
+            utterance_text = entry.get('utterance_text', '')
+            utterance_lower = utterance_text.lower()
+            
+            match_index = utterance_lower.find(term_to_find_lower)
+            
+            if match_index != -1:
+                context_before = 50
+                context_after = 50
+                
+                start_snippet_idx_in_utterance = max(0, match_index - context_before)
+                end_snippet_idx_in_utterance = min(len(utterance_text), match_index + len(term_to_find) + context_after)
+                
+                snippet = utterance_text[start_snippet_idx_in_utterance:end_snippet_idx_in_utterance]
+                
+                # Find the term in the snippet (original case) to bold it
+                # The match_index was for the full utterance. We need its position relative to the snippet.
+                relative_match_index_in_snippet = match_index - start_snippet_idx_in_utterance
+                
+                highlighted_snippet = snippet
+                # Ensure the term is actually within the current snippet boundaries before trying to slice
+                if relative_match_index_in_snippet >= 0 and (relative_match_index_in_snippet + len(term_to_find)) <= len(snippet):
+                    term_as_in_snippet = snippet[relative_match_index_in_snippet : relative_match_index_in_snippet + len(term_to_find)]
+                    # Simple replacement, should be safe as we are replacing the exact substring found
+                    highlighted_snippet = (
+                        snippet[:relative_match_index_in_snippet] +
+                        f"**{term_as_in_snippet}**" +
+                        snippet[relative_match_index_in_snippet + len(term_to_find):]
+                    )
+                
+                prefix = "..." if start_snippet_idx_in_utterance > 0 else ""
+                suffix = "..." if end_snippet_idx_in_utterance < len(utterance_text) else ""
+                
+                examples.append(f"*R{entry.get('round', 'N/A')} ({entry.get('speaker_id', 'N/A')}):* \"{prefix}{highlighted_snippet}{suffix}\"")
+    return examples
+
+# --- Streamlit App UI ---
+st.set_page_config(layout="wide", page_title="Agents Simulation Analysis")
+st.title("Cross-Language AI Simulation Analysis")
+st.markdown("Generate, view, and analyze AI debate logs in English and Basque.")
+
+# --- Global State for Log File Lists (to help with refresh)
+if 'available_english_logs' not in st.session_state:
+    st.session_state.available_english_logs = get_language_log_files(LOGS_DIR, "english_")
+if 'available_basque_logs' not in st.session_state:
+    st.session_state.available_basque_logs = get_language_log_files(LOGS_DIR, "basque_")
+
+# --- Sidebar for Log Selection and Global Controls ---
+st.sidebar.header("Debate Log Selection")
+
+# Refresh button for log list
+if st.sidebar.button("Refresh Log Lists"):
+    st.session_state.available_english_logs = get_language_log_files(LOGS_DIR, "english_")
+    st.session_state.available_basque_logs = get_language_log_files(LOGS_DIR, "basque_")
+    st.rerun()
+
+# Try to set a sensible default index
+default_eng_log_val = st.session_state.available_english_logs[0] if st.session_state.available_english_logs else None
+default_bas_log_val = st.session_state.available_basque_logs[0] if st.session_state.available_basque_logs else None
+
+# Attempt to find different defaults if multiple logs exist for a language
+if len(st.session_state.available_english_logs) > 1 and default_eng_log_val == default_bas_log_val: # Check if basque default is also this
+    # This part is tricky if basque default is also the first english one; we'll prioritize english getting its first
+    pass # Let english keep its first for now.
+if len(st.session_state.available_basque_logs) > 1 and default_bas_log_val == default_eng_log_val and len(st.session_state.available_english_logs) > 0:
+    # If basque default is same as selected english, try to pick another basque one
+    if st.session_state.available_basque_logs[0] == default_eng_log_val:
+         default_bas_log_val = st.session_state.available_basque_logs[1] if len(st.session_state.available_basque_logs) > 1 else st.session_state.available_basque_logs[0]
+    # If still same, it means there's only one basque log and it's the same as english (unlikely with new naming)
+
+english_log_file = st.sidebar.selectbox(
+    "Select English Log File", 
+    st.session_state.available_english_logs, 
+    index=st.session_state.available_english_logs.index(default_eng_log_val) if default_eng_log_val and default_eng_log_val in st.session_state.available_english_logs else 0,
+    key="english_log",
+    help="Select the primary English debate log file for analysis."
+)
+basque_log_file = st.sidebar.selectbox(
+    "Select Basque Log File", 
+    st.session_state.available_basque_logs, 
+    index=st.session_state.available_basque_logs.index(default_bas_log_val) if default_bas_log_val and default_bas_log_val in st.session_state.available_basque_logs else 0, 
+    key="basque_log",
+    help="Select the corresponding Basque debate log file for analysis."
 )
 
-# Translation cache
-translation_cache = {}
+st.sidebar.markdown("--- Options ---")
+# show_translations = st.sidebar.checkbox("Show Translations (placeholder)", value=False)
+# export_pdf = st.sidebar.button("Export Analysis to PDF (placeholder)")
 
-# Analysis cache
-analysis_cache = {}
+# --- Define Tabs First --- Reorganized for logical workflow
+tab_gen, tab_overview, tab_basque_analysis, tab_english_analysis, tab_comparison, tab_advanced, tab_llm, tab_responsibility = st.tabs([
+    "1️⃣ Generate Debates", 
+    "2️⃣ View Transcripts", 
+    "3️⃣ Basque Analysis", 
+    "4️⃣ English Analysis", 
+    "5️⃣ Cross-Linguistic Comparison",
+    "📊 Advanced Analysis", 
+    "🤖 LLM Insights",
+    "🎯 Responsibility Matrix"
+])
 
-# Define constants for paths - use absolute paths
-WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOGS_DIR = os.path.join(WORKSPACE_DIR, "logs")  # Changed to logs
-JSON_DIR = os.path.join(LOGS_DIR, "JSONs")
-
-def ensure_dirs_exist():
-    """Ensure all required directories exist with proper permissions."""
-    try:
-        # Create directories if they don't exist
-        if not os.path.exists(LOGS_DIR):
-            os.makedirs(LOGS_DIR, exist_ok=True)
-            st.info(f"Created logs directory at {LOGS_DIR}")
-            
-        if not os.path.exists(JSON_DIR):
-            try:
-                os.makedirs(JSON_DIR, exist_ok=True)
-                st.info(f"Created JSONs directory at {JSON_DIR}")
-            except PermissionError:
-                st.error(f"Permission denied: Cannot create directory {JSON_DIR}")
-                st.info(f"Try running the application with administrator privileges or manually create the directory.")
-                return False
-        
-        # Verify write permissions
-        if not os.access(LOGS_DIR, os.W_OK):
-            st.error(f"Permission denied: Cannot write to {LOGS_DIR}")
-            st.info("Check directory permissions or run the application with administrator privileges.")
-            return False
-            
-        if not os.access(JSON_DIR, os.W_OK):
-            st.error(f"Permission denied: Cannot write to {JSON_DIR}")
-            st.info("Check directory permissions or run the application with administrator privileges.")
-            return False
-        
-        return True
-    except PermissionError as pe:
-        st.error(f"Permission error: {str(pe)}")
-        st.info("Check directory permissions or run the application with administrator privileges.")
-        return False
-    except Exception as e:
-        st.error(f"Error creating/accessing directories: {str(e)}")
-        return False
-
-def read_log_file(filepath):
-    """Read the content of a log file."""
-    try:
-        # If filepath is a directory, handle that case
-        if os.path.isdir(filepath):
-            st.error(f"Expected a file but got a directory: {filepath}")
-            return ""
-            
-        # Normalize path separators and make absolute
-        filepath = os.path.normpath(os.path.abspath(filepath))
-        
-        # If filepath doesn't exist, try different combinations
-        if not os.path.exists(filepath):
-            # Try with logs prefix
-            logs_path = os.path.normpath(os.path.join(LOGS_DIR, os.path.basename(filepath)))
-            if os.path.exists(logs_path):
-                filepath = logs_path
-            
-            # If still doesn't exist, try hardcoded filenames
-            if not os.path.exists(filepath):
-                if "english" in filepath.lower() or "debate" in filepath.lower():
-                    filepath = os.path.normpath(os.path.join(LOGS_DIR, "debate_english_20250329_173609.txt"))
-                elif "basque" in filepath.lower() or "eztabaida" in filepath.lower():
-                    filepath = os.path.normpath(os.path.join(LOGS_DIR, "eztabaida_20250329_173741.txt"))
-        
-        # Check if file exists
-        if not os.path.exists(filepath):
-            st.error(f"File not found: {filepath}")
-            return ""
-        
-        # Check for read permission before attempting to open
-        if not os.access(filepath, os.R_OK):
-            st.error(f"Permission denied: Cannot read {filepath}")
-            st.info(f"File exists but cannot be read. Check file permissions.")
-            return ""
-            
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
-            if not content:
-                st.warning(f"File {filepath} is empty")
-            return content
-    except PermissionError as pe:
-        st.error(f"Permission denied when accessing file {filepath}")
-        st.info(f"Try running the application with administrator privileges or check file permissions.")
-        return ""
-    except Exception as e:
-        st.error(f"Error reading file {filepath}: {str(e)}")
-        return ""
-
-def translate_basque_to_english(text):
-    """Translate Basque text to English using Google models via OpenRouter with caching."""
-    if text in translation_cache:
-        return translation_cache[text]
+# --- Populate Log Generation Tab (Always Visible) ---
+with tab_gen:
+    st.header("Generate Debate Logs")
+    st.markdown("Configure and generate new debate log files using the unified `debate.py` script.")
     
-    try:
-        response = client.chat.completions.create(
-            model="google/gemini-pro",  # Using Gemini Pro via OpenRouter
-            messages=[
-                {"role": "system", "content": "You are a translator. Translate the following Basque text to English. Only provide the translation, no explanations."},
-                {"role": "user", "content": text}
-            ],
-            temperature=0.3,
-            max_tokens=1000
-        )
-        translation = response.choices[0].message.content.strip()
-        translation_cache[text] = translation
-        return translation
-    except Exception as e:
-        if "rate_limit_exceeded" in str(e):
-            st.warning("Translation rate limit reached. Some translations may be unavailable.")
-            return "Translation temporarily unavailable"
-        st.error(f"Translation error: {str(e)}")
-        return "Translation unavailable"
-
-def format_with_translation(text, language, show_translation=True):
-    """Format text with translation if it's Basque."""
-    if language == "basque" and show_translation:
-        try:
-            translation = translate_basque_to_english(text)
-            if translation == "Translation temporarily unavailable":
-                return text
-            return f"{text} ({translation})"
-        except Exception as e:
-            st.warning(f"Translation failed: {str(e)}")
-            return text
-    return text
-
-def analyze_frequency(text, patterns):
-    """Analyze frequency of patterns in text."""
-    counter = Counter()
-    for pattern in patterns:
-        matches = re.findall(r'\b' + re.escape(pattern) + r'\b', text.lower())
-        counter[pattern] = len(matches)
-    return counter
-
-def create_wordcloud(text, language):
-    """Create a word cloud from the text."""
-    try:
-        from wordcloud import WordCloud
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-        fig, ax = plt.subplots(figsize=(10, 5))
-        ax.imshow(wordcloud, interpolation='bilinear')
-        ax.axis('off')
-        ax.set_title(f'Word Cloud - {language.capitalize()}')
-        return fig
-    except ImportError:
-        st.warning("WordCloud module not found. Please install it using: pip install wordcloud")
-        return None
-
-def plot_frequency_comparison(english_freq, basque_freq, category, show_translation=True):
-    """Create a bar chart comparing frequencies between languages."""
-    fig = go.Figure()
+    from dotenv import load_dotenv
+    api_key_loaded_in_gen_tab = load_dotenv()
     
-    # Add English bars
-    fig.add_trace(go.Bar(
-        x=list(english_freq.keys()),
-        y=list(english_freq.values()),
-        name='English',
-        marker_color='blue'
-    ))
-    
-    # Add Basque bars with translations
-    if show_translation:
-        basque_labels = []
-        for term in basque_freq.keys():
-            translation = translate_basque_to_english(term)
-            if translation != "Translation unavailable":
-                basque_labels.append(f"{term} ({translation})")
-            else:
-                basque_labels.append(term)
+    if not os.getenv('OPENAI_API_KEY'):
+        st.warning("**Warning:** `OPENAI_API_KEY` not found. Log generation will likely fail.")
     else:
-        basque_labels = list(basque_freq.keys())
+        st.success("`OPENAI_API_KEY` found. Ready to generate logs.")
+
+    st.subheader("Debate Configuration")
     
-    fig.add_trace(go.Bar(
-        x=basque_labels,
-        y=list(basque_freq.values()),
-        name='Basque',
-        marker_color='red'
-    ))
+    col_config1, col_config2 = st.columns(2)
     
-    fig.update_layout(
-        title=f'{category} Frequency Comparison',
-        xaxis_title='Words',
-        yaxis_title='Frequency',
-        barmode='group'
+    with col_config1:
+        debate_language = st.selectbox(
+            "Language",
+            options=["english", "basque"],
+            index=0,
+            help="Select the language for the debate"
+        )
+        
+        debate_topic = st.selectbox(
+            "Topic",
+            options=["ai_governance", "censorship", "ai_responsibility"],
+            index=0,
+            format_func=lambda x: {
+                "ai_governance": "AI Governance (open vs corporate control)",
+                "censorship": "Censorship (what speech should be limited)",
+                "ai_responsibility": "AI Responsibility (who ensures AI doesn't harm public)"
+            }.get(x, x),
+            help="Select a predefined debate topic"
+        )
+    
+    with col_config2:
+        debate_rounds = st.slider(
+            "Number of Rounds",
+            min_value=1,
+            max_value=20,
+            value=10,
+            help="Number of back-and-forth exchanges between agents"
+        )
+        
+        with_proposal = st.checkbox(
+            "Include Proposal Phase",
+            value=False,
+            help="Agents will propose a resolution at the end (recommended: 15 rounds)"
+        )
+    
+    # Show the question that will be used
+    topic_questions = {
+        "english": {
+            "ai_governance": "Should AI be an open infrastructure or controlled by a few companies?",
+            "censorship": "What types of speeches should be subject to censorship?",
+            "ai_responsibility": "In your language, how would you describe who is responsible for ensuring that AI systems do not harm the public?"
+        },
+        "basque": {
+            "ai_governance": "AA (Adimen Artifiziala) azpiegitura irekia izan beharko litzateke ala korporazio gutxi batzuek kontrolatu beharko lukete?",
+            "censorship": "Zein motatako hitzaldiak izan beharko lirateke zentsuratuak?",
+            "ai_responsibility": "Zure hizkuntzan, nola deskribatuko zenuke nor den erantzule AA sistemek publikoari kalterik ez eragitea bermatzeko?"
+        }
+    }
+    
+    st.info(f"**Question:** {topic_questions[debate_language][debate_topic]}")
+    
+    # Generate button
+    if st.button(f"🚀 Generate {debate_language.capitalize()} Debate", type="primary"):
+        with st.spinner(f"Generating {debate_language} debate ({debate_rounds} rounds)... This may take a few minutes."):
+            try:
+                python_exe = get_python_executable()
+                
+                # Build command
+                cmd = [
+                    python_exe, "debate.py",
+                    "--language", debate_language,
+                    "--topic", debate_topic,
+                    "--rounds", str(debate_rounds)
+                ]
+                if with_proposal:
+                    cmd.append("--with-proposal")
+                
+                # Use Popen for streaming output
+                process = subprocess.Popen(
+                    cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=False,
+                    cwd=os.getcwd(),
+                    universal_newlines=False
+                )
+                
+                output_placeholder = st.empty()
+                full_output = ""
+                
+                # Stream stdout
+                if process.stdout:
+                    for line_bytes in iter(process.stdout.readline, b''):
+                        line_str = line_bytes.decode(sys.stdout.encoding or 'utf-8', errors='replace').rstrip()
+                        full_output += line_str + "\n"
+                        output_placeholder.text_area("Live Output:", full_output, height=300)
+                    process.stdout.close()
+                
+                process.wait()
+                
+                stderr_output = ""
+                if process.stderr:
+                    stderr_bytes = process.stderr.read()
+                    stderr_output = stderr_bytes.decode(sys.stderr.encoding or 'utf-8', errors='replace').strip()
+                    process.stderr.close()
+
+                if process.returncode == 0:
+                    st.success(f"✅ {debate_language.capitalize()} debate generation complete!")
+                    if stderr_output:
+                        st.text_area("Warnings:", stderr_output, height=100, key="debate_warn")
+                else:
+                    st.error(f"Error running debate.py (Return Code: {process.returncode}):")
+                    st.text_area("Error Output:", stderr_output, height=200, key="debate_err")
+                
+                # Refresh log lists
+                st.session_state.available_english_logs = get_language_log_files(LOGS_DIR, "english_")
+                st.session_state.available_basque_logs = get_language_log_files(LOGS_DIR, "basque_")
+                st.rerun()
+
+            except FileNotFoundError:
+                st.error(f"Error: Could not find '{python_exe}' or 'debate.py'.")
+            except Exception as e:
+                st.error(f"An unexpected error occurred: {str(e)}")
+
+# --- Conditional Population of Analysis Tabs ---
+# MODIFIED: Define checks for new session state variables
+no_english_logs = not st.session_state.get('available_english_logs') 
+no_basque_logs = not st.session_state.get('available_basque_logs')
+
+# MODIFIED: Update conditional logic to use new variables
+if no_english_logs and no_basque_logs:
+    st.sidebar.warning(f"No English or Basque logs found in '{LOGS_DIR}'. Use 'Log Generation' tab.")
+    with tab_overview:
+        st.warning(f"No .jsonl logs starting with 'english_' or 'basque_' in '{LOGS_DIR}'. Use 'Log Generation' tab.")
+    with tab_basque_analysis: st.info("Generate Basque logs to analyze ergative-absolutive case marking.")
+    with tab_english_analysis: st.info("Generate English logs to analyze nominative-accusative syntax.")
+    with tab_comparison: st.info("Generate both logs for cross-linguistic comparison.")
+    with tab_advanced: st.info("Generate or select logs for advanced cultural-rhetorical analysis.")
+    with tab_responsibility: st.info("Generate or select logs for responsibility heatmap generation.")
+elif no_english_logs:
+    st.sidebar.warning(f"No English logs found in '{LOGS_DIR}'. Generate one or check naming convention (should start with 'english_').")
+    with tab_overview: st.warning("No English logs available for selection. Please generate one or check the log file naming.")
+    with tab_basque_analysis: st.info("Basque morphological analysis requires a Basque log.")
+    with tab_english_analysis: st.info("English syntactic analysis requires an English log.")
+    with tab_comparison: st.info("Cross-linguistic comparison requires both English and Basque logs.")
+    with tab_advanced: st.info("Select an English log for advanced analysis, or generate logs.")
+    with tab_responsibility: st.info("Select an English log to generate its responsibility heatmap.")
+elif no_basque_logs:
+    st.sidebar.warning(f"No Basque logs found in '{LOGS_DIR}'. Generate one or check naming convention (should start with 'basque_').")
+    with tab_overview: st.warning("No Basque logs available for selection. Please generate one or check the log file naming.")
+    with tab_basque_analysis: st.info("Basque morphological analysis requires a Basque log.")
+    with tab_english_analysis: st.info("English syntactic analysis requires an English log.")
+    with tab_comparison: st.info("Cross-linguistic comparison requires both English and Basque logs.")
+    with tab_advanced: st.info("Select a Basque log for advanced analysis, or generate logs.")
+    with tab_responsibility: st.info("Select a Basque log to generate its responsibility heatmap.")
+# MODIFIED: Check if selected files are None (can happen if lists were initially empty)
+elif not english_log_file or not basque_log_file: 
+    with tab_overview:
+        st.warning("Select both an English and a Basque log file from the sidebar to proceed with most features.")
+    with tab_basque_analysis: st.info("Select a Basque log from the sidebar.")
+    with tab_english_analysis: st.info("Select an English log from the sidebar.")
+    with tab_comparison: st.info("Select both English and Basque logs for cross-linguistic comparison.")
+    with tab_advanced: st.info("Select an English or Basque log from the sidebar for Advanced Analysis.")
+    with tab_responsibility: st.info("Select English and Basque logs from the sidebar for Responsibility Heatmaps.")
+elif english_log_file == basque_log_file:
+    with tab_overview:
+        st.error("Please select two different log files for standard overview.")
+    # For other tabs, allow analysis even if files are the same, though it might not be typical use case.
+    with tab_basque_analysis: st.info("Select a Basque log to analyze ergative-absolutive patterns.")
+    with tab_english_analysis: st.info("Select an English log to analyze nominative-accusative patterns.")
+    with tab_comparison: st.info("Please select two different log files for cross-linguistic comparison.")
+    with tab_advanced: st.info("Select a log for Advanced Analysis. If English and Basque logs are the same, analysis will be on that single file.")
+    with tab_responsibility: st.info("Select logs for Responsibility Heatmaps. If files are the same, heatmaps will be identical if generated.")
+else:
+    english_log_path = os.path.join(LOGS_DIR, english_log_file) # Selected file is not None here
+    basque_log_path = os.path.join(LOGS_DIR, basque_log_file)   # Selected file is not None here
+
+    if 'nlp_results_eng' not in st.session_state: st.session_state.nlp_results_eng = None
+    if 'nlp_results_basque' not in st.session_state: st.session_state.nlp_results_basque = None
+    if 'llm_results_eng' not in st.session_state: st.session_state.llm_results_eng = None
+    if 'llm_results_basque' not in st.session_state: st.session_state.llm_results_basque = None
+    if 'llm_comparative_summary' not in st.session_state: st.session_state.llm_comparative_summary = None
+    if 'nlp_eng_status' not in st.session_state: st.session_state.nlp_eng_status = None # Ensure init
+    if 'nlp_bas_status' not in st.session_state: st.session_state.nlp_bas_status = None # Ensure init
+    if 'llm_eng_save_status' not in st.session_state: st.session_state.llm_eng_save_status = None # For LLM save status
+    if 'llm_bas_save_status' not in st.session_state: st.session_state.llm_bas_save_status = None # For LLM save status
+    if 'advanced_analysis_result' not in st.session_state: st.session_state.advanced_analysis_result = None # ADDED
+    if 'advanced_analysis_status' not in st.session_state: st.session_state.advanced_analysis_status = None # ADDED
+    if 'custom_query_text' not in st.session_state: st.session_state.custom_query_text = "" # ADDED for custom query
+    if 'custom_query_log_choice' not in st.session_state: st.session_state.custom_query_log_choice = "English Log" # ADDED for custom query
+    if 'custom_query_result' not in st.session_state: st.session_state.custom_query_result = None # ADDED for custom query
+    if 'custom_query_status' not in st.session_state: st.session_state.custom_query_status = None # ADDED for custom query
+    if 'english_responsibility_data' not in st.session_state: st.session_state.english_responsibility_data = None # ADDED
+    if 'basque_responsibility_data' not in st.session_state: st.session_state.basque_responsibility_data = None # ADDED
+    if 'english_responsibility_status' not in st.session_state: st.session_state.english_responsibility_status = None # ADDED
+    if 'basque_responsibility_status' not in st.session_state: st.session_state.basque_responsibility_status = None # ADDED
+
+    # Session state for custom query in Responsibility Tab
+    if 'resp_custom_query_text' not in st.session_state: st.session_state.resp_custom_query_text = ""
+    if 'resp_custom_query_log_choice' not in st.session_state: st.session_state.resp_custom_query_log_choice = "English Log"
+    if 'resp_custom_query_result' not in st.session_state: st.session_state.resp_custom_query_result = None
+    if 'resp_custom_query_status' not in st.session_state: st.session_state.resp_custom_query_status = None
+
+    english_log_data = load_jsonl_log(english_log_path)
+    basque_log_data = load_jsonl_log(basque_log_path)
+
+    display_error_on_overview = False
+    if not english_log_data:
+        with tab_overview: st.error(f"Could not load/parse: {english_log_path}")
+        display_error_on_overview = True
+    if not basque_log_data:
+        with tab_overview: st.error(f"Could not load/parse: {basque_log_path}")
+        display_error_on_overview = True
+    
+    if not display_error_on_overview and english_log_data and basque_log_data:
+        if 'last_selected_eng' not in st.session_state or st.session_state.last_selected_eng != english_log_file or \
+           'last_selected_bas' not in st.session_state or st.session_state.last_selected_bas != basque_log_file:
+            st.cache_data.clear()
+            st.session_state.nlp_results_eng = None
+            st.session_state.nlp_results_basque = None
+            st.session_state.llm_results_eng = None
+            st.session_state.llm_results_basque = None
+            st.session_state.llm_comparative_summary = None
+            st.session_state.nlp_eng_status = None # Ensure clear
+            st.session_state.nlp_bas_status = None # Ensure clear
+            st.session_state.last_selected_eng = english_log_file
+            st.session_state.last_selected_bas = basque_log_file
+            st.sidebar.success(f"Ready to analyze:\n- {english_log_file}\n- {basque_log_file}")
+        
+        def make_hashable(data):
+            if isinstance(data, list):
+                return tuple(make_hashable(item) for item in data)
+            if isinstance(data, dict):
+                return tuple(sorted((k, make_hashable(v)) for k, v in data.items()))
+            return data
+
+        @st.cache_data
+        def cached_run_nlp_analysis(log_data_tuple, language, log_file_name_tuple):
+            log_data_list = [dict(item_tuple) for item_tuple in log_data_tuple]
+            results = run_nlp_analysis(log_data_list, language=language)
+            return results
+        
+        llm_analyzer_instance = LLMAnalyzer()
+        llm_analysis_possible = bool(llm_analyzer_instance.api_key)
+        
+        if not llm_analysis_possible and 'llm_warning_shown' not in st.session_state:
+            st.sidebar.warning("OPENAI_API_KEY not found. LLM features limited.")
+            st.session_state.llm_warning_shown = True
+
+        @st.cache_data
+        def cached_run_llm_analysis(log_data_tuple, language, log_file_name_tuple, _api_key_present):
+            if not llm_analyzer_instance.api_key: 
+                 return {"error": "API key not available for LLM analysis."}
+            log_data_list = [dict(item_tuple) for item_tuple in log_data_tuple]
+            results = run_llm_analysis(log_data_list, language_name=language)
+            return results
+
+        with tab_overview:
+            st.header("Debate Overview")
+            col1, col2 = st.columns(2)
+            log_display_data = [
+                (english_log_data, english_log_file, "English"),
+                (basque_log_data, basque_log_file, "Basque")
+            ]
+
+            for i, (log_data, log_file, lang_name) in enumerate(log_display_data):
+                column = col1 if i == 0 else col2
+                with column:
+                    st.subheader(f"{lang_name} Log: {log_file}")
+                    question_entry = next((item for item in log_data if item.get('event_type') == 'debate_question'), None)
+                    if question_entry:
+                        st.markdown(f"**Question:** {question_entry.get('question_text', 'N/A')}")
+                        st.markdown(f"_(Asked at: {question_entry.get('timestamp_event', 'N/A')})_")
+                    st.markdown("--- Conversation ---")
+                    with st.container(height=500):
+                        for entry in log_data:
+                            if entry.get('event_type') == 'utterance':
+                                speaker = entry.get('speaker_id', 'Unknown Speaker')
+                                model = entry.get('model_name', 'Unknown Model')
+                                timestamp_gen = entry.get('timestamp_generation_utc', 'N/A')
+                                round_num = entry.get('round', 'N/A')
+                                utterance = entry.get('utterance_text', '')
+                                st.markdown(f"**Round {round_num} - {speaker} ({model})** _({timestamp_gen})_")
+                                st.text_area("Utterance text", value=utterance, height=150 if len(utterance) > 100 else (len(utterance)//3 + 50) ,disabled=True, label_visibility="collapsed", key=f"{lang_name}_{timestamp_gen}_{speaker}_{round_num}") 
+                                st.markdown("---")
+
+        with tab_llm:
+            st.header("LLM-Powered Insights & Basic Word Analysis")
+            st.markdown("LLM-based analysis (sentiment, themes) and basic word frequency statistics.")
+
+            # Basic NLP Word Frequencies Section
+            with st.expander("📊 Basic Word Frequency Analysis", expanded=False):
+                st.markdown("Basic NLP analysis showing word frequencies and pronoun usage.")
+                
+                col_nlp1, col_nlp2 = st.columns(2)
+            with col_nlp1:
+                st.subheader("English NLP Analysis (Basic)")
+                if st.button("Run English NLP Analysis", key="run_nlp_eng"):
+                    with st.spinner("🔍 Analyzing English log with NLP..."):
+                        results_eng = cached_run_nlp_analysis(make_hashable(english_log_data), 'english', (english_log_file,))
+                        st.session_state.nlp_results_eng = results_eng
+                        if results_eng and 'error' not in results_eng:
+                            timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+                            original_log_name = os.path.splitext(english_log_file)[0]
+                            save_filename = f"english_nlp_analysis_{original_log_name}_{timestamp_str}.json"
+                            save_msg = save_nlp_results(results_eng, ANALYSIS_RESULTS_DIR, save_filename)
+                            word_count = len(results_eng.get('word_frequencies', {}))
+                            pronoun_count = sum(results_eng.get('pronoun_usage', {}).values()) if results_eng.get('pronoun_usage') else 0
+                            st.session_state.nlp_eng_status = {
+                                'message': f"✅ **English NLP Analysis Complete!**\n\n📊 **Results:** {word_count} unique words, {pronoun_count} pronouns detected\n\n💾 **Saved to:** `{save_filename}`", 
+                                'type': 'success'
+                            }
+                            st.balloons()
+                        elif results_eng and 'error' in results_eng:
+                             st.session_state.nlp_eng_status = {'message': f"⚠️ English NLP analysis completed with issues: {results_eng.get('error')}", 'type': 'warning'}
+                        else: 
+                            st.session_state.nlp_eng_status = {'message': "❌ English NLP analysis failed to produce results.", 'type': 'error'}
+                
+                status_info_eng = st.session_state.get('nlp_eng_status')
+                if status_info_eng:
+                    if status_info_eng['type'] == 'success': st.success(status_info_eng['message'])
+                    elif status_info_eng['type'] == 'warning': st.warning(status_info_eng['message'])
+                    elif status_info_eng['type'] == 'error': st.error(status_info_eng['message'])
+
+                if st.session_state.nlp_results_eng:
+                    results = st.session_state.nlp_results_eng
+                    if 'error' not in results:
+                        st.json(results, expanded=False)
+                        if 'pronoun_usage' in results:
+                            st.write(f"**Pronoun Usage (English):**")
+                            st.dataframe(pd.DataFrame.from_dict(results['pronoun_usage'], orient='index'))
+                        if 'word_frequencies' in results:
+                            st.write(f"**Top 50 Word Frequencies (English):**")
+                            word_freq_eng_dict = results['word_frequencies']
+                            if word_freq_eng_dict:
+                                df_eng_freq = pd.DataFrame(list(word_freq_eng_dict.items()), columns=['Word', 'Frequency'])
+                                # MODIFIED: Use Altair for horizontal bar chart
+                                chart_eng = alt.Chart(df_eng_freq).mark_bar().encode(
+                                    x=alt.X('Frequency:Q', title='Frequency'),
+                                    y=alt.Y('Word:N', title='Word', sort=alt.EncodingSortField(field="Frequency", op="sum", order='descending'))
+                                ).properties(
+                                    # title='Top 50 Word Frequencies (English)' # Title already provided by st.write
+                                )
+                                st.altair_chart(chart_eng, use_container_width=True)
+                            else:
+                                st.info("No word frequencies to display.")
+                        # Removed potentially problematic 'else' from previous diff
+                    else:
+                        st.warning(f"NLP analysis for English failed: {results.get('error', 'Unknown error')}")
+                elif english_log_file and english_log_data:
+                    st.info("Click the button above to run English NLP analysis.")
+
+                st.markdown("--- Viewing Saved English NLP Analysis ---")
+                saved_eng_nlp_files = get_saved_nlp_analysis_files("english_nlp_analysis_")
+                selected_saved_eng_nlp_file = st.selectbox(
+                    "Select a saved English NLP analysis file to view:",
+                    saved_eng_nlp_files,
+                    index=None,
+                    placeholder="Choose a file...",
+                    key="view_saved_eng_nlp"
+                )
+                if selected_saved_eng_nlp_file:
+                    try:
+                        with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_saved_eng_nlp_file), 'r', encoding='utf-8') as f:
+                            saved_eng_nlp_results = json.load(f)
+                        st.success(f"Displaying saved NLP analysis: {selected_saved_eng_nlp_file}")
+                        st.json(saved_eng_nlp_results, expanded=False) # Show overview
+
+                        if 'pronoun_usage' in saved_eng_nlp_results:
+                            st.write(f"**Pronoun Usage (from {selected_saved_eng_nlp_file}):**")
+                            st.dataframe(pd.DataFrame.from_dict(saved_eng_nlp_results['pronoun_usage'], orient='index'))
+                        if 'word_frequencies' in saved_eng_nlp_results:
+                            st.write(f"**Top 50 Word Frequencies (from {selected_saved_eng_nlp_file}):**")
+                            word_freq_eng_dict_saved = saved_eng_nlp_results['word_frequencies']
+                            if word_freq_eng_dict_saved:
+                                df_eng_freq_saved = pd.DataFrame(list(word_freq_eng_dict_saved.items()), columns=['Word', 'Frequency'])
+                                chart_eng_saved = alt.Chart(df_eng_freq_saved).mark_bar().encode(
+                                    x=alt.X('Frequency:Q', title='Frequency'),
+                                    y=alt.Y('Word:N', title='Word', sort=alt.EncodingSortField(field="Frequency", op="sum", order='descending'))
+                                ).properties(
+                                    title='Word Frequencies (Saved English)'
+                                )
+                                st.altair_chart(chart_eng_saved, use_container_width=True)
+                            else:
+                                st.info("No word frequencies in this saved English NLP file.")
+                        else:
+                            st.info("No specific NLP components (pronouns, word frequencies) found in the expected format in this saved file.")
+
+                    except FileNotFoundError:
+                        st.error(f"Error: Could not find the selected saved file: {selected_saved_eng_nlp_file}")
+                    except json.JSONDecodeError:
+                        st.error(f"Error: Could not parse the selected saved file. It may be corrupted: {selected_saved_eng_nlp_file}")
+                    except Exception as e:
+                        st.error(f"An unexpected error occurred while loading/displaying the saved NLP file: {str(e)}")
+                else:
+                    if saved_eng_nlp_files:
+                        st.info("Select a saved English NLP analysis file from the dropdown above to view its contents.")
+                    else:
+                        st.info("No saved English NLP analysis files found. Run an analysis to save one.")
+            
+            with col_nlp2:
+                st.subheader("Basque NLP Analysis")
+                if st.button("Run Basque NLP Analysis", key="run_nlp_bas"):
+                    with st.spinner("🔍 Analyzing Basque log with NLP..."):
+                        results_bas = cached_run_nlp_analysis(make_hashable(basque_log_data), 'basque', (basque_log_file,))
+                        st.session_state.nlp_results_basque = results_bas
+                        if results_bas and 'error' not in results_bas:
+                            timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+                            original_log_name = os.path.splitext(basque_log_file)[0]
+                            save_filename = f"basque_nlp_analysis_{original_log_name}_{timestamp_str}.json"
+                            save_msg = save_nlp_results(results_bas, ANALYSIS_RESULTS_DIR, save_filename)
+                            word_count = len(results_bas.get('word_frequencies', {}))
+                            pronoun_count = sum(results_bas.get('pronoun_usage', {}).values()) if results_bas.get('pronoun_usage') else 0
+                            st.session_state.nlp_bas_status = {
+                                'message': f"✅ **Basque NLP Analysis Complete!**\n\n📊 **Results:** {word_count} unique words, {pronoun_count} pronouns detected\n\n💾 **Saved to:** `{save_filename}`", 
+                                'type': 'success'
+                            }
+                            st.balloons()
+                        elif results_bas and 'error' in results_bas:
+                            st.session_state.nlp_bas_status = {'message': f"⚠️ Basque NLP analysis completed with issues: {results_bas.get('error')}", 'type': 'warning'}
+                        else:
+                            st.session_state.nlp_bas_status = {'message': "❌ Basque NLP analysis failed to produce results.", 'type': 'error'}
+
+                status_info_bas = st.session_state.get('nlp_bas_status')
+                if status_info_bas:
+                    if status_info_bas['type'] == 'success': st.success(status_info_bas['message'])
+                    elif status_info_bas['type'] == 'warning': st.warning(status_info_bas['message'])
+                    elif status_info_bas['type'] == 'error': st.error(status_info_bas['message'])
+                
+                if st.session_state.nlp_results_basque:
+                    results = st.session_state.nlp_results_basque
+                    if 'error' not in results:
+                        st.json(results, expanded=False)
+                        if 'pronoun_usage' in results:
+                            st.write(f"**Pronoun Usage (Basque):**")
+                            st.dataframe(pd.DataFrame.from_dict(results['pronoun_usage'], orient='index'))
+                        if 'word_frequencies' in results:
+                            st.write(f"**Top 50 Word Frequencies (Basque):**")
+                            basque_words_for_chart_dict = results['word_frequencies']
+                            if not basque_words_for_chart_dict:
+                                st.info("No Basque word frequencies to display.")
+                            elif llm_analysis_possible and basque_words_for_chart_dict:
+                                top_basque_words_list = list(basque_words_for_chart_dict.keys())
+                                try:
+                                    with st.spinner("Translating Basque top words..."):
+                                         translations = llm_analyzer_instance.translate_words(top_basque_words_list, "Basque", "English")
+                                    
+                                    translated_word_freq_list = []
+                                    for word, count in basque_words_for_chart_dict.items():
+                                        translation = translations.get(word, "") 
+                                        label = f"{word} ({translation})" if translation and translation.lower() != word.lower() else word
+                                        translated_word_freq_list.append({"Word": label, "Frequency": count})
+                                    
+                                    if translated_word_freq_list:
+                                        df_bas_freq_translated = pd.DataFrame(translated_word_freq_list)
+                                        # MODIFIED: Use Altair for horizontal bar chart
+                                        chart_bas_translated = alt.Chart(df_bas_freq_translated).mark_bar().encode(
+                                            x=alt.X('Frequency:Q', title='Frequency'),
+                                            y=alt.Y('Word:N', title='Word', sort=alt.EncodingSortField(field="Frequency", op="sum", order='descending'))
+                                        ).properties(
+                                            # title='Top 50 Word Frequencies (Basque - Translated)'
+                                        )
+                                        st.altair_chart(chart_bas_translated, use_container_width=True)
+                                    else:
+                                        st.info("No translated word frequencies to display.")
+                                except Exception as e:
+                                    st.warning(f"Could not translate Basque words: {str(e)}. Displaying original words.")
+                                    df_bas_freq_original = pd.DataFrame(list(basque_words_for_chart_dict.items()), columns=['Word', 'Frequency'])
+                                    # MODIFIED: Use Altair for horizontal bar chart (fallback)
+                                    chart_bas_original_fallback = alt.Chart(df_bas_freq_original).mark_bar().encode(
+                                        x=alt.X('Frequency:Q', title='Frequency'),
+                                        y=alt.Y('Word:N', title='Word', sort=alt.EncodingSortField(field="Frequency", op="sum", order='descending'))
+                                    ).properties(
+                                        # title='Top 50 Word Frequencies (Basque)'
+                                    )
+                                    st.altair_chart(chart_bas_original_fallback, use_container_width=True)
+                            else: # LLM analysis not possible or no words
+                                df_bas_freq_original = pd.DataFrame(list(basque_words_for_chart_dict.items()), columns=['Word', 'Frequency'])
+                                if df_bas_freq_original.empty:
+                                    st.info("No Basque word frequencies to display.")
+                                else:
+                                    # MODIFIED: Use Altair for horizontal bar chart (original)
+                                    chart_bas_original = alt.Chart(df_bas_freq_original).mark_bar().encode(
+                                        x=alt.X('Frequency:Q', title='Frequency'),
+                                        y=alt.Y('Word:N', title='Word', sort=alt.EncodingSortField(field="Frequency", op="sum", order='descending'))
+                                    ).properties(
+                                        # title='Top 50 Word Frequencies (Basque)'
+                                    )
+                                    st.altair_chart(chart_bas_original, use_container_width=True)
+                    else:
+                        st.warning(f"NLP analysis for Basque failed: {results.get('error', 'Unknown error')}")
+                elif basque_log_file and basque_log_data: 
+                    st.info("Click the button above to run Basque NLP analysis.")
+
+                st.markdown("--- Viewing Saved Basque NLP Analysis ---")
+                saved_bas_nlp_files = get_saved_nlp_analysis_files("basque_nlp_analysis_")
+                selected_saved_bas_nlp_file = st.selectbox(
+                    "Select a saved Basque NLP analysis file to view:",
+                    saved_bas_nlp_files,
+                    index=None,
+                    placeholder="Choose a file...",
+                    key="view_saved_bas_nlp"
+                )
+                if selected_saved_bas_nlp_file:
+                    try:
+                        with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_saved_bas_nlp_file), 'r', encoding='utf-8') as f:
+                            saved_bas_nlp_results = json.load(f)
+                        st.success(f"Displaying saved NLP analysis: {selected_saved_bas_nlp_file}")
+                        st.json(saved_bas_nlp_results, expanded=False) # Show overview
+
+                        if 'pronoun_usage' in saved_bas_nlp_results:
+                            st.write(f"**Pronoun Usage (from {selected_saved_bas_nlp_file}):**")
+                            st.dataframe(pd.DataFrame.from_dict(saved_bas_nlp_results['pronoun_usage'], orient='index'))
+                        if 'word_frequencies' in saved_bas_nlp_results:
+                            st.write(f"**Top 50 Word Frequencies (from {selected_saved_bas_nlp_file}):**")
+                            basque_words_saved_dict = saved_bas_nlp_results['word_frequencies']
+                            if basque_words_saved_dict:
+                                # For saved Basque word frequencies, display as is first.
+                                # Translation could be an added feature if LLM is available.
+                                df_bas_freq_saved = pd.DataFrame(list(basque_words_saved_dict.items()), columns=['Word', 'Frequency'])
+                                chart_bas_saved = alt.Chart(df_bas_freq_saved).mark_bar().encode(
+                                    x=alt.X('Frequency:Q', title='Frequency'),
+                                    y=alt.Y('Word:N', title='Word', sort=alt.EncodingSortField(field="Frequency", op="sum", order='descending'))
+                                ).properties(
+                                    title='Word Frequencies (Saved Basque)'
+                                )
+                                st.altair_chart(chart_bas_saved, use_container_width=True)
+                                # Placeholder for potential translation button if desired later
+                                # if llm_analysis_possible:
+                                #     if st.button("Translate Basque Words (from saved)", key="translate_saved_bas_nlp"):
+                                #         # ... (translation logic similar to live analysis)
+                                #         pass
+                            else:
+                                st.info("No word frequencies in this saved Basque NLP file.")
+                        else:
+                            st.info("No specific NLP components (pronouns, word frequencies) found in the expected format in this saved file.")
+                    
+                    except FileNotFoundError:
+                        st.error(f"Error: Could not find the selected saved file: {selected_saved_bas_nlp_file}")
+                    except json.JSONDecodeError:
+                        st.error(f"Error: Could not parse the selected saved file. It may be corrupted: {selected_saved_bas_nlp_file}")
+                    except Exception as e:
+                        st.error(f"An unexpected error occurred while loading/displaying the saved NLP file: {str(e)}")
+                else:
+                    if saved_bas_nlp_files:
+                        st.info("Select a saved Basque NLP analysis file from the dropdown above to view its contents.")
+                    else:
+                        st.info("No saved Basque NLP analysis files found. Run an analysis to save one.")
+
+            # LLM Analysis Section  
+            st.markdown("---")
+            st.subheader("🤖 LLM-Powered Sentiment & Thematic Analysis")
+            st.markdown("AI-powered analysis of sentiment and themes. Requires OPENAI_API_KEY.")
+
+            if not llm_analysis_possible:
+                st.warning("LLM-based analyses require an OPENAI_API_KEY in your .env file.")
+            
+            col_llm1, col_llm2 = st.columns(2)
+            with col_llm1:
+                st.subheader("English LLM Analysis")
+                if st.button("Run English LLM Analysis", key="run_llm_eng", disabled=not llm_analysis_possible):
+                    with st.spinner("🤖 Analyzing English log with LLM (sentiment & themes)..."):
+                        results_eng = cached_run_llm_analysis(make_hashable(english_log_data), 'english', (english_log_file,), llm_analysis_possible)
+                        st.session_state.llm_results_eng = results_eng
+                        # Save results if successful and not an error dict from cache
+                        if results_eng and not results_eng.get('error'):
+                            timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+                            original_log_name = os.path.splitext(english_log_file)[0]
+                            save_filename = f"english_llm_analysis_{original_log_name}_{timestamp_str}.json"
+                            save_msg = save_llm_results(results_eng, ANALYSIS_RESULTS_DIR, save_filename)
+                            sentiment_count = len(results_eng.get('sentiment_analysis', []))
+                            theme_count = len(results_eng.get('thematic_analysis', {}).get('themes', []))
+                            st.session_state.llm_eng_save_status = {
+                                'message': f"✅ **English LLM Analysis Complete!**\n\n🎭 **Sentiment:** {sentiment_count} utterances analyzed\n🏷️ **Themes:** {theme_count} themes extracted\n\n💾 **Saved to:** `{save_filename}`", 
+                                'type': 'success'
+                            }
+                            st.balloons()
+                        elif results_eng and results_eng.get('error'):
+                            st.session_state.llm_eng_save_status = {'message': f"⚠️ English LLM analysis completed with error: {results_eng.get('error')}", 'type': 'warning'}
+                        else:
+                            st.session_state.llm_eng_save_status = {'message': "❌ English LLM analysis failed or produced no results.", 'type': 'error'}
+                
+                # Display save status for English LLM analysis
+                status_llm_eng_save = st.session_state.get('llm_eng_save_status')
+                if status_llm_eng_save:
+                    if status_llm_eng_save['type'] == 'success': st.success(status_llm_eng_save['message'])
+                    elif status_llm_eng_save['type'] == 'warning': st.warning(status_llm_eng_save['message'])
+                    elif status_llm_eng_save['type'] == 'error': st.error(status_llm_eng_save['message'])
+
+                if st.session_state.llm_results_eng:
+                    results = st.session_state.llm_results_eng
+                    if 'error' not in results:
+                        st.json(results, expanded=False)
+                        if results.get('sentiment_analysis'):
+                            st.write(f"**Sentiment per Utterance (English):**")
+                            df_sentiment_eng = pd.DataFrame([{
+                                'utterance_label': f"R{s.get('round', 'N/A')}-{s.get('speaker_id', 'N/A')}", 
+                                'round': s.get('round', 'N/A'), 
+                                'speaker': s.get('speaker_id', 'N/A'), 
+                                'dominant_emotion': s.get('sentiment',{}).get('dominant_emotion', 'N/A'),
+                                'overall_score': s.get('sentiment',{}).get('overall_score', 0.0),
+                                'subjectivity': s.get('sentiment',{}).get('subjectivity', 0.0),
+                                'explanation': s.get('sentiment',{}).get('explanation', ''),
+                                'utterance': s.get('utterance_text', '')
+                                } for s in results['sentiment_analysis']])
+                            
+                            if not df_sentiment_eng.empty:
+                                # MODIFIED: Use Altair for sentiment visualization
+                                sentiment_chart_eng = alt.Chart(df_sentiment_eng).mark_bar().encode(
+                                    x=alt.X('utterance_label:N', title='Utterance (Round-Speaker)', sort=None), # Keep original order
+                                    y=alt.Y('overall_score:Q', title='Overall Sentiment Score', scale=alt.Scale(domain=[-1, 1])),
+                                    color=alt.Color('dominant_emotion:N', title='Dominant Emotion',
+                                                scale=alt.Scale(
+                                                    domain=["optimism", "concern", "skepticism", "frustration", "assertiveness", "neutral", "error", "N/A"],
+                                                    range=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f']
+                                                )),
+                                    tooltip=['utterance_label', 'dominant_emotion', 'overall_score', 'subjectivity', 'explanation', alt.Tooltip('utterance:N', title='Utterance (first 100 chars)')]
+                                ).properties(
+                                    # title='Sentiment per Utterance (English)'
+                                ).interactive()
+                                st.altair_chart(sentiment_chart_eng, use_container_width=True)
+                                with st.expander("View Sentiment Data Table (English)"):
+                                    st.dataframe(df_sentiment_eng, use_container_width=True)
+                            else:
+                                st.info("No sentiment data to display for English.")
+
+                        if results.get('thematic_analysis', {}).get('themes'):
+                            st.write(f"**Extracted Themes (English):**")
+                            for theme in results['thematic_analysis']['themes']:
+                                st.markdown(f"- **{theme.get('theme_title')}:** {theme.get('theme_explanation')}")
+                        elif results.get('thematic_analysis', {}).get('error'):
+                             st.warning(f"Thematic analysis error: {results['thematic_analysis']['error']}")
+                    elif results.get('error'):
+                        st.warning(f"LLM Analysis for English failed: {results.get('error')}")
+                elif llm_analysis_possible:
+                    st.info("Click the button above to run English LLM analysis.")
+
+                st.markdown("--- Viewing Saved English Analysis ---")
+                saved_eng_llm_files = get_saved_llm_analysis_files("english_llm_analysis_")
+                selected_saved_eng_llm_file = st.selectbox(
+                    "Select a saved English LLM analysis file to view:", 
+                    saved_eng_llm_files, 
+                    index=None, # Allow no selection initially
+                    placeholder="Choose a file...",
+                    key="view_saved_eng_llm"
+                )
+                if selected_saved_eng_llm_file:
+                    try:
+                        with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_saved_eng_llm_file), 'r', encoding='utf-8') as f:
+                            saved_eng_results = json.load(f)
+                        st.success(f"Displaying saved analysis: {selected_saved_eng_llm_file}")
+                        # Re-use the display logic, or create a dedicated display function if it becomes too complex
+                        # For now, direct display mimicking live results section
+                        st.json(saved_eng_results, expanded=False) # Show overview first
+                        if saved_eng_results.get('sentiment_analysis'):
+                            st.write(f"**Sentiment per Utterance (from {selected_saved_eng_llm_file}):**")
+                            # Prepare DataFrame for sentiment (adjust for new richer schema)
+                            df_sentiment_eng_saved = pd.DataFrame([{
+                                'utterance_label': f"R{s.get('round', 'N/A')}-{s.get('speaker_id', 'N/A')}", 
+                                'overall_score': s.get('sentiment',{}).get('overall_score', 0.0),
+                                'subjectivity': s.get('sentiment',{}).get('subjectivity', 0.0),
+                                'dominant_emotion': s.get('sentiment',{}).get('dominant_emotion', 'N/A'),
+                                'explanation': s.get('sentiment',{}).get('explanation', 'N/A'),
+                                'utterance': s.get('utterance_text', '')
+                                } for s in saved_eng_results['sentiment_analysis']])
+                            
+                            if not df_sentiment_eng_saved.empty:
+                                # Simplified display for now, can enhance with charts later
+                                st.dataframe(df_sentiment_eng_saved, use_container_width=True)
+                                # If you want charts for saved data as well, we'd replicate the Altair logic here
+                                # For consistency, let's add the same chart for saved data:
+                                sentiment_chart_eng_saved = alt.Chart(df_sentiment_eng_saved).mark_bar().encode(
+                                    x=alt.X('utterance_label:N', title='Utterance (Round-Speaker)', sort=None),
+                                    y=alt.Y('overall_score:Q', title='Overall Sentiment Score', scale=alt.Scale(domain=[-1, 1])),
+                                    color=alt.Color('dominant_emotion:N', title='Dominant Emotion',
+                                                scale=alt.Scale(
+                                                    domain=["optimism", "concern", "skepticism", "frustration", "assertiveness", "neutral", "error", "N/A"],
+                                                    range=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f']
+                                                )),
+                                    tooltip=['utterance_label', 'dominant_emotion', 'overall_score', 'subjectivity', 'explanation', alt.Tooltip('utterance:N', title='Utterance (first 100 chars)')]
+                                ).properties(
+                                    title=f'Sentiment per Utterance (Saved: {selected_saved_eng_llm_file})'
+                                ).interactive()
+                                st.altair_chart(sentiment_chart_eng_saved, use_container_width=True)
+                                with st.expander(f"View Sentiment Data Table (Saved English: {selected_saved_eng_llm_file})"):
+                                     st.dataframe(df_sentiment_eng_saved, use_container_width=True)
+
+                            else:
+                                st.info("No sentiment data in this saved English file.")
+
+                        if saved_eng_results.get('thematic_analysis', {}).get('themes'):
+                            st.write(f"**Extracted Themes (from {selected_saved_eng_llm_file}):**")
+                            for theme in saved_eng_results['thematic_analysis']['themes']:
+                                st.markdown(f"- **{theme.get('theme_title')}:** {theme.get('theme_explanation')}")
+                        elif saved_eng_results.get('thematic_analysis', {}).get('error'):
+                             st.warning(f"Thematic analysis error in saved file: {saved_eng_results['thematic_analysis']['error']}")
+                        else:
+                            st.info("No thematic analysis in this saved file or themes list is empty.")
+                            
+                    except FileNotFoundError:
+                        st.error(f"Error: Could not find the selected saved file: {selected_saved_eng_llm_file}")
+                    except json.JSONDecodeError:
+                        st.error(f"Error: Could not parse the selected saved file. It may be corrupted: {selected_saved_eng_llm_file}")
+                    except Exception as e:
+                        st.error(f"An unexpected error occurred while loading/displaying the saved file: {str(e)}")
+                else:
+                    if saved_eng_llm_files:
+                        st.info("Select a saved English LLM analysis file from the dropdown above to view its contents.")
+                    else:
+                        st.info("No saved English LLM analysis files found. Run an analysis to save one.")
+
+            with col_llm2:
+                st.subheader("Basque LLM Analysis")
+                if st.button("Run Basque LLM Analysis", key="run_llm_bas", disabled=not llm_analysis_possible):
+                    with st.spinner("🤖 Analyzing Basque log with LLM (sentiment & themes)..."):
+                        results_bas = cached_run_llm_analysis(make_hashable(basque_log_data), 'basque', (basque_log_file,), llm_analysis_possible)
+                        st.session_state.llm_results_basque = results_bas
+                        # Save results if successful and not an error dict from cache
+                        if results_bas and not results_bas.get('error'):
+                            timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+                            original_log_name = os.path.splitext(basque_log_file)[0]
+                            save_filename = f"basque_llm_analysis_{original_log_name}_{timestamp_str}.json"
+                            save_msg = save_llm_results(results_bas, ANALYSIS_RESULTS_DIR, save_filename)
+                            sentiment_count = len(results_bas.get('sentiment_analysis', []))
+                            theme_count = len(results_bas.get('thematic_analysis', {}).get('themes', []))
+                            st.session_state.llm_bas_save_status = {
+                                'message': f"✅ **Basque LLM Analysis Complete!**\n\n🎭 **Sentiment:** {sentiment_count} utterances analyzed\n🏷️ **Themes:** {theme_count} themes extracted\n\n💾 **Saved to:** `{save_filename}`", 
+                                'type': 'success'
+                            }
+                            st.balloons()
+                        elif results_bas and results_bas.get('error'):
+                             st.session_state.llm_bas_save_status = {'message': f"⚠️ Basque LLM analysis completed with error: {results_bas.get('error')}", 'type': 'warning'}
+                        else:
+                            st.session_state.llm_bas_save_status = {'message': "❌ Basque LLM analysis failed or produced no results.", 'type': 'error'}
+
+                # Display save status for Basque LLM analysis
+                status_llm_bas_save = st.session_state.get('llm_bas_save_status')
+                if status_llm_bas_save:
+                    if status_llm_bas_save['type'] == 'success': st.success(status_llm_bas_save['message'])
+                    elif status_llm_bas_save['type'] == 'warning': st.warning(status_llm_bas_save['message'])
+                    elif status_llm_bas_save['type'] == 'error': st.error(status_llm_bas_save['message'])
+
+                if st.session_state.llm_results_basque:
+                    results = st.session_state.llm_results_basque
+                    if 'error' not in results:
+                        st.json(results, expanded=False)
+                        if results.get('sentiment_analysis'):
+                            st.write(f"**Sentiment per Utterance (Basque):**")
+                            df_sentiment_bas = pd.DataFrame([{
+                                'utterance_label': f"R{s.get('round', 'N/A')}-{s.get('speaker_id', 'N/A')}",
+                                'round': s.get('round', 'N/A'), 
+                                'speaker': s.get('speaker_id', 'N/A'), 
+                                'dominant_emotion': s.get('sentiment',{}).get('dominant_emotion', 'N/A'),
+                                'overall_score': s.get('sentiment',{}).get('overall_score', 0.0),
+                                'subjectivity': s.get('sentiment',{}).get('subjectivity', 0.0),
+                                'explanation': s.get('sentiment',{}).get('explanation', ''),
+                                'utterance': s.get('utterance_text', '')
+                                } for s in results['sentiment_analysis']])
+                            
+                            if not df_sentiment_bas.empty:
+                                # MODIFIED: Use Altair for sentiment visualization
+                                sentiment_chart_bas = alt.Chart(df_sentiment_bas).mark_bar().encode(
+                                    x=alt.X('utterance_label:N', title='Utterance (Round-Speaker)', sort=None), # Keep original order
+                                    y=alt.Y('overall_score:Q', title='Overall Sentiment Score', scale=alt.Scale(domain=[-1, 1])),
+                                    color=alt.Color('dominant_emotion:N', title='Dominant Emotion',
+                                                scale=alt.Scale(
+                                                    domain=["optimism", "concern", "skepticism", "frustration", "assertiveness", "neutral", "error", "N/A"],
+                                                    range=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f']
+                                                )),
+                                    tooltip=['utterance_label', 'dominant_emotion', 'overall_score', 'subjectivity', 'explanation', alt.Tooltip('utterance:N', title='Utterance (first 100 chars)')]
+                                ).properties(
+                                    # title='Sentiment per Utterance (Basque)'
+                                ).interactive()
+                                st.altair_chart(sentiment_chart_bas, use_container_width=True)
+                                with st.expander("View Sentiment Data Table (Basque)"):
+                                    st.dataframe(df_sentiment_bas, use_container_width=True)
+                            else:
+                                st.info("No sentiment data to display for Basque.")
+
+                        if results.get('thematic_analysis', {}).get('themes'):
+                            st.write(f"**Extracted Themes (Basque):**")
+                            themes_data_basque = results['thematic_analysis'] # Explicitly get the themes sub-dictionary
+                            if themes_data_basque.get("themes"): # Check again if themes list is within this sub-dict
+                                for i, theme in enumerate(themes_data_basque["themes"]):
+                                    st.markdown(f"**Theme {i+1}: {theme.get('theme_title', 'N/A')}**")
+                                    # Display English translation for Basque themes if available
+                                    if theme.get("theme_title_en") and theme.get("theme_title_en") != theme.get("theme_title"):
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;*English Title: {theme.get('theme_title_en')}*")
+                                    elif theme.get("theme_title_en") and theme.get("theme_title_en") == theme.get("theme_title") and not theme.get("theme_title","").isascii() :
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;*English Title (translation may have failed or is same as original): {theme.get('theme_title_en')}*")
+                                        
+                                    st.markdown(theme.get('theme_explanation', 'No explanation provided.'))
+                                    if theme.get("theme_explanation_en") and theme.get("theme_explanation_en") != theme.get("theme_explanation"):
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;*English Explanation: {theme.get('theme_explanation_en')}*")
+                                    elif theme.get("theme_explanation_en") and theme.get("theme_explanation_en") == theme.get("theme_explanation") and not theme.get("theme_explanation","").isascii():
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;*English Explanation (translation may have failed or is same as original): {theme.get('theme_explanation_en')}*")
+                                    st.divider()
+                            else:
+                                st.info("No themes were extracted or themes list is empty for Basque.")
+                        elif results.get('thematic_analysis', {}).get('error'):
+                             st.warning(f"Thematic analysis error for Basque: {results['thematic_analysis']['error']}")
+                    elif results.get('error'):
+                        st.warning(f"LLM Analysis for Basque failed: {results.get('error')}")
+                elif llm_analysis_possible:
+                    st.info("Click the button above to run Basque LLM analysis.")
+
+                st.markdown("--- Viewing Saved Basque Analysis ---")
+                saved_bas_llm_files = get_saved_llm_analysis_files("basque_llm_analysis_")
+                selected_saved_bas_llm_file = st.selectbox(
+                    "Select a saved Basque LLM analysis file to view:",
+                    saved_bas_llm_files,
+                    index=None, # Allow no selection initially
+                    placeholder="Choose a file...",
+                    key="view_saved_bas_llm"
+                )
+                if selected_saved_bas_llm_file:
+                    try:
+                        with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_saved_bas_llm_file), 'r', encoding='utf-8') as f:
+                            saved_bas_results = json.load(f)
+                        st.success(f"Displaying saved analysis: {selected_saved_bas_llm_file}")
+                        st.json(saved_bas_results, expanded=False) # Show overview
+
+                        if saved_bas_results.get('sentiment_analysis'):
+                            st.write(f"**Sentiment per Utterance (from {selected_saved_bas_llm_file}):**")
+                            df_sentiment_bas_saved = pd.DataFrame([{
+                                'utterance_label': f"R{s.get('round', 'N/A')}-{s.get('speaker_id', 'N/A')}", 
+                                'overall_score': s.get('sentiment',{}).get('overall_score', 0.0),
+                                'subjectivity': s.get('sentiment',{}).get('subjectivity', 0.0),
+                                'dominant_emotion': s.get('sentiment',{}).get('dominant_emotion', 'N/A'),
+                                'explanation': s.get('sentiment',{}).get('explanation', 'N/A'),
+                                'utterance': s.get('utterance_text', '')
+                                } for s in saved_bas_results['sentiment_analysis']])
+                            if not df_sentiment_bas_saved.empty:
+                                st.dataframe(df_sentiment_bas_saved, use_container_width=True)
+                                # For consistency, let's add the same chart for saved data:
+                                sentiment_chart_bas_saved = alt.Chart(df_sentiment_bas_saved).mark_bar().encode(
+                                    x=alt.X('utterance_label:N', title='Utterance (Round-Speaker)', sort=None),
+                                    y=alt.Y('overall_score:Q', title='Overall Sentiment Score', scale=alt.Scale(domain=[-1, 1])),
+                                    color=alt.Color('dominant_emotion:N', title='Dominant Emotion',
+                                                scale=alt.Scale(
+                                                    domain=["optimism", "concern", "skepticism", "frustration", "assertiveness", "neutral", "error", "N/A"],
+                                                    range=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f']
+                                                )),
+                                    tooltip=['utterance_label', 'dominant_emotion', 'overall_score', 'subjectivity', 'explanation', alt.Tooltip('utterance:N', title='Utterance (first 100 chars)')]
+                                ).properties(
+                                    title=f'Sentiment per Utterance (Saved: {selected_saved_bas_llm_file})'
+                                ).interactive()
+                                st.altair_chart(sentiment_chart_bas_saved, use_container_width=True)
+                                with st.expander(f"View Sentiment Data Table (Saved Basque: {selected_saved_bas_llm_file})"):
+                                     st.dataframe(df_sentiment_bas_saved, use_container_width=True)
+
+                            else:
+                                st.info("No sentiment data in this saved Basque file.")
+
+                        if saved_bas_results.get('thematic_analysis', {}).get('themes'):
+                            st.write(f"**Extracted Themes (from {selected_saved_bas_llm_file}):**")
+                            themes_data_basque_saved = saved_bas_results['thematic_analysis']
+                            if themes_data_basque_saved.get("themes"):
+                                for i, theme in enumerate(themes_data_basque_saved["themes"]):
+                                    st.markdown(f"**Theme {i+1}: {theme.get('theme_title', 'N/A')}**")
+                                    if theme.get("theme_title_en") and theme.get("theme_title_en") != theme.get("theme_title"):
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;*English Title: {theme.get('theme_title_en')}*")
+                                    elif theme.get("theme_title_en") and theme.get("theme_title_en") == theme.get("theme_title") and not theme.get("theme_title","").isascii() :
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;*English Title (translation may have failed or is same as original): {theme.get('theme_title_en')}*")
+                                    st.markdown(theme.get('theme_explanation', 'No explanation provided.'))
+                                    if theme.get("theme_explanation_en") and theme.get("theme_explanation_en") != theme.get("theme_explanation"):
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;*English Explanation: {theme.get('theme_explanation_en')}*")
+                                    elif theme.get("theme_explanation_en") and theme.get("theme_explanation_en") == theme.get("theme_explanation") and not theme.get("theme_explanation","").isascii():
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;*English Explanation (translation may have failed or is same as original): {theme.get('theme_explanation_en')}*")
+                                    st.divider()
+                            else:
+                                st.info("No themes were extracted or themes list is empty in this saved Basque file.")
+                        elif saved_bas_results.get('thematic_analysis', {}).get('error'):
+                             st.warning(f"Thematic analysis error in saved Basque file: {saved_bas_results['thematic_analysis']['error']}")
+                        else:
+                            st.info("No thematic analysis in this saved file or themes list is empty.")
+                    except FileNotFoundError:
+                        st.error(f"Error: Could not find the selected saved file: {selected_saved_bas_llm_file}")
+                    except json.JSONDecodeError:
+                        st.error(f"Error: Could not parse the selected saved file. It may be corrupted: {selected_saved_bas_llm_file}")
+                    except Exception as e:
+                        st.error(f"An unexpected error occurred while loading/displaying the saved Basque file: {str(e)}")
+                else:
+                    if saved_bas_llm_files:
+                        st.info("Select a saved Basque LLM analysis file from the dropdown above to view its contents.")
+                    else:
+                        st.info("No saved Basque LLM analysis files found. Run an analysis to save one.")
+
+        with tab_comparison:
+            st.header("Cross-Linguistic Comparison")
+            st.markdown("**Compare Basque ergative-absolutive** and **English nominative-accusative** patterns to understand how grammatical structure influences AI reasoning.")
+            
+            # Cross-Linguistic Interpretation (NEW)
+            st.markdown("---")
+            st.subheader("🔬 Cross-Linguistic Interpretation Agent")
+            st.markdown("""
+            **Intelligent analysis** of grammatical differences between Basque and English debates.
+            
+            This agent:
+            - Explains how ergative (Basque) vs nominative-accusative (English) systems differ
+            - Compares agent marking patterns with concrete examples
+            - Interprets what the differences mean for AI reasoning
+            - Generates a comprehensive markdown report
+            
+            **Requirements**: 
+            - Basque morphological analysis (run in "3️⃣ Basque Analysis" tab)
+            - English syntactic analysis (run in "4️⃣ English Analysis" tab)
+            """)
+            
+            # Check if analyses are available
+            has_basque_parsed = 'basque_parsed' in st.session_state
+            has_english_syntax = 'syntax_results_eng' in st.session_state
+            
+            col_interp1, col_interp2 = st.columns(2)
+            with col_interp1:
+                st.metric("Basque Morphological Analysis", "✅ Ready" if has_basque_parsed else "❌ Not run")
+            with col_interp2:
+                st.metric("English Syntactic Analysis", "✅ Ready" if has_english_syntax else "❌ Not run")
+            
+            if st.button("🎯 Generate Cross-Linguistic Interpretation", 
+                        disabled=not (has_basque_parsed and has_english_syntax),
+                        help="Run both Basque and English analyses first"):
+                with st.spinner("Analyzing cross-linguistic patterns..."):
+                    try:
+                        interpreter = CrossLinguisticInterpreter()
+                        
+                        # Prepare data for interpreter
+                        # Save current session results to temp files
+                        import tempfile
+                        
+                        basque_temp = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False, encoding='utf-8')
+                        english_temp = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False, encoding='utf-8')
+                        
+                        # Convert ParsedTranscript to serializable dict
+                        basque_parsed = st.session_state.basque_parsed
+                        basque_data = {
+                            'language': basque_parsed.language,
+                            'parser_type': basque_parsed.parser_type,
+                            'parsed_at': basque_parsed.parsed_at.isoformat(),
+                            'total_tokens': len(basque_parsed.tokens),
+                            'case_distribution': basque_parsed.get_case_distribution(),
+                            'alignment_ratios': basque_parsed.get_alignment_ratios(),
+                            'agentive_patterns': basque_parsed.identify_agentive_marking_patterns(),
+                            'parse_table': basque_parsed.to_table(max_rows=None)
+                        }
+                        
+                        json.dump(basque_data, basque_temp)
+                        json.dump(st.session_state.syntax_results_eng, english_temp)
+                        
+                        basque_temp.close()
+                        english_temp.close()
+                        
+                        # Load into interpreter
+                        interpreter.load_results(
+                            basque_parsed_file=basque_temp.name,
+                            english_syntax_file=english_temp.name,
+                            basque_log_file=os.path.join(LOGS_DIR, basque_log_file) if basque_log_file else None,
+                            english_log_file=os.path.join(LOGS_DIR, english_log_file) if english_log_file else None
+                        )
+                        
+                        # Generate interpretation
+                        interpretation = interpreter.generate_full_interpretation()
+                        
+                        # Clean up temp files
+                        os.unlink(basque_temp.name)
+                        os.unlink(english_temp.name)
+                        
+                        # Store in session state
+                        st.session_state.cross_ling_interpretation = interpretation
+                        
+                        # Generate markdown report
+                        timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        report_filename = f"cross_linguistic_interpretation_{timestamp_str}.md"
+                        
+                        # Save to temp first to get the file content
+                        temp_report = tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8')
+                        interpreter.generate_markdown_report(temp_report.name)
+                        temp_report.close()
+                        
+                        # Move to analysis results
+                        import shutil
+                        final_report_path = os.path.join(ANALYSIS_RESULTS_DIR, report_filename)
+                        shutil.move(temp_report.name, final_report_path)
+                        
+                        st.session_state.interp_status = {
+                            'message': f"✓ Cross-linguistic interpretation complete. Report saved to {report_filename}",
+                            'type': 'success'
+                        }
+                        
+                    except Exception as e:
+                        st.session_state.interp_status = {
+                            'message': f"✗ Interpretation failed: {str(e)}",
+                            'type': 'error'
+                        }
+            
+            # Display status
+            status_interp = st.session_state.get('interp_status')
+            if status_interp:
+                if status_interp['type'] == 'success':
+                    st.success(status_interp['message'])
+                elif status_interp['type'] == 'error':
+                    st.error(status_interp['message'])
+            
+            # Display interpretation results
+            if st.session_state.get('cross_ling_interpretation'):
+                interp = st.session_state.cross_ling_interpretation
+                
+                if "error" in interp:
+                    st.error(interp['error'])
+                    if "instruction" in interp:
+                        st.info(interp['instruction'])
+                else:
+                    # Executive Summary
+                    with st.expander("📋 Executive Summary", expanded=True):
+                        exec_sum = interp.get('executive_summary', {})
+                        st.markdown(f"**Overview**: {exec_sum.get('overview', 'N/A')}")
+                        st.markdown(f"**Agent Pattern**: {exec_sum.get('agent_pattern', 'N/A')}")
+                        st.markdown(f"**Patient Pattern**: {exec_sum.get('patient_pattern', 'N/A')}")
+                        st.markdown(f"**Key Finding**: {exec_sum.get('key_finding', 'N/A')}")
+                    
+                    # Grammatical Systems
+                    with st.expander("🔤 Grammatical Systems Explained"):
+                        gram_sys = interp.get('grammatical_systems', {})
+                        
+                        col_g1, col_g2 = st.columns(2)
+                        with col_g1:
+                            st.markdown("### Basque: Ergative-Absolutive")
+                            basque_sys = gram_sys.get('basque_system', {})
+                            st.markdown(f"**Type**: {basque_sys.get('type', 'N/A')}")
+                            st.markdown(f"**Key Feature**: {basque_sys.get('key_feature', 'N/A')}")
+                            st.markdown(f"**Example**: `{basque_sys.get('example_structure', 'N/A')}`")
+                            st.info(basque_sys.get('interpretation', 'N/A'))
+                        
+                        with col_g2:
+                            st.markdown("### English: Nominative-Accusative")
+                            english_sys = gram_sys.get('english_system', {})
+                            st.markdown(f"**Type**: {english_sys.get('type', 'N/A')}")
+                            st.markdown(f"**Key Feature**: {english_sys.get('key_feature', 'N/A')}")
+                            st.markdown(f"**Example**: `{english_sys.get('example_structure', 'N/A')}`")
+                            st.info(english_sys.get('interpretation', 'N/A'))
+                        
+                        st.markdown("### 🎯 Critical Difference")
+                        crit_diff = gram_sys.get('critical_difference', {})
+                        st.warning(f"**{crit_diff.get('summary', 'N/A')}**")
+                        st.markdown(f"- **Basque**: {crit_diff.get('basque_pattern', 'N/A')}")
+                        st.markdown(f"- **English**: {crit_diff.get('english_pattern', 'N/A')}")
+                        st.success(f"**Implication**: {crit_diff.get('implication', 'N/A')}")
+                    
+                    # Agent Comparison
+                    with st.expander("👤 Agent Marking Comparison"):
+                        agent_comp = interp.get('agent_comparison', {})
+                        
+                        col_a1, col_a2 = st.columns(2)
+                        with col_a1:
+                            basque_met = agent_comp.get('basque_metrics', {})
+                            st.metric("Basque Ergative Ratio", basque_met.get('ergative_ratio', 'N/A'))
+                            st.info(basque_met.get('interpretation', 'N/A'))
+                        
+                        with col_a2:
+                            english_met = agent_comp.get('english_metrics', {})
+                            st.metric("English Agent-Subject Ratio", english_met.get('agent_as_subject_ratio', 'N/A'))
+                            st.info(english_met.get('interpretation', 'N/A'))
+                        
+                        st.markdown("### 💡 Key Insight")
+                        st.success(agent_comp.get('key_insight', 'N/A'))
+                        
+                        # Examples
+                        examples = agent_comp.get('examples', {})
+                        if examples:
+                            st.markdown("#### Concrete Examples")
+                            if examples.get('basque_utterance_samples'):
+                                st.markdown("**Basque Utterances** (ergative markers highlighted):")
+                                for ex in examples['basque_utterance_samples'][:2]:
+                                    st.markdown(f"- {ex}")
+                            if examples.get('english_utterance_samples'):
+                                st.markdown("**English Utterances**:")
+                                for ex in examples['english_utterance_samples'][:2]:
+                                    st.markdown(f"- {ex}")
+                    
+                    # Voice & Case
+                    with st.expander("🎭 Voice & Patient Marking"):
+                        voice_comp = interp.get('voice_case_comparison', {})
+                        
+                        col_v1, col_v2 = st.columns(2)
+                        with col_v1:
+                            eng_voice = voice_comp.get('english_voice', {})
+                            st.metric("English Passive Voice", eng_voice.get('passive_ratio', 'N/A'))
+                            st.markdown(f"**Function**: {eng_voice.get('passive_function', 'N/A')}")
+                            st.info(eng_voice.get('interpretation', 'N/A'))
+                        
+                        with col_v2:
+                            bas_case = voice_comp.get('basque_case', {})
+                            st.metric("Basque Absolutive", bas_case.get('absolutive_ratio', 'N/A'))
+                            st.markdown(f"**Function**: {bas_case.get('absolutive_function', 'N/A')}")
+                        
+                        st.markdown("### 🔄 Parallel Insight")
+                        st.success(voice_comp.get('parallel_insight', 'N/A'))
+                    
+                    # Research Implications
+                    with st.expander("🔬 Research Implications"):
+                        research = interp.get('research_implications', {})
+                        
+                        st.markdown("### Key Findings")
+                        for impl in research.get('implications', []):
+                            st.markdown(f"- {impl}")
+                        
+                        st.markdown("### Limitations")
+                        for lim in research.get('limitations', []):
+                            st.markdown(f"- {lim}")
+                        
+                        st.markdown("### Next Steps")
+                        for step in research.get('next_steps', []):
+                            st.markdown(f"- {step}")
+            
+            else:
+                if not (has_basque_parsed and has_english_syntax):
+                    st.info("💡 To use the interpreter, first run:\n1. Basque morphological analysis (tab 3️⃣ Basque Analysis)\n2. English syntactic analysis (tab 4️⃣ English Analysis)")
+                else:
+                    st.info("Click 'Generate Cross-Linguistic Interpretation' to analyze the results")
+            
+            st.markdown("---")
+            
+            if not llm_analysis_possible:
+                st.info("LLM-based comparative summary requires an OPENAI_API_KEY.")
+            else:
+                if 'llm_comparative_summary' not in st.session_state:
+                    st.session_state.llm_comparative_summary = None
+                
+                if st.button("Generate LLM-based Comparative Summary"):
+                    with st.spinner("Generating LLM comparative summary..."):
+                        eng_text = "\n".join([entry.get('utterance_text', '') for entry in english_log_data if entry.get('event_type') == 'utterance'])
+                        bas_text = "\n".join([entry.get('utterance_text', '') for entry in basque_log_data if entry.get('event_type') == 'utterance'])
+                        topic = next((item.get('question_text') for item in english_log_data if item.get('event_type') == 'debate_question'), "Topic Not Found")
+                        
+                        summary = llm_analyzer_instance.generate_comparative_summary(eng_text, bas_text, topic)
+                        st.session_state.llm_comparative_summary = summary
+                
+                if st.session_state.llm_comparative_summary:
+                    st.markdown("### Comparative Summary")
+                    st.markdown(st.session_state.llm_comparative_summary)
+                else:
+                    st.info("Click the button above to generate a new LLM-based comparative summary.")
+
+        with tab_advanced:
+            st.header("Advanced Cultural-Rhetorical Analysis")
+            st.markdown("This analysis uses a specialized LLM prompt to examine linguistic and cultural aspects of a single debate log. The analysis can be lengthy and will consume API credits.")
+
+            if not llm_analysis_possible: # Assuming llm_analysis_possible checks for API key
+                st.warning("Advanced analysis requires an OPENAI_API_KEY in your .env file.")
+            else:
+                advanced_analyzer = AdvancedAnalyzer() # Instantiate here to check API key presence via its init
+                if not advanced_analyzer.llm_analyzer_instance.api_key:
+                    st.warning("Advanced Analyzer could not initialize properly (missing API key via LLMAnalyzer). Advanced features disabled.")
+                else:
+                    # Create two columns for the two buttons
+                    col_adv_run1, col_adv_run2 = st.columns(2)
+
+                    with col_adv_run1:
+                        if st.button("Run Advanced Analysis on English Log", key="run_adv_eng_log", disabled=not (english_log_file and english_log_data)):
+                            if english_log_data:
+                                with st.spinner(f"🔬 Performing deep cultural-rhetorical analysis on English log..."):
+                                    full_text_content = "\n".join([entry.get('utterance_text', '') for entry in english_log_data if entry.get('event_type') == 'utterance'])
+                                    question_text = next((item.get('question_text', '') for item in english_log_data if item.get('event_type') == 'debate_question'), "Debate Topic Not Found")
+                                    contextual_text_content = f"Debate Topic: {question_text}\n\n{full_text_content}"
+                                    
+                                    adv_result_text = advanced_analyzer.analyze_cultural_rhetoric(contextual_text_content)
+                                    st.session_state.advanced_analysis_result = adv_result_text
+                                    
+                                    if adv_result_text.startswith("Error:"):
+                                        st.session_state.advanced_analysis_status = {"message": f"❌ Advanced analysis on English log failed: {adv_result_text}", "type": "error"}
+                                    else:
+                                        timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                        original_log_name_for_adv = os.path.splitext(english_log_file)[0]
+                                        save_filename = f"english_advanced_analysis_{original_log_name_for_adv}_{timestamp_str}.md"
+                                        save_msg = save_advanced_analysis_results(adv_result_text, ANALYSIS_RESULTS_DIR, save_filename)
+                                        st.session_state.advanced_analysis_status = {
+                                            "message": f"✅ **English Advanced Analysis Complete!**\n\n📝 **Analyzed:** Cultural rhetoric, agency expression, responsibility framing\n\n💾 **Saved to:** `{save_filename}`", 
+                                            "type": "success"
+                                        }
+                                        st.balloons()
+                            else:
+                                st.session_state.advanced_analysis_status = {"message": "⚠️ English log data not available for advanced analysis.", "type": "warning"}
+                    
+                    with col_adv_run2:
+                        if st.button("Run Advanced Analysis on Basque Log", key="run_adv_bas_log", disabled=not (basque_log_file and basque_log_data)):
+                            if basque_log_data:
+                                with st.spinner(f"🔬 Performing deep cultural-rhetorical analysis on Basque log..."):
+                                    full_text_content = "\n".join([entry.get('utterance_text', '') for entry in basque_log_data if entry.get('event_type') == 'utterance'])
+                                    question_text = next((item.get('question_text', '') for item in basque_log_data if item.get('event_type') == 'debate_question'), "Debate Topic Not Found")
+                                    contextual_text_content = f"Debate Topic: {question_text}\n\n{full_text_content}"
+                                    
+                                    adv_result_text = advanced_analyzer.analyze_cultural_rhetoric(contextual_text_content)
+                                    st.session_state.advanced_analysis_result = adv_result_text # Overwrites previous if any
+                                    
+                                    if adv_result_text.startswith("Error:"):
+                                        st.session_state.advanced_analysis_status = {"message": f"❌ Advanced analysis on Basque log failed: {adv_result_text}", "type": "error"}
+                                    else:
+                                        timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                        original_log_name_for_adv = os.path.splitext(basque_log_file)[0]
+                                        save_filename = f"basque_advanced_analysis_{original_log_name_for_adv}_{timestamp_str}.md"
+                                        save_msg = save_advanced_analysis_results(adv_result_text, ANALYSIS_RESULTS_DIR, save_filename)
+                                        st.session_state.advanced_analysis_status = {
+                                            "message": f"✅ **Basque Advanced Analysis Complete!**\n\n📝 **Analyzed:** Ergative patterns, cultural rhetoric, responsibility framing\n\n💾 **Saved to:** `{save_filename}`", 
+                                            "type": "success"
+                                        }
+                                        st.balloons()
+                            else:
+                                st.session_state.advanced_analysis_status = {"message": "⚠️ Basque log data not available for advanced analysis.", "type": "warning"}
+
+                    # Display status and results *after* the columns for buttons
+                    status_adv = st.session_state.get('advanced_analysis_status')
+                    if status_adv:
+                        if status_adv['type'] == 'success': st.success(status_adv['message'])
+                        elif status_adv['type'] == 'error': st.error(status_adv['message'])
+                        elif status_adv['type'] == 'warning': st.warning(status_adv['message'])
+
+                    # Display results
+                    if st.session_state.advanced_analysis_result:
+                        st.markdown("### Advanced Analysis Output")
+                        if st.session_state.advanced_analysis_result.startswith("Error:"):
+                            st.error(st.session_state.advanced_analysis_result) # Show error directly if it's an error string
+                        else:
+                            st.markdown(st.session_state.advanced_analysis_result)
+                    else:
+                        st.info("Click one of the buttons above to run the advanced analysis on the selected log type.")
+
+                    st.markdown("--- Viewing Saved Advanced Analyses ---")
+                    
+                    col_adv_saved1, col_adv_saved2 = st.columns(2)
+                    with col_adv_saved1:
+                        st.subheader("Saved English Advanced Analyses")
+                        saved_adv_eng_files = get_saved_advanced_analysis_files("english_advanced_analysis_")
+                        selected_saved_adv_eng_file = st.selectbox(
+                            "Select a saved English advanced analysis file:",
+                            saved_adv_eng_files,
+                            index=None,
+                            placeholder="Choose a file...",
+                            key="view_saved_adv_eng"
+                        )
+                        if selected_saved_adv_eng_file:
+                            try:
+                                with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_saved_adv_eng_file), 'r', encoding='utf-8') as f:
+                                    content = f.read()
+                                st.success(f"Displaying: {selected_saved_adv_eng_file}")
+                                with st.expander("View Content", expanded=True):
+                                     st.markdown(content)
+                            except Exception as e:
+                                st.error(f"Could not load or display file: {e}")
+                        elif saved_adv_eng_files:
+                            st.info("Select a file to view its content.")
+                        else:
+                            st.info("No saved English advanced analysis files found.")
+                    
+                    with col_adv_saved2:
+                        st.subheader("Saved Basque Advanced Analyses")
+                        saved_adv_bas_files = get_saved_advanced_analysis_files("basque_advanced_analysis_")
+                        selected_saved_adv_bas_file = st.selectbox(
+                            "Select a saved Basque advanced analysis file:",
+                            saved_adv_bas_files,
+                            index=None,
+                            placeholder="Choose a file...",
+                            key="view_saved_adv_bas"
+                        )
+                        if selected_saved_adv_bas_file:
+                            try:
+                                with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_saved_adv_bas_file), 'r', encoding='utf-8') as f:
+                                    content = f.read()
+                                st.success(f"Displaying: {selected_saved_adv_bas_file}")
+                                with st.expander("View Content", expanded=True):
+                                    st.markdown(content)
+                            except Exception as e:
+                                st.error(f"Could not load or display file: {e}")
+                        elif saved_adv_bas_files:
+                            st.info("Select a file to view its content.")
+                        else:
+                            st.info("No saved Basque advanced analysis files found.")
+
+                    # --- Custom Log Query Mode with Custom Styling ---
+                    st.markdown("""
+                    <style>
+                    .custom-query-container-advanced {
+                        background-color: #FFFFE0 !important; /* LightYellow for the entire query block, with !important */
+                        padding: 1.2rem; 
+                        border-radius: 0.5rem;
+                        border: 1px solid #E0E0B0; /* A border that complements light yellow */
+                        margin-bottom: 1rem;
+                    }
+                    /* Keeping label bold as it was previously accepted and is generally helpful for hierarchy */
+                    .custom-query-container-advanced .stTextArea label {
+                        font-weight: bold;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
+                    
+                    st.markdown("<div class='custom-query-container-advanced'>", unsafe_allow_html=True)
+                    st.subheader("Custom Log Query Mode") 
+                    st.markdown("Ask a custom question or provide a prompt to analyze the selected log's content.")
+
+                    st.session_state.custom_query_text = st.text_area(
+                        "Enter your custom query/prompt for the log content:", 
+                        value=st.session_state.custom_query_text, 
+                        height=150, 
+                        key="custom_query_input"
+                    )
+                    
+                    custom_query_log_options = []
+                    if english_log_file and english_log_data: custom_query_log_options.append("English Log")
+                    if basque_log_file and basque_log_data: custom_query_log_options.append("Basque Log")
+
+                    if not custom_query_log_options:
+                        st.warning("No logs available to query. Please ensure logs are selected in the sidebar.")
+                    else:
+                        st.session_state.custom_query_log_choice = st.radio(
+                            "Select log for your custom query:",
+                            options=custom_query_log_options,
+                            index=custom_query_log_options.index(st.session_state.custom_query_log_choice) if st.session_state.custom_query_log_choice in custom_query_log_options else 0,
+                            key="custom_query_log_select"
+                        )
+
+                        if st.button("Submit Custom Query", key="run_custom_query", disabled=not st.session_state.custom_query_text.strip()):
+                            target_log_text_content = ""
+                            chosen_log_name_for_query = st.session_state.custom_query_log_choice
+
+                            if chosen_log_name_for_query == "English Log" and english_log_data:
+                                target_log_text_content = "\n".join([entry.get('utterance_text', '') for entry in english_log_data if entry.get('event_type') == 'utterance'])
+                                question_text = next((item.get('question_text', '') for item in english_log_data if item.get('event_type') == 'debate_question'), "Topic Not Found")
+                                target_log_text_content = f"Debate Topic: {question_text}\n\n{target_log_text_content}"
+                            elif chosen_log_name_for_query == "Basque Log" and basque_log_data:
+                                target_log_text_content = "\n".join([entry.get('utterance_text', '') for entry in basque_log_data if entry.get('event_type') == 'utterance'])
+                                question_text = next((item.get('question_text', '') for item in basque_log_data if item.get('event_type') == 'debate_question'), "Topic Not Found")
+                                target_log_text_content = f"Debate Topic: {question_text}\n\n{target_log_text_content}"
+                            
+                            if target_log_text_content and st.session_state.custom_query_text.strip():
+                                with st.spinner(f"Running your custom query on {chosen_log_name_for_query}..."):
+                                    # We ensure advanced_analyzer is available here; it's instantiated earlier in the tab if API key exists
+                                    if hasattr(st.session_state, 'advanced_analyzer_instance') and st.session_state.advanced_analyzer_instance:
+                                         analyzer_to_use = st.session_state.advanced_analyzer_instance
+                                    elif 'advanced_analyzer' in locals() and advanced_analyzer.llm_analyzer_instance.api_key: # if it was created in the outer scope of the tab
+                                        analyzer_to_use = advanced_analyzer
+                                    else: # Fallback instantiation, though it should be set if API key is valid
+                                        analyzer_to_use = AdvancedAnalyzer()
+                                    
+                                    if not analyzer_to_use.llm_analyzer_instance.api_key:
+                                        st.session_state.custom_query_status = {"message": "Cannot run custom query: API key not configured.", "type": "error"}
+                                        st.session_state.custom_query_result = None
+                                    else:
+                                        query_response = analyzer_to_use.query_log_with_custom_prompt(
+                                            log_text_content=target_log_text_content,
+                                            custom_user_query=st.session_state.custom_query_text
+                                        )
+                                        st.session_state.custom_query_result = query_response
+                                        if query_response.startswith("Error:"):
+                                            st.session_state.custom_query_status = {"message": f"Custom query failed: {query_response}", "type": "error"}
+                                        else:
+                                            st.session_state.custom_query_status = {"message": f"Custom query on {chosen_log_name_for_query} complete.", "type": "success"}
+                            elif not st.session_state.custom_query_text.strip():
+                                 st.session_state.custom_query_status = {"message": "Please enter a query/prompt.", "type": "warning"}
+                            else:
+                                st.session_state.custom_query_status = {"message": f"Could not load text content for {chosen_log_name_for_query}.", "type": "error"}
+
+                        # Display status for custom_query
+                        status_custom_q = st.session_state.get('custom_query_status')
+                        if status_custom_q:
+                            if status_custom_q['type'] == 'success': st.success(status_custom_q['message'])
+                            elif status_custom_q['type'] == 'error': st.error(status_custom_q['message'])
+                            elif status_custom_q['type'] == 'warning': st.warning(status_custom_q['message'])
+                        
+                        # Display custom query result
+                        if st.session_state.custom_query_result:
+                            st.markdown("#### Custom Query Response:")
+                            if st.session_state.custom_query_result.startswith("Error:"):
+                                st.error(st.session_state.custom_query_result)
+                            else:
+                                st.markdown(st.session_state.custom_query_result)
+                    st.markdown("</div>", unsafe_allow_html=True) # End of the styled div for advanced query
+
+        with tab_responsibility:
+            st.header("Moral Responsibility Heatmaps")
+            st.markdown("Generate and compare heatmaps showing the perceived attribution of responsibilities to different agents within each debate log. This uses an LLM to score attributions and can take some time.")
+
+            if not llm_analysis_possible: # Check for API key
+                st.warning("Responsibility Heatmap generation requires an OPENAI_API_KEY in your .env file.")
+            else:
+                responsibility_analyzer = ResponsibilityAnalyzer() # Instantiate once
+                if not responsibility_analyzer.llm_analyzer_instance.api_key:
+                    st.warning("Responsibility Analyzer could not initialize properly (missing API key). Heatmap features disabled.")
+                else:
+                    # Helper function to create heatmap
+                    def create_heatmap_viz(matrix_data_dict: dict, title: str):
+                        if not matrix_data_dict or "matrix" not in matrix_data_dict or not matrix_data_dict["matrix"]:
+                            st.info(f"No matrix data available to generate heatmap for {title}.")
+                            if "error" in matrix_data_dict:
+                                st.error(f"Error reported for {title} data: {matrix_data_dict['error']}")
+                            if "warning" in matrix_data_dict:
+                                st.warning(f"Warning for {title} data: {matrix_data_dict['warning']}")
+                                if "validation_errors" in matrix_data_dict:
+                                    with st.expander("Show Validation Errors"): 
+                                        for verr in matrix_data_dict["validation_errors"]:
+                                            st.caption(f"- {verr}")
+                            return
+
+                        actual_matrix = matrix_data_dict["matrix"]
+                        try:
+                            df = pd.DataFrame(actual_matrix).reindex(index=ResponsibilityAnalyzer.RESPONSIBILITIES, columns=ResponsibilityAnalyzer.AGENTS)
+                            df = df.fillna(0) # Fill NaNs that might occur if LLM misses an agent/resp despite validation trying to fill them
+                            
+                            fig = px.imshow(df, 
+                                            text_auto=True, 
+                                            aspect="auto", 
+                                            color_continuous_scale='Reds', 
+                                            range_color=[0,5],
+                                            labels=dict(x="Agents", y="Responsibilities", color="Attribution Score"),
+                                            title=title)
+                            fig.update_xaxes(side="top") # Agents on top for typical matrix view
+                            st.plotly_chart(fig, use_container_width=True)
+
+                            if "warning" in matrix_data_dict:
+                                st.warning(f"Note: {matrix_data_dict['warning']}")
+                                if "validation_errors" in matrix_data_dict:
+                                    with st.expander("Show Validation Errors that were handled/defaulted"): 
+                                        for verr in matrix_data_dict["validation_errors"]:
+                                            st.caption(f"- {verr}")
+                        except Exception as e:
+                            st.error(f"Failed to generate heatmap for {title}: {str(e)}")
+                            st.json(actual_matrix, expanded=False) # Show raw matrix if plot fails
+
+                    col_resp_eng, col_resp_bas = st.columns(2)
+
+                    with col_resp_eng:
+                        st.subheader("English Log Responsibility Analysis")
+                        if st.button("Generate English Responsibility Heatmap", key="run_resp_eng", disabled=not english_log_data):
+                            with st.spinner("Analyzing English log for responsibility attribution..."):
+                                full_text = "\n".join([entry.get('utterance_text', '') for entry in english_log_data if entry.get('event_type') == 'utterance'])
+                                question = next((item.get('question_text', '') for item in english_log_data if item.get('event_type') == 'debate_question'), "Topic Not Found")
+                                contextual_text = f"Debate Topic: {question}\n\n{full_text}"
+                                result = responsibility_analyzer.analyze_responsibility_attribution(contextual_text, language="english")
+                                st.session_state.english_responsibility_data = result
+                                if "error" in result:
+                                    st.session_state.english_responsibility_status = {"message": f"English analysis failed: {result['error']}", "type": "error"}
+                                else:
+                                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                    filename = f"english_responsibility_matrix_{os.path.splitext(english_log_file)[0]}_{timestamp}.json"
+                                    save_msg = save_responsibility_matrix(result, ANALYSIS_RESULTS_DIR, filename)
+                                    st.session_state.english_responsibility_status = {"message": f"English analysis complete. {save_msg}", "type": "success"}
+                                    if "warning" in result: # Append LLM/validation warnings to success message
+                                         st.session_state.english_responsibility_status["message"] += f" (Warning: {result['warning']})"
+                       
+                        status_eng_resp = st.session_state.get('english_responsibility_status')
+                        if status_eng_resp:
+                            if status_eng_resp['type'] == 'success': st.success(status_eng_resp['message'])
+                            elif status_eng_resp['type'] == 'error': st.error(status_eng_resp['message'])
+                       
+                        if st.session_state.english_responsibility_data:
+                            # Display original English matrix
+                            create_heatmap_viz(st.session_state.english_responsibility_data, "English Log: Responsibility Attribution (Original)")
+                            
+                            # If translated matrix exists, display it as well
+                            if "translated_matrix" in st.session_state.english_responsibility_data:
+                                # Create a copy of the data with translated matrix as the main matrix for visualization
+                                translated_data = st.session_state.english_responsibility_data.copy()
+                                translated_data["matrix"] = translated_data["translated_matrix"]
+                                create_heatmap_viz(translated_data, "English Log: Responsibility Attribution (Translated to Basque)")
+                            
+                            with st.expander("View Raw English Matrix Data (JSON)"):
+                                st.json(st.session_state.english_responsibility_data)
+                            
+                            # Show translation information if available
+                            if "translations" in st.session_state.english_responsibility_data:
+                                with st.expander("View Translation Mappings"):
+                                    st.subheader("Agent Translations (English to Basque)")
+                                    st.json(st.session_state.english_responsibility_data["translations"]["agents"])
+                                    st.subheader("Responsibility Translations (English to Basque)")
+                                    st.json(st.session_state.english_responsibility_data["translations"]["responsibilities"])
+                        else:
+                            st.info("Click button above to generate heatmap for the English log.")
+
+                    with col_resp_bas:
+                        st.subheader("Basque Log Responsibility Analysis")
+                        if st.button("Generate Basque Responsibility Heatmap", key="run_resp_bas", disabled=not basque_log_data):
+                            with st.spinner("Analyzing Basque log for responsibility attribution..."):
+                                full_text = "\n".join([entry.get('utterance_text', '') for entry in basque_log_data if entry.get('event_type') == 'utterance'])
+                                question = next((item.get('question_text', '') for item in basque_log_data if item.get('event_type') == 'debate_question'), "Topic Not Found")
+                                contextual_text = f"Debate Topic: {question}\n\n{full_text}"
+                                result = responsibility_analyzer.analyze_responsibility_attribution(contextual_text, language="basque")
+                                st.session_state.basque_responsibility_data = result
+                                if "error" in result:
+                                    st.session_state.basque_responsibility_status = {"message": f"Basque analysis failed: {result['error']}", "type": "error"}
+                                else:
+                                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                    filename = f"basque_responsibility_matrix_{os.path.splitext(basque_log_file)[0]}_{timestamp}.json"
+                                    save_msg = save_responsibility_matrix(result, ANALYSIS_RESULTS_DIR, filename)
+                                    st.session_state.basque_responsibility_status = {"message": f"Basque analysis complete. {save_msg}", "type": "success"}
+                                    if "warning" in result:
+                                         st.session_state.basque_responsibility_status["message"] += f" (Warning: {result['warning']})"
+                       
+                        status_bas_resp = st.session_state.get('basque_responsibility_status')
+                        if status_bas_resp:
+                            if status_bas_resp['type'] == 'success': st.success(status_bas_resp['message'])
+                            elif status_bas_resp['type'] == 'error': st.error(status_bas_resp['message'])
+                       
+                        if st.session_state.basque_responsibility_data:
+                            # Display original Basque matrix
+                            create_heatmap_viz(st.session_state.basque_responsibility_data, "Basque Log: Responsibility Attribution (Original)")
+                            
+                            # If translated matrix exists, display it as well
+                            if "translated_matrix" in st.session_state.basque_responsibility_data:
+                                # Create a copy of the data with translated matrix as the main matrix for visualization
+                                translated_data = st.session_state.basque_responsibility_data.copy()
+                                translated_data["matrix"] = translated_data["translated_matrix"]
+                                create_heatmap_viz(translated_data, "Basque Log: Responsibility Attribution (Translated to English)")
+                            
+                            with st.expander("View Raw Basque Matrix Data (JSON)"):
+                                st.json(st.session_state.basque_responsibility_data)
+                            
+                            # Show translation information if available
+                            if "translations" in st.session_state.basque_responsibility_data:
+                                with st.expander("View Translation Mappings"):
+                                    st.subheader("Agent Translations (Basque to English)")
+                                    st.json(st.session_state.basque_responsibility_data["translations"]["agents"])
+                                    st.subheader("Responsibility Translations (Basque to English)")
+                                    st.json(st.session_state.basque_responsibility_data["translations"]["responsibilities"])
+                        else:
+                            st.info("Click button above to generate heatmap for the Basque log.")
+                    
+                    st.markdown("--- Viewing Saved Responsibility Matrices ---")
+                    col_saved_resp1, col_saved_resp2 = st.columns(2)
+                    with col_saved_resp1:
+                        st.subheader("Saved English Matrices")
+                        saved_eng_resp_files = get_saved_responsibility_matrix_files("english_responsibility_matrix_")
+                        selected_eng_resp_file = st.selectbox("Select English saved matrix:", saved_eng_resp_files, index=None, placeholder="Choose a file...", key="view_saved_resp_eng")
+                        if selected_eng_resp_file:
+                            try:
+                                with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_eng_resp_file), 'r', encoding='utf-8') as f_in:
+                                    saved_data = json.load(f_in)
+                                st.info(f"Displaying saved matrix: {selected_eng_resp_file}")
+                                create_heatmap_viz(saved_data, f"Saved: {selected_eng_resp_file}")
+                                with st.expander("View Raw Saved Matrix Data (JSON)"):
+                                    st.json(saved_data)
+                            except Exception as e_load:
+                                st.error(f"Error loading saved English matrix: {e_load}")
+                   
+                    with col_saved_resp2:
+                        st.subheader("Saved Basque Matrices")
+                        saved_bas_resp_files = get_saved_responsibility_matrix_files("basque_responsibility_matrix_")
+                        selected_bas_resp_file = st.selectbox("Select Basque saved matrix:", saved_bas_resp_files, index=None, placeholder="Choose a file...", key="view_saved_resp_bas")
+                        if selected_bas_resp_file:
+                            try:
+                                with open(os.path.join(ANALYSIS_RESULTS_DIR, selected_bas_resp_file), 'r', encoding='utf-8') as f_in:
+                                    saved_data = json.load(f_in)
+                                st.info(f"Displaying saved matrix: {selected_bas_resp_file}")
+                                create_heatmap_viz(saved_data, f"Saved: {selected_bas_resp_file}")
+                                with st.expander("View Raw Saved Matrix Data (JSON)"):
+                                    st.json(saved_data)
+                            except Exception as e_load:
+                                st.error(f"Error loading saved Basque matrix: {e_load}")
+
+                    # --- Custom Query within Responsibility Tab (Reverted to simpler styling) ---
+                    with st.container(border=True): # Re-add container for grouping, remove custom CSS div
+                        st.subheader("Interactive Log Query for Responsibility Context")
+                        st.markdown("Ask a custom question or provide a prompt to analyze the selected log's content, helpful for exploring specific aspects related to responsibility.")
+
+                        if not llm_analysis_possible: 
+                            st.info("Custom querying requires an OPENAI_API_KEY.")
+                        else:
+                            adv_analyzer_for_resp_tab = AdvancedAnalyzer()
+                            if not adv_analyzer_for_resp_tab.llm_analyzer_instance.api_key:
+                                st.warning("Custom query in this tab is disabled as AdvancedAnalyzer could not access API key.")
+                            else:
+                                st.session_state.resp_custom_query_text = st.text_area(
+                                    "Enter your query/prompt for the log content (Responsibility Tab):",
+                                    value=st.session_state.resp_custom_query_text,
+                                    height=100,
+                                    key="resp_custom_query_input" 
+                                )
+                                resp_custom_query_log_options = []
+                                if english_log_file and english_log_data: resp_custom_query_log_options.append("English Log")
+                                if basque_log_file and basque_log_data: resp_custom_query_log_options.append("Basque Log")
+
+                                if not resp_custom_query_log_options:
+                                    st.warning("No logs available to query in Responsibility Tab. Ensure logs are selected.")
+                                else:
+                                    current_resp_log_choice_idx = 0
+                                    if st.session_state.resp_custom_query_log_choice in resp_custom_query_log_options:
+                                        current_resp_log_choice_idx = resp_custom_query_log_options.index(st.session_state.resp_custom_query_log_choice)
+                                    
+                                    st.session_state.resp_custom_query_log_choice = st.radio(
+                                        "Select log for your query (Responsibility Tab):",
+                                        options=resp_custom_query_log_options,
+                                        index=current_resp_log_choice_idx,
+                                        key="resp_custom_query_log_select" # Unique key
+                                    )
+
+                                    if st.button("Submit Query (Responsibility Tab)", key="run_resp_custom_query", disabled=not st.session_state.resp_custom_query_text.strip()):
+                                        target_log_text_content_resp = ""
+                                        chosen_log_name_for_query_resp = st.session_state.resp_custom_query_log_choice
+
+                                        log_data_to_use_resp = None
+                                        if chosen_log_name_for_query_resp == "English Log" and english_log_data:
+                                            log_data_to_use_resp = english_log_data
+                                        elif chosen_log_name_for_query_resp == "Basque Log" and basque_log_data:
+                                            log_data_to_use_resp = basque_log_data
+                                            
+                                        if log_data_to_use_resp:
+                                            target_log_text_content_resp = "\n".join([entry.get('utterance_text', '') for entry in log_data_to_use_resp if entry.get('event_type') == 'utterance'])
+                                            question_text_resp = next((item.get('question_text', '') for item in log_data_to_use_resp if item.get('event_type') == 'debate_question'), "Topic Not Found")
+                                            target_log_text_content_resp = f"Debate Topic: {question_text_resp}\n\n{target_log_text_content_resp}"
+
+                                        if target_log_text_content_resp and st.session_state.resp_custom_query_text.strip():
+                                            with st.spinner(f"Running your query on {chosen_log_name_for_query_resp} (Responsibility context)..."):
+                                                query_response_resp = adv_analyzer_for_resp_tab.query_log_with_custom_prompt(
+                                                    log_text_content=target_log_text_content_resp,
+                                                    custom_user_query=st.session_state.resp_custom_query_text
+                                                )
+                                                st.session_state.resp_custom_query_result = query_response_resp
+                                                if query_response_resp.startswith("Error:"):
+                                                    st.session_state.resp_custom_query_status = {"message": f"Query failed: {query_response_resp}", "type": "error"}
+                                                else:
+                                                    st.session_state.resp_custom_query_status = {"message": f"Query on {chosen_log_name_for_query_resp} complete.", "type": "success"}
+                                        elif not st.session_state.resp_custom_query_text.strip():
+                                             st.session_state.resp_custom_query_status = {"message": "Please enter a query/prompt.", "type": "warning"}
+                                        else:
+                                            st.session_state.resp_custom_query_status = {"message": f"Could not load text content for {chosen_log_name_for_query_resp}.", "type": "error"}
+
+                                    # Display status for custom_query in Responsibility Tab
+                                    status_resp_custom_q = st.session_state.get('resp_custom_query_status')
+                                    if status_resp_custom_q:
+                                        if status_resp_custom_q['type'] == 'success': st.success(status_resp_custom_q['message'])
+                                        elif status_resp_custom_q['type'] == 'error': st.error(status_resp_custom_q['message'])
+                                        elif status_resp_custom_q['type'] == 'warning': st.warning(status_resp_custom_q['message'])
+                                    
+                                    # Display custom query result in Responsibility Tab
+                                    if st.session_state.resp_custom_query_result:
+                                        st.markdown("#### Query Response (Responsibility Context):")
+                                        if st.session_state.resp_custom_query_result.startswith("Error:"):
+                                            st.error(st.session_state.resp_custom_query_result)
+                                        else:
+                                            st.markdown(st.session_state.resp_custom_query_result)
+
+            # Agent and Responsibility Definitions expander starts after the container for custom query
+            st.markdown("---") 
+            
+            # Make the section more prominent
+            st.markdown("# 📊 Agent and Responsibility Definitions")
+            st.markdown("### Select logs and view examples from the debate logs")
+            
+            # Determine if we should show bilingual expander title
+            expander_title = "Agent and Responsibility Definitions - Examples from Logs"
+            # Check if we're viewing a Basque log file based on the current selection and data
+            is_viewing_basque_log = False
+            if 'basque_log_file' in locals() and basque_log_file and 'example_log_data_for_defs' in locals():
+                if example_log_name_for_defs and 'Basque' in example_log_name_for_defs:
+                    is_viewing_basque_log = True
+            
+            if is_viewing_basque_log:
+                expander_title = "Eragileen eta Erantzukizunen Definizioak / Agent and Responsibility Definitions - Examples from Logs"
+            
+            with st.expander(expander_title, expanded=True):
+                # Determine if we should show bilingual description
+                if is_viewing_basque_log:
+                    st.markdown(
+                        "Erantzukizunen atribuzioaren analisiak ondorengo aurredefinitutako kategoriak erabiltzen ditu. "
+                        "Behean definizoak daude, eztabaida logetan aipatutako termino hauen adibideekin batera "
+                        "(adibideak uneko logetik ateratzen dira, terminoko 2 instantziara mugatuta)."
+                        "\n\n"
+                        "The responsibility attribution analysis uses the following predefined categories. "
+                        "Below are the definitions, along with examples of these terms mentioned in the debate logs "
+                        "(examples are drawn from the currently selected log, limited to 2 instances per term)."
+                    )
+                else:
+                    st.markdown(
+                        "The responsibility attribution analysis uses the following predefined categories. "
+                        "Below are the definitions, along with examples of these terms mentioned in the debate logs "
+                        "(examples are drawn from the currently selected log, limited to 2 instances per term)."
+                    )
+                
+                # Add prominent log selection area directly within the expander
+                st.markdown("## Select Log for Examples")
+                
+                # Create two columns - one for selection dropdowns, one for the radio buttons
+                col1, col2 = st.columns([3, 1])
+                
+                with col1:
+                    log_selection_cols = st.columns(2)
+                    
+                    with log_selection_cols[0]:
+                        # Get all available English logs (refresh on demand)
+                        available_english_logs = get_language_log_files(LOGS_DIR, "english_")
+                        selected_eng_log = st.selectbox(
+                            "English Log:",
+                            options=available_english_logs,
+                            index=available_english_logs.index(english_log_file) if english_log_file in available_english_logs and len(available_english_logs) > 0 else 0,
+                            key="example_selection_eng_log"
+                        )
+                    
+                    with log_selection_cols[1]:
+                        # Get all available Basque logs (refresh on demand)
+                        available_basque_logs = get_language_log_files(LOGS_DIR, "basque_")
+                        selected_basq_log = st.selectbox(
+                            "Basque Log:",
+                            options=available_basque_logs,
+                            index=available_basque_logs.index(basque_log_file) if basque_log_file in available_basque_logs and len(available_basque_logs) > 0 else 0,
+                            key="example_selection_basq_log"
+                        )
+                
+                with col2:
+                    # Let user choose which selected log to use for examples
+                    log_type_for_examples = st.radio(
+                        "Log Type:",
+                        options=["English", "Basque"],
+                        horizontal=False,
+                        key="log_type_for_examples"
+                    )
+                    
+                    # Add a button to apply the selection for examples
+                    apply_button = st.button("Apply Selection", key="apply_selected_log")
+                
+                # Process log selection
+                if apply_button:
+                    if log_type_for_examples == "English" and selected_eng_log:
+                        english_log_path = os.path.join(LOGS_DIR, selected_eng_log)
+                        example_log_data_for_defs = load_jsonl_log(english_log_path)
+                        example_log_name_for_defs = f"{selected_eng_log} (English)"
+                        is_basque_log = False
+                        st.success(f"Using English log for examples: {selected_eng_log}")
+                    elif log_type_for_examples == "Basque" and selected_basq_log:
+                        basque_log_path = os.path.join(LOGS_DIR, selected_basq_log)
+                        example_log_data_for_defs = load_jsonl_log(basque_log_path)
+                        example_log_name_for_defs = f"{selected_basq_log} (Basque)"
+                        is_basque_log = True
+                        st.success(f"Using Basque log for examples: {selected_basq_log}")
+                
+                st.markdown("---")
+                
+                # Initialize example log data if not already set
+                if 'example_log_data_for_defs' not in locals() or example_log_data_for_defs is None:
+                    example_log_data_for_defs = None
+                    example_log_name_for_defs = ""
+                    is_basque_log = False
+
+                    # Check if english_log_data and basque_log_data are defined and not None
+                    # These are typically defined if logs are selected successfully.
+                    # This code runs inside the 'else' block where these are loaded.
+                    if 'english_log_data' in locals() and english_log_data:
+                        example_log_data_for_defs = english_log_data
+                        example_log_name_for_defs = f"{english_log_file} (English)"
+                        is_basque_log = False
+                    elif 'basque_log_data' in locals() and basque_log_data:
+                        example_log_data_for_defs = basque_log_data
+                        example_log_name_for_defs = f"{basque_log_file} (Basque)"
+                        is_basque_log = True
+                    
+                    # If basque log is selected in the responsibility tab but not as main example
+                    if not is_basque_log and not example_log_data_for_defs and 'basque_log_file' in locals() and basque_log_file and 'basque_log_data' in locals() and basque_log_data:
+                        # Force using the basque log data as example if no other log was chosen
+                        example_log_data_for_defs = basque_log_data
+                        example_log_name_for_defs = f"{basque_log_file} (Basque)"
+                        is_basque_log = True
+
+                # Display current log selection status
+                if example_log_data_for_defs:
+                    st.info(f"✅ Currently viewing examples from: **{example_log_name_for_defs}**")
+                else:
+                    st.warning("⚠️ No log data currently loaded to provide examples. Please select a log above.")
+                
+                # Only show the language selection and examples if we have log data
+                if not example_log_data_for_defs:
+                    st.caption("Use the log selection controls above to load examples from a log file.")
+                else:
+                    # Add language selection options for viewing definitions
+                    st.markdown("## Language Display Options")
+                    
+                    # Simplify basque content check - now just depend on the selected log
+                    has_basque_content = 'Basque' in example_log_name_for_defs
+                    
+                    # Display language options appropriate for the selected log
+                    if has_basque_content:
+                        st.info("Basque log selected - you can view terms in Basque with English translations.")
+                        view_language = st.radio(
+                            "View definitions in:",
+                            ["Basque and English", "Basque only", "English only"],
+                            index=0,
+                            horizontal=True,
+                            key="view_language_defs"
+                        )
+                        
+                        # Option to translate examples found in the text
+                        translate_examples = st.checkbox("Translate Basque examples to English", value=True, key="translate_examples_defs")
+                    else:
+                        # For English logs, no need for language options
+                        view_language = "English only"
+                        st.info("English log selected - examples will be shown in English.")
+                        translate_examples = False
+
+                # Create a basic description table depending on the language
+                if has_basque_content:
+                    # Show the description table in both languages for the Basque log
+                    st.markdown("### Terminologia Erreferentzia / Term Reference")
+                    
+                    # Create a DataFrame with both Basque and English terms for reference
+                    reference_data = {
+                        "Euskarazko Eragilea / Basque Agent": ResponsibilityAnalyzer.AGENTS_BASQUE,
+                        "Ingelesezko Eragilea / English Agent": ResponsibilityAnalyzer.AGENTS,
+                        "Euskarazko Erantzukizuna / Basque Responsibility": ResponsibilityAnalyzer.RESPONSIBILITIES_BASQUE,
+                        "Ingelesezko Erantzukizuna / English Responsibility": ResponsibilityAnalyzer.RESPONSIBILITIES
+                    }
+                    reference_df = pd.DataFrame(reference_data)
+                    st.dataframe(reference_df, use_container_width=True)
+
+                    if view_language == "Basque only":
+                        # Add Basque prompt explaining the definitions
+                        st.markdown("""
+                        ### Eragileen eta Erantzukizunen Definizioak
+
+                        Beheko kategoriak erabiltzen dira eztabaidetan erantzukizunen atribuzioak aztertzeko. 
+                        Eragile bakoitzak eta erantzukizun bakoitzak esanahi espezifikoa du erantzukizunen matrizean.
+                        """)
+                    elif view_language == "English only":
+                        # Add English prompt explaining the definitions
+                        st.markdown("""
+                        ### Agent and Responsibility Definitions
+                        
+                        The categories below are used for analyzing responsibility attributions in debates.
+                        Each agent and responsibility has a specific meaning in the responsibility matrix.
+                        """)
+                    else:
+                        # Add bilingual prompt explaining the definitions
+                        st.markdown("""
+                        ### Eragileen eta Erantzukizunen Definizioak / Agent and Responsibility Definitions
+                        
+                        Beheko kategoriak erabiltzen dira eztabaidetan erantzukizunen atribuzioak aztertzeko. 
+                        Eragile bakoitzak eta erantzukizun bakoitzak esanahi espezifikoa du erantzukizunen matrizean.
+                        
+                        The categories below are used for analyzing responsibility attributions in debates.
+                        Each agent and responsibility has a specific meaning in the responsibility matrix.
+                        """)
+
+                # Now display the agents based on selected language
+                if view_language == "Basque only" and has_basque_content:
+                    st.subheader("Eragileak")
+                elif view_language == "English only" or not has_basque_content:
+                    st.subheader("Agents")
+                else:
+                    st.subheader("Eragileak / Agents")
+                
+                # Display agents in the selected language format
+                # Display agents in both languages if we're looking at Basque data
+                if example_log_name_for_defs and has_basque_content:
+                    # Different display based on language preference
+                    if view_language == "Basque only":
+                        for basque_agent in ResponsibilityAnalyzer.AGENTS_BASQUE:
+                            st.markdown(f"#### {basque_agent}")
+                            if example_log_data_for_defs:
+                                # Search for examples of the Basque term
+                                examples = find_example_utterances_for_definitions(example_log_data_for_defs, basque_agent, max_examples=2)
+                                if examples:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Aipamenak {example_log_name_for_defs} eztabaidan:*")
+                                    for ex in examples:
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                                else:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Ez da **{basque_agent}** terminoaren aipamen zuzenik aurkitu {example_log_name_for_defs}-n. Analisiak testuinguru zabalagoa kontuan hartzen du.*")
+                            st.markdown("") # Add a little space
+                    elif view_language == "English only":
+                        for english_agent in ResponsibilityAnalyzer.AGENTS:
+                            st.markdown(f"#### {english_agent}")
+                            if example_log_data_for_defs:
+                                # Still look for Basque examples, but present in English
+                                basque_agent = ResponsibilityAnalyzer.AGENTS_BASQUE[ResponsibilityAnalyzer.AGENTS.index(english_agent)]
+                                examples = find_example_utterances_for_definitions(example_log_data_for_defs, basque_agent, max_examples=2)
+                                if examples and translate_examples and llm_analysis_possible:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Mentions in {example_log_name_for_defs} (translated):*")
+                                    for ex in examples:
+                                        # Extract and translate
+                                        start_quote = ex.find('"')
+                                        end_quote = ex.rfind('"')
+                                        if start_quote != -1 and end_quote != -1 and end_quote > start_quote:
+                                            example_text = ex[start_quote+1:end_quote]
+                                            temp_analyzer = LLMAnalyzer()
+                                            if temp_analyzer.api_key:
+                                                translation = temp_analyzer._get_llm_response(
+                                                    system_prompt="You are a precise translator from Basque to English. Translate the text exactly.",
+                                                    user_prompt=f"Translate this Basque text to English: \"{example_text}\"",
+                                                    max_tokens=150
+                                                )[0]
+                                                speaker_part = ex[:start_quote]
+                                                st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*{speaker_part}\"**[Translation]** {translation}\"*")
+                                elif examples:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Basque mentions in {example_log_name_for_defs} (not translated):*")
+                                    for ex in examples:
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                                else:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*No direct mentions of **{english_agent}** found as a whole term in {example_log_name_for_defs}. The analysis considers broader contextual understanding.*")
+                            st.markdown("") # Add a little space
+                    else:
+                        # Show both languages side by side
+                        for basque_agent, english_agent in zip(ResponsibilityAnalyzer.AGENTS_BASQUE, ResponsibilityAnalyzer.AGENTS):
+                            st.markdown(f"#### {basque_agent} / {english_agent}")
+                            if example_log_data_for_defs:
+                                # Search for examples of the Basque term
+                                examples = find_example_utterances_for_definitions(example_log_data_for_defs, basque_agent, max_examples=2)
+                                if examples:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Aipamenak / Mentions in {example_log_name_for_defs}:*")
+                                    for ex in examples:
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                                    
+                                    # If translation is requested and we have a valid LLM analyzer
+                                    if translate_examples and llm_analysis_possible and examples:
+                                        with st.spinner(f"Itzultzen / Translating examples for {basque_agent}..."):
+                                            # Create a temporary LLM analyzer just for this translation
+                                            temp_analyzer = LLMAnalyzer()
+                                            if temp_analyzer.api_key:
+                                                st.markdown("&nbsp;&nbsp;&nbsp;&nbsp;*Ingelesezko Itzulpenak / English Translations:*")
+                                                # Extract just the text part (removing round, speaker info)
+                                                for ex in examples:
+                                                    # Try to extract just the quoted part of the example
+                                                    start_quote = ex.find('"')
+                                                    end_quote = ex.rfind('"')
+                                                    if start_quote != -1 and end_quote != -1 and end_quote > start_quote:
+                                                        example_text = ex[start_quote+1:end_quote]
+                                                        translation = temp_analyzer._get_llm_response(
+                                                            system_prompt="You are a precise translator from Basque to English. Translate the text exactly.",
+                                                            user_prompt=f"Translate this Basque text to English: \"{example_text}\"",
+                                                            max_tokens=150
+                                                        )[0]
+                                                        # Format similar to the original but note it's translated
+                                                        speaker_part = ex[:start_quote]
+                                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*{speaker_part}\"**[Translation/Itzulpena]** {translation}\"*")
+                                else:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Ez da **{basque_agent}** terminoaren aipamen zuzenik aurkitu / No direct mentions of **{english_agent}** found in {example_log_name_for_defs}. The analysis considers broader contextual understanding.*")
+                            st.markdown("") # Add a little space
+                else:
+                    # Original English-only display
+                    for agent in ResponsibilityAnalyzer.AGENTS:
+                        st.markdown(f"#### {agent}")
+                        if example_log_data_for_defs:
+                            examples = find_example_utterances_for_definitions(example_log_data_for_defs, agent, max_examples=2)
+                            if examples:
+                                st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Mentions in {example_log_name_for_defs}:*")
+                                for ex in examples:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                            else:
+                                st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*No direct mentions of **{agent}** found as a whole term in {example_log_name_for_defs}. The analysis considers broader contextual understanding.*")
+                        st.markdown("") # Add a little space
+
+                # Now handle Responsibilities section
+                if view_language == "Basque only" and has_basque_content:
+                    st.subheader("Erantzukizunak")
+                elif view_language == "English only" or not has_basque_content:
+                    st.subheader("Responsibilities")
+                else:
+                    st.subheader("Erantzukizunak / Responsibilities")
+
+                # Display responsibilities in the selected language format
+                if example_log_name_for_defs and has_basque_content:
+                    if view_language == "Basque only":
+                        for basque_resp in ResponsibilityAnalyzer.RESPONSIBILITIES_BASQUE:
+                            st.markdown(f"#### {basque_resp}")
+                            if example_log_data_for_defs:
+                                # Search for examples of the Basque term
+                                examples = find_example_utterances_for_definitions(example_log_data_for_defs, basque_resp, max_examples=2)
+                                if examples:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Aipamenak {example_log_name_for_defs} eztabaidan:*")
+                                    for ex in examples:
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                                else:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Ez da **{basque_resp}** terminoaren aipamen zuzenik aurkitu {example_log_name_for_defs}-n. Analisiak testuinguru zabalagoa kontuan hartzen du.*")
+                            st.markdown("") # Add a little space
+                    elif view_language == "English only":
+                        for english_resp in ResponsibilityAnalyzer.RESPONSIBILITIES:
+                            st.markdown(f"#### {english_resp}")
+                            if example_log_data_for_defs:
+                                # Look for corresponding Basque resp
+                                basque_resp = ResponsibilityAnalyzer.RESPONSIBILITIES_BASQUE[ResponsibilityAnalyzer.RESPONSIBILITIES.index(english_resp)]
+                                examples = find_example_utterances_for_definitions(example_log_data_for_defs, basque_resp, max_examples=2)
+                                if examples and translate_examples and llm_analysis_possible:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Mentions in {example_log_name_for_defs} (translated):*")
+                                    for ex in examples:
+                                        # Extract and translate
+                                        start_quote = ex.find('"')
+                                        end_quote = ex.rfind('"')
+                                        if start_quote != -1 and end_quote != -1 and end_quote > start_quote:
+                                            example_text = ex[start_quote+1:end_quote]
+                                            temp_analyzer = LLMAnalyzer()
+                                            if temp_analyzer.api_key:
+                                                translation = temp_analyzer._get_llm_response(
+                                                    system_prompt="You are a precise translator from Basque to English. Translate the text exactly.",
+                                                    user_prompt=f"Translate this Basque text to English: \"{example_text}\"",
+                                                    max_tokens=150
+                                                )[0]
+                                                speaker_part = ex[:start_quote]
+                                                st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*{speaker_part}\"**[Translation]** {translation}\"*")
+                                elif examples:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Basque mentions in {example_log_name_for_defs} (not translated):*")
+                                    for ex in examples:
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                                else:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*No direct mentions of **{english_resp}** found as a whole term in {example_log_name_for_defs}. The analysis considers broader contextual understanding.*")
+                            st.markdown("") # Add a little space
+                    else:
+                        # Show both languages side by side
+                        for basque_resp, english_resp in zip(ResponsibilityAnalyzer.RESPONSIBILITIES_BASQUE, ResponsibilityAnalyzer.RESPONSIBILITIES):
+                            st.markdown(f"#### {basque_resp} / {english_resp}")
+                            if example_log_data_for_defs:
+                                # Search for examples of the Basque term
+                                examples = find_example_utterances_for_definitions(example_log_data_for_defs, basque_resp, max_examples=2)
+                                if examples:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Aipamenak / Mentions in {example_log_name_for_defs}:*")
+                                    for ex in examples:
+                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                                    
+                                    # If translation is requested and we have a valid LLM analyzer
+                                    if translate_examples and llm_analysis_possible and examples:
+                                        with st.spinner(f"Itzultzen / Translating examples for {basque_resp}..."):
+                                            # Create a temporary LLM analyzer just for this translation
+                                            temp_analyzer = LLMAnalyzer()
+                                            if temp_analyzer.api_key:
+                                                st.markdown("&nbsp;&nbsp;&nbsp;&nbsp;*Ingelesezko Itzulpenak / English Translations:*")
+                                                # Extract just the text part (removing round, speaker info)
+                                                for ex in examples:
+                                                    # Try to extract just the quoted part of the example
+                                                    start_quote = ex.find('"')
+                                                    end_quote = ex.rfind('"')
+                                                    if start_quote != -1 and end_quote != -1 and end_quote > start_quote:
+                                                        example_text = ex[start_quote+1:end_quote]
+                                                        translation = temp_analyzer._get_llm_response(
+                                                            system_prompt="You are a precise translator from Basque to English. Translate the text exactly.",
+                                                            user_prompt=f"Translate this Basque text to English: \"{example_text}\"",
+                                                            max_tokens=150
+                                                        )[0]
+                                                        # Format similar to the original but note it's translated
+                                                        speaker_part = ex[:start_quote]
+                                                        st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*{speaker_part}\"**[Translation/Itzulpena]** {translation}\"*")
+                                else:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Ez da **{basque_resp}** terminoaren aipamen zuzenik aurkitu / No direct mentions of **{english_resp}** found in {example_log_name_for_defs}. The analysis considers broader contextual understanding.*")
+                            st.markdown("") # Add a little space
+                else:
+                    # Original English-only display
+                    for resp in ResponsibilityAnalyzer.RESPONSIBILITIES:
+                        st.markdown(f"#### {resp}")
+                        if example_log_data_for_defs:
+                            examples = find_example_utterances_for_definitions(example_log_data_for_defs, resp, max_examples=2)
+                            if examples:
+                                st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*Mentions in {example_log_name_for_defs}:*")
+                                for ex in examples:
+                                    st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ex}")
+                            else:
+                                st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;*No direct mentions of **{resp}** found as a whole term in {example_log_name_for_defs}. The analysis considers broader contextual understanding.*")
+                        st.markdown("") # Add a little space
+                
+                # Add explanation about terminology at the end
+                st.markdown("---")
+                if has_basque_content:
+                    if view_language == "Basque only":
+                        st.markdown(
+                            "**Euskarazko terminologiari buruzko oharra:** Sistemak goiko euskarazko terminoak erabiltzen ditu euskarazko testuetan erantzukizunen atribuzioak aztertzeko. "
+                            "LLM-n oinarritutako analisiak (0-5) puntuatzen du zenbateraino testuak erantzukizun bakoitza eragile bakoitzari egozten dion, "
+                            "testuinguru orokorra kontuan hartuz, ez soilik hitz gakoen aipamenak. "
+                        )
+                        
+                        # Add a note about cultural considerations
+                        st.markdown(
+                            "**Testuinguru kulturala:** Euskarazko testuak aztertzerakoan, sistemak ahal den neurrian euskal hizkuntza-ereduak "
+                            "eta testuinguru kulturala kontuan hartzen ditu. Emandako itzulpenek esanahia adierazten saiatzen dira, "
+                            "hizkuntza-espezifikoak izan daitezkeen ñabardurak onartuz."
+                        )
+                    elif view_language == "English only":
+                        st.markdown(
+                            "**Note on Basque Terminology:** The system uses Basque terms to analyze responsibility attributions in Basque texts. "
+                            "The LLM-based analysis scores (0-5) how strongly the text attributes each responsibility to each agent, "
+                            "considering the overall context, not just keyword mentions. "
+                            "All results are presented both in the original Basque terminology and translated to English for comparison."
+                        )
+                        
+                        st.markdown(
+                            "**Cultural Context:** When analyzing Basque texts, the system takes into account Basque linguistic "
+                            "patterns and cultural context where possible. The translations provided aim to capture the "
+                            "meaning while acknowledging that some nuances may be language-specific."
+                        )
+                    else:
+                        st.markdown(
+                            "**Euskarazko terminologiari buruzko oharra / Note on Basque Terminology:** "
+                            "Sistemak goiko euskarazko terminoak erabiltzen ditu euskarazko testuetan erantzukizunen atribuzioak aztertzeko. "
+                            "LLM-n oinarritutako analisiak (0-5) puntuatzen du zenbateraino testuak erantzukizun bakoitza eragile bakoitzari egozten dion, "
+                            "testuinguru orokorra kontuan hartuz, ez soilik hitz gakoen aipamenak. "
+                            "Emaitza guztiak jatorrizko euskarazko terminologian eta ingelesera itzulita aurkezten dira alderatzeko."
+                        )
+                        
+                        st.markdown(
+                            "**Testuinguru kulturala / Cultural Context:** "
+                            "Euskarazko testuak aztertzerakoan, sistemak ahal den neurrian euskal hizkuntza-ereduak "
+                            "eta testuinguru kulturala kontuan hartzen ditu. Emandako itzulpenek esanahia adierazten saiatzen dira, "
+                            "hizkuntza-espezifikoak izan daitezkeen ñabardurak onartuz."
+                        )
+                else:
+                    st.markdown(
+                        "The LLM-based analysis scores (0-5) how strongly the full debate text attributes each **Responsibility** to each **Agent**, "
+                        "considering the overall context, not just keyword mentions."
+                    )
+
+# --- Main content section (selected log file overview) ---
+# This part remains outside the tabs or as a general overview if desired,
+# but for now, all content is within tabs.
+
+st.sidebar.markdown("---")
+st.sidebar.info("Ensure OPENAI_API_KEY is in .env for full functionality.")
+
+# --- Basque Morphological Analysis Tab ---
+with tab_basque_analysis:
+    st.header("Basque Morphological Analysis: Ergative-Absolutive Alignment")
+    st.markdown("""
+    **Deep linguistic structure analysis** based on:
+    - Aduriz et al. (2003) - *Procesamiento del Lenguaje Natural*
+    - Forcada et al. (2011) - *Machine Translation*
+    
+    This analysis extracts **case marking patterns** (ergative/absolutive) to reveal how agency is grammatically encoded in Basque.
+    """)
+    
+    # Parser selection
+    st.subheader("Parser Configuration")
+    parser_options = {
+        'stanza': 'Stanza/Stanford NLP (Recommended - 85% accuracy, pip install stanza)',
+        'pattern': 'Pattern-based (Fast but less accurate - No installation needed)',
+        'apertium': 'Apertium (Requires WSL or Chocolatey on Windows)',
+        'ixa_pipes': 'IXA Pipes (Advanced - requires Java and Maven)'
+    }
+    
+    selected_parser = st.selectbox(
+        "Select Morphological Parser",
+        options=list(parser_options.keys()),
+        format_func=lambda x: parser_options[x],
+        index=0,  # Stanza is now default (first in list)
+        help="Stanza is recommended for best accuracy (85%). Requires: pip install stanza"
     )
     
-    return fig
-
-def display_frequency_analysis(analysis, log_content, show_translation=True):
-    """Display frequency analysis for a language without charts."""
-    # Create expandable sections for each analysis category
-    with st.expander("Collective Pronouns", expanded=True):
-        pronouns = analysis["analysis"]["collective_pronouns"]
-        if analysis["language"] == "basque" and show_translation:
-            pronouns = [format_with_translation(p, "basque", show_translation) for p in pronouns]
+    if basque_log_file:
+        basque_log_path = os.path.join(LOGS_DIR, basque_log_file)
+        basque_log_data = load_jsonl_log(basque_log_path)
         
-        # Analyze frequency
-        freq = analyze_frequency(log_content, analysis["analysis"]["collective_pronouns"])
-        
-        for pronoun in pronouns:
-            term = pronoun.split()[0] if " " in pronoun else pronoun
-            count = freq.get(term, 0)
-            st.markdown(f"• {pronoun} (appears {count} times)")
-    
-    with st.expander("Agency Verbs", expanded=True):
-        verbs = analysis["analysis"]["agency_verbs"]
-        if analysis["language"] == "basque" and show_translation:
-            verbs = [format_with_translation(v, "basque", show_translation) for v in verbs]
-        
-        # Analyze frequency
-        freq = analyze_frequency(log_content, analysis["analysis"]["agency_verbs"])
-        
-        for verb in verbs:
-            term = verb.split()[0] if " " in verb else verb
-            count = freq.get(term, 0)
-            st.markdown(f"• {verb} (appears {count} times)")
-    
-    with st.expander("Cultural References", expanded=True):
-        refs = analysis["analysis"]["cultural_references"]
-        if analysis["language"] == "basque" and show_translation:
-            refs = [format_with_translation(r, "basque", show_translation) for r in refs]
-        if refs:
-            for ref in refs:
-                st.markdown(f"• {ref}")
-        else:
-            st.markdown("_No cultural references found_")
-
-def display_analysis(analysis, language, show_translation=True):
-    """Display analysis results for a single language."""
-    st.subheader(f"{language.capitalize()} Analysis")
-    
-    # Read log content for frequency analysis
-    log_content = read_log_file(analysis["source_file"])
-    if not log_content:
-        st.error(f"Could not read log content for {language}")
-        return
-    
-    # Create tabs for different analysis views
-    tab1, tab2, tab3 = st.tabs(["Basic Analysis", "Visualizations", "Advanced Analysis"])
-    
-    with tab1:
-        # Create expandable sections for each analysis category
-        with st.expander("Collective Pronouns", expanded=True):
-            pronouns = analysis["analysis"]["collective_pronouns"]
-            if language == "basque" and show_translation:
-                pronouns = [format_with_translation(p, language, show_translation) for p in pronouns]
-            
-            # Analyze frequency
-            freq = analyze_frequency(log_content, analysis["analysis"]["collective_pronouns"])
-            
-            for pronoun in pronouns:
-                count = freq.get(pronoun.split()[0], 0)
-                st.markdown(f"• {pronoun} (appears {count} times)")
-        
-        with st.expander("Agency Verbs", expanded=True):
-            verbs = analysis["analysis"]["agency_verbs"]
-            if language == "basque" and show_translation:
-                verbs = [format_with_translation(v, language, show_translation) for v in verbs]
-            
-            # Analyze frequency
-            freq = analyze_frequency(log_content, analysis["analysis"]["agency_verbs"])
-            
-            for verb in verbs:
-                count = freq.get(verb.split()[0], 0)
-                st.markdown(f"• {verb} (appears {count} times)")
-        
-        with st.expander("Cultural References", expanded=True):
-            refs = analysis["analysis"]["cultural_references"]
-            if language == "basque" and show_translation:
-                refs = [format_with_translation(r, language, show_translation) for r in refs]
-            if refs:
-                for ref in refs:
-                    st.markdown(f"• {ref}")
-            else:
-                st.markdown("_No cultural references found_")
-    
-    with tab2:
-        # Word Cloud
-        st.subheader("Word Cloud")
-        fig = create_wordcloud(log_content, language)
-        if fig:
-            st.pyplot(fig)
-        
-        # Frequency Analysis
-        st.subheader("Frequency Analysis")
-        pronouns_freq = analyze_frequency(log_content, analysis["analysis"]["collective_pronouns"])
-        verbs_freq = analyze_frequency(log_content, analysis["analysis"]["agency_verbs"])
-        
-        # Create bar charts
-        fig_pronouns = px.bar(x=list(pronouns_freq.keys()), y=list(pronouns_freq.values()),
-                            title="Collective Pronouns Frequency")
-        st.plotly_chart(fig_pronouns)
-        
-        fig_verbs = px.bar(x=list(verbs_freq.keys()), y=list(verbs_freq.values()),
-                          title="Agency Verbs Frequency")
-        st.plotly_chart(fig_verbs)
-    
-    with tab3:
-        # Timeline Analysis
-        st.subheader("Debate Timeline")
-        lines = log_content.split('\n')
-        timeline_data = []
-        for line in lines:
-            if 'Round' in line:
-                timeline_data.append(line)
-            elif 'Gemini' in line:
-                timeline_data.append(line)
-        
-        for event in timeline_data:
-            st.markdown(f"• {event}")
-        
-        # Sentiment Analysis (placeholder)
-        st.subheader("Sentiment Analysis")
-        st.info("Sentiment analysis feature coming soon!")
-    
-    # Show log content in a collapsible section
-    with st.expander("Original Log Content", expanded=False):
-        # Add search functionality
-        search_term = st.text_input("Search in log content", key=f"search_{language}_{analysis['timestamp']}")
-        
-        # Get the original log content
-        original_log = read_log_file(analysis["source_file"])
-        if not original_log:
-            st.error(f"Could not read log content for {language}")
-            return
-        
-        # Debug information
-        st.sidebar.write(f"Debug - {language} log length: {len(original_log)}")
-        
-        # Filter content based on search
-        if search_term:
-            filtered_lines = [line for line in original_log.split('\n') 
-                            if search_term.lower() in line.lower()]
-            display_log = '\n'.join(filtered_lines)
-        else:
-            display_log = original_log
-        
-        st.text_area("Log Content", display_log, height=200, 
-                    key=f"log_{language}_{analysis['timestamp']}", 
-                    label_visibility="collapsed")
-
-def save_analysis_to_file(analysis_result, language, log_file):
-    """Save analysis result to a JSON file."""
-    try:
-        # Create a unique filename based on timestamp and language
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"logs/JSONs/llm_analysis_{language}_{timestamp}.json"
-        
-        # Create analysis data structure
-        analysis_data = {
-            "language": language,
-            "timestamp": timestamp,
-            "log_file": log_file,  # Store reference to the original log file
-            "content_length": len(log_file),
-            "content_preview": log_file[:100],  # Store first 100 chars for reference
-            "analysis": analysis_result
-        }
-        
-        # Save to file
-        with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(analysis_data, f, ensure_ascii=False, indent=2)
-        
-        return filename
-    except Exception as e:
-        st.error(f"Error saving analysis: {str(e)}")
-        return None
-
-def load_llm_analysis_files():
-    """Load all LLM analysis JSON files."""
-    ensure_dirs_exist()
-    files = glob.glob(os.path.join(JSON_DIR, "llm_analysis_*.json"))
-    analyses = []
-    for file in files:
-        try:
-            with open(file, 'r', encoding='utf-8') as f:
-                analysis = json.load(f)
-                analyses.append(analysis)
-        except Exception as e:
-            st.error(f"Error loading {file}: {str(e)}")
-    return analyses
-
-def analyze_discussion(log_content, language, log_file):
-    """Analyze the discussion using LLM with file-based caching."""
-    # First check if we have a cached result in memory
-    cache_key = f"{language}_{len(log_content)}_{log_content[:100]}"
-    if cache_key in analysis_cache:
-        st.info("Using cached analysis result")
-        return analysis_cache[cache_key]
-    
-    # Then check if we have a saved analysis file
-    saved_analyses = load_llm_analysis_files()
-    for analysis in saved_analyses:
-        if (analysis["language"] == language and 
-            analysis["log_file"] == log_file and
-            analysis["content_length"] == len(log_content) and 
-            analysis["content_preview"] == log_content[:100]):
-            st.info("Using saved analysis result")
-            return analysis["analysis"]
-    
-    try:
-        response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": """You are an expert in linguistics, political theory, and public policy analysis. 
-                Your task is to analyze the text with attention to how it expresses agency, responsibility, values, and decision-making. 
-                Focus on deixis, institutional references, rhetorical structure, and cultural context.
+        if st.button("🔬 Analyze Basque Morphology", key="parse_basque", type="primary"):
+            with st.spinner("Parsing Basque transcript with morphological analyzer..."):
+                basque_parsed = parse_debate_log(basque_log_data, 'basque', selected_parser)
+                st.session_state['basque_parsed'] = basque_parsed
                 
-                Structure your analysis in the following categories:
-                
-                1. Agency Expression
-                   - How is collective or institutional agency articulated?
-                   - What pronouns and deixis markers are used to express group belonging or authority?
-                   - Is the voice active or passive? How are actions attributed?
-                
-                2. Responsibility Framing
-                   - How is responsibility conceptualized (technical, moral, legal, distributed)?
-                   - What linguistic forms are used to express obligation or accountability?
-                   - Are there implicit or explicit assumptions about who is answerable?
-                
-                3. Values and Norms
-                   - What ethical or social values are promoted or assumed?
-                   - What terms or phrases indicate culturally specific ideals or imperatives?
-                   - Are there metaphors or references that reflect national or community values?
-                
-                4. Decision-Making Patterns
-                   - How are decisions represented (e.g. consensus, delegation, imposition)?
-                   - What forms of participation, hierarchy, or negotiation appear in the language?
-                   - How are choices framed: as necessity, moral duty, or strategic options?
-                
-                5. Cultural and Institutional Markers
-                   - Identify specific institutions, social groups, or political actors referenced.
-                   - Highlight culturally embedded terms, idioms, or context-bound expressions.
-                   - Note any concepts that are difficult to translate directly into English.
-                
-                Please quote or paraphrase key phrases in the original language, and explain their significance. 
-                Do not summarize the content; analyze its framing, expression, and underlying logic."""},
-                {"role": "user", "content": f"Here is a discussion in {language}:\n\n{log_content}\n\nPlease analyze this text following the structure above."}
-            ],
-            temperature=0.8,
-            max_tokens=2000
-        )
-        result = response.choices[0].message.content.strip()
-        
-        # Cache in memory
-        analysis_cache[cache_key] = result
-        
-        # Save to file
-        filename = save_analysis_to_file(result, language, log_file)
-        if filename:
-            st.success(f"Analysis completed and saved to {filename}")
-        else:
-            st.success("Analysis completed")
-        
-        return result
-    except Exception as e:
-        return f"Analysis error: {str(e)}"
-
-def save_advanced_analysis(analysis_result, language, log_file, content_length, content_preview):
-    """Save the advanced analysis result to a JSON file."""
-    ensure_dirs_exist()
-    # Extract log file name without extension
-    log_filename = os.path.basename(log_file)
-    log_name = os.path.splitext(log_filename)[0]
-    
-    # Create filename based on log name
-    filename = os.path.join(JSON_DIR, f"{log_name}_advanced_analysis.json")
-    
-    data = {
-        "language": language,
-        "timestamp": datetime.now().strftime("%Y%m%d_%H%M%S"),
-        "log_file": log_file,
-        "content_length": content_length,
-        "content_preview": content_preview,
-        "analysis": analysis_result
-    }
-    
-    with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2)
-    
-    return filename
-
-def load_advanced_analysis_files():
-    """Load all advanced analysis JSON files."""
-    ensure_dirs_exist()
-    files = glob.glob(os.path.join(JSON_DIR, "*_advanced_analysis.json"))
-    analyses = []
-    for file in files:
-        try:
-            with open(file, 'r', encoding='utf-8') as f:
-                analysis = json.load(f)
-                analyses.append(analysis)
-        except Exception as e:
-            st.error(f"Error loading {file}: {str(e)}")
-    return analyses
-
-def analyze_single_text(text_content, language, log_file):
-    """Perform detailed linguistic and cultural analysis of a single text with caching."""
-    # First check if we have a saved analysis file for this log
-    log_name = os.path.splitext(os.path.basename(log_file))[0]
-    analysis_file = f"logs/JSONs/{log_name}_advanced_analysis.json"
-    
-    if os.path.exists(analysis_file):
-        try:
-            with open(analysis_file, 'r', encoding='utf-8') as f:
-                saved_analysis = json.load(f)
-                if (saved_analysis["language"] == language and 
-                    saved_analysis["content_length"] == len(text_content) and 
-                    saved_analysis["content_preview"] == text_content[:100]):
-                    st.info("Using saved advanced analysis result")
-                    return saved_analysis["analysis"]
-        except Exception as e:
-            st.warning(f"Error reading saved analysis: {str(e)}")
-    
-    try:
-        # First, get a narrative analysis
-        narrative_response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": """You are an expert in linguistics, political theory, and public policy analysis. 
-                Your task is to analyze the text with attention to how it expresses agency, responsibility, values, and decision-making. 
-                Focus on deixis, institutional references, rhetorical structure, and cultural context.
-                
-                Write a detailed narrative analysis that flows naturally between these aspects:
-                
-                1. Agency and Voice
-                   - How is collective or institutional agency articulated?
-                   - What pronouns and deixis markers are used?
-                   - How is authority constructed and expressed?
-                
-                2. Responsibility and Accountability
-                   - How is responsibility conceptualized?
-                   - What forms of obligation or accountability appear?
-                   - Who is positioned as answerable and how?
-                
-                3. Values and Cultural Context
-                   - What ethical or social values are promoted?
-                   - How do cultural references shape meaning?
-                   - What metaphors or idioms reveal cultural context?
-                
-                4. Decision-Making and Power
-                   - How are decisions represented and justified?
-                   - What forms of participation or hierarchy appear?
-                   - How is power distributed and exercised?
-                
-                Write in a flowing narrative style, connecting these aspects naturally. 
-                Quote key phrases in the original language and explain their significance.
-                Focus on how these elements work together to create meaning."""},
-                {"role": "user", "content": f"Here is a text in {language}:\n\n{text_content}\n\nPlease analyze this text following the structure above."}
-            ],
-            temperature=0.8,
-            max_tokens=2000
-        )
-
-        # Then, get structured data
-        structured_response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": """Extract specific examples and metrics from the text in JSON format.
-                IMPORTANT: Return ONLY the JSON object, with no additional text.
-                The JSON must follow this exact structure:
-                {
-                    "agency_markers": {
-                        "collective_pronouns": [],
-                        "active_voice_verbs": [],
-                        "passive_constructions": []
-                    },
-                    "responsibility_markers": {
-                        "obligation_terms": [],
-                        "accountability_phrases": []
-                    },
-                    "cultural_references": {
-                        "institutions": [],
-                        "cultural_idioms": []
-                    },
-                    "decision_patterns": {
-                        "consensus_markers": [],
-                        "hierarchy_indicators": []
-                    }
-                }
-                For each array, include actual examples from the text with their context.
-                Example format for each item: "term (context: 'sentence where it appears')"
-                If no examples are found, leave the array empty."""},
-                {"role": "user", "content": f"Extract specific examples from this {language} text:\n\n{text_content}"}
-            ],
-            temperature=0.3,
-            response_format={ "type": "json_object" }
-        )
-
-        # Extract the structured data
-        structured_text = structured_response.choices[0].message.content.strip()
-        try:
-            # Try to parse the JSON
-            structured_data = json.loads(structured_text)
-            
-            # Validate the structure
-            required_keys = ["agency_markers", "responsibility_markers", "cultural_references", "decision_patterns"]
-            for key in required_keys:
-                if key not in structured_data:
-                    structured_data[key] = {}
-            
-            # Ensure all sub-keys exist
-            for key in structured_data:
-                if key == "agency_markers":
-                    sub_keys = ["collective_pronouns", "active_voice_verbs", "passive_constructions"]
-                elif key == "responsibility_markers":
-                    sub_keys = ["obligation_terms", "accountability_phrases"]
-                elif key == "cultural_references":
-                    sub_keys = ["institutions", "cultural_idioms"]
-                elif key == "decision_patterns":
-                    sub_keys = ["consensus_markers", "hierarchy_indicators"]
-                
-                for sub_key in sub_keys:
-                    if sub_key not in structured_data[key]:
-                        structured_data[key][sub_key] = []
-            
-        except json.JSONDecodeError as e:
-            st.error(f"Error parsing structured data: {str(e)}")
-            # Provide a valid empty structure
-            structured_data = {
-                "agency_markers": {
-                    "collective_pronouns": [],
-                    "active_voice_verbs": [],
-                    "passive_constructions": []
-                },
-                "responsibility_markers": {
-                    "obligation_terms": [],
-                    "accountability_phrases": []
-                },
-                "cultural_references": {
-                    "institutions": [],
-                    "cultural_idioms": []
-                },
-                "decision_patterns": {
-                    "consensus_markers": [],
-                    "hierarchy_indicators": []
-                }
-            }
-
-        result = {
-            "narrative_analysis": narrative_response.choices[0].message.content.strip(),
-            "structured_data": structured_data
-        }
-        
-        # Save the analysis result
-        filename = save_advanced_analysis(result, language, log_file, len(text_content), text_content[:100])
-        if filename:
-            st.success(f"Advanced analysis completed and saved to {filename}")
-        else:
-            st.success("Advanced analysis completed")
-        
-        return result
-
-    except Exception as e:
-        error_msg = f"Analysis error: {str(e)}"
-        st.error(error_msg)
-        return {"error": error_msg}
-
-def compare_texts(text1, text2, language1="English", language2="Basque", detailed=False):
-    """Unified function to compare two texts with caching.
-    
-    Parameters:
-    - text1, text2: The texts to compare
-    - language1, language2: The languages of the texts
-    - detailed: Whether to perform a detailed comparison
-    
-    Returns:
-    - String with the comparison analysis
-    """
-    # Check if we have a saved comparison
-    english_log_name = os.path.splitext(os.path.basename(text1))
-    basque_log_name = os.path.splitext(os.path.basename(text2))
-    
-    if detailed:
-        comparison_file_pattern = f"{english_log_name}_{basque_log_name}_detailed_comparative_analysis.json"
-    else:
-        comparison_file_pattern = f"{english_log_name}_{basque_log_name}_comparative_analysis.json"
-    
-    # Check cache
-    saved_analyses = load_comparative_analysis_files()
-    for analysis in saved_analyses:
-        # Simple check if this is the right comparison
-        if (analysis.get("english_log", "") == text1 and
-            analysis.get("basque_log", "") == text2):
-            st.info("Using saved comparison analysis")
-            return analysis["analysis"]
-    
-    try:
-        if detailed:
-            # Detailed cultural and rhetorical analysis
-            prompt = """You are an expert in comparative linguistics, political theory, and cultural analysis. 
-            Your task is to analyze how two texts present similar arguments through different linguistic and cultural lenses.
-            
-            Structure your analysis to highlight:
-            
-            1. Structural Parallels and Divergences
-               - How do the arguments follow similar patterns?
-               - What rhetorical strategies differ between languages?
-               - How does the organization of ideas compare?
-            
-            2. Conceptual Framing
-               - How are key concepts presented differently?
-               - What cultural values are emphasized in each version?
-               - How do implicit assumptions differ?
-            
-            3. Rhetorical Texture
-               - What tone and style characterize each version?
-               - How do linguistic features shape the presentation?
-               - What metaphors or idioms reveal cultural context?
-            
-            4. Political and Cultural Implications
-               - How do governance models differ in their presentation?
-               - What role do traditional vs. modern elements play?
-               - How are authority and responsibility framed?
-            
-            5. Synthesis
-               - How do these differences affect the overall message?
-               - What insights emerge from comparing the versions?
-               - How do language and culture shape political reasoning?
-            
-            Write in a flowing narrative style, connecting these aspects naturally.
-            Quote key phrases in the original language and explain their significance.
-            Focus on how these elements work together to create meaning.
-            
-            Format your response with clear section headers and bullet points for specific examples."""
-        else:
-            # Basic structural comparison
-            prompt = """Compare these two texts, focusing on:
-
-            1. Structural Parallels and Divergences
-               - How do argument structures differ?
-               - What rhetorical strategies are employed in each?
-               - How does information flow and organization compare?
-
-            2. Conceptual Framing
-               - How are key concepts presented differently?
-               - What assumptions are implicit in each text?
-               - How do cultural contexts shape meaning?
-
-            3. Agency and Voice
-               - How is authority constructed?
-               - What role do institutional vs. individual actors play?
-               - How are responsibility and accountability framed?
-
-            4. Cultural and Political Implications
-               - What values are emphasized or assumed?
-               - How do governance models differ?
-               - What role do traditional vs. modern elements play?
-
-            5. Linguistic Patterns
-               - How do language-specific features affect meaning?
-               - What is lost or gained in translation?
-               - How do metaphors and idioms differ?
-
-            Provide specific examples and quotes from both texts."""
-        
-        comparison_response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": prompt},
-                {"role": "user", "content": f"Compare these texts:\n\nText 1 ({language1}):\n{text1}\n\nText 2 ({language2}):\n{text2}"}
-            ],
-            temperature=0.7,
-            max_tokens=2000
-        )
-
-        result = comparison_response.choices[0].message.content.strip()
-        
-        # Save the comparison
-        filename = os.path.join(JSON_DIR, comparison_file_pattern)
-        data = {
-            "timestamp": datetime.now().strftime("%Y%m%d_%H%M%S"),
-            "english_log": text1,
-            "basque_log": text2,
-            "detailed": detailed,
-            "analysis": result
-        }
-        
-        with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=2)
-        
-        return result
-
-    except Exception as e:
-        return f"Comparison error: {str(e)}"
-
-def save_comparative_analysis(comparison_result, english_log, basque_log):
-    """Save the comparative analysis result to a JSON file."""
-    ensure_dirs_exist()
-    # Extract log file names without extension
-    english_log_name = os.path.splitext(os.path.basename(english_log))[0]
-    basque_log_name = os.path.splitext(os.path.basename(basque_log))[0]
-    
-    # Create filename based on both log names
-    filename = os.path.join(JSON_DIR, f"{english_log_name}_{basque_log_name}_comparative_analysis.json")
-    
-    data = {
-        "timestamp": datetime.now().strftime("%Y%m%d_%H%M%S"),
-        "english_log": english_log,
-        "basque_log": basque_log,
-        "analysis": comparison_result
-    }
-    
-    with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2)
-    
-    return filename
-
-def load_comparative_analysis_files():
-    """Load all comparative analysis JSON files."""
-    ensure_dirs_exist()
-    files = glob.glob(os.path.join(JSON_DIR, "*_comparative_analysis.json"))
-    analyses = []
-    for file in files:
-        try:
-            with open(file, 'r', encoding='utf-8') as f:
-                analysis = json.load(f)
-                # Verify that the log files still exist
-                english_log = analysis.get("english_log", "")
-                basque_log = analysis.get("basque_log", "")
-                
-                # Make sure paths include the logs directory
-                if english_log and not english_log.startswith(LOGS_DIR):
-                    english_log = os.path.join(LOGS_DIR, os.path.basename(english_log))
-                if basque_log and not basque_log.startswith(LOGS_DIR):
-                    basque_log = os.path.join(LOGS_DIR, os.path.basename(basque_log))
-                
-                # Check if the log files exist
-                if (not english_log or os.path.exists(english_log)) and (not basque_log or os.path.exists(basque_log)):
-                    analyses.append(analysis)
-        except Exception as e:
-            st.error(f"Error loading {file}: {str(e)}")
-    return analyses
-
-def format_comparative_analysis(analysis_text):
-    """Format the comparative analysis text for better readability."""
-    # Split the analysis into sections
-    sections = analysis_text.split('\n\n')
-    formatted_sections = []
-    
-    for section in sections:
-        if section.strip():
-            # Add markdown formatting based on content
-            if section.startswith(('1.', '2.', '3.', '4.', '5.')):
-                # Main sections
-                formatted_sections.append(f"### {section}")
-            elif section.startswith(('   -', '   *')):
-                # Sub-points
-                formatted_sections.append(f"  {section}")
-            else:
-                # Regular paragraphs
-                formatted_sections.append(section)
-    
-    return '\n\n'.join(formatted_sections)
-
-def compare_texts_with_cultural_analysis(english_log_path, basque_log_path, english_label, basque_label):
-    """Compare two texts with cultural analysis."""
-    try:
-        # Normalize paths and ensure they point to files, not directories
-        english_log_path = os.path.normpath(os.path.abspath(english_log_path))
-        basque_log_path = os.path.normpath(os.path.abspath(basque_log_path))
-        
-        # If paths don't include logs directory, add it
-        if not os.path.dirname(english_log_path):
-            english_log_path = os.path.join(LOGS_DIR, english_log_path)
-        if not os.path.dirname(basque_log_path):
-            basque_log_path = os.path.join(LOGS_DIR, basque_log_path)
-            
-        # If paths don't exist, try to find the files
-        if not os.path.exists(english_log_path):
-            english_log_path = os.path.join(LOGS_DIR, "debate_english_20250329_173609.txt")
-        if not os.path.exists(basque_log_path):
-            basque_log_path = os.path.join(LOGS_DIR, "eztabaida_20250329_173741.txt")
-        
-        # Read the log files
-        english_log = read_log_file(english_log_path)
-        basque_log = read_log_file(basque_log_path)
-        
-        if not english_log or not basque_log:
-            return "Could not read log files for comparison"
-        
-        # Create the comparison using GPT-4
-        response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": """You are an expert in comparative linguistics, cultural analysis, and political discourse. Your task is to analyze how two versions of the same discussion differ in their presentation, cultural framing, and linguistic patterns.
-
-Write a comprehensive, flowing comparison of these texts that focuses on:
-
-1. How the core arguments and key concepts are expressed differently in each language
-2. How cultural context shapes the presentation and emphasis in each version
-3. Key differences in rhetorical style, persuasive techniques, and linguistic features
-4. How authority, responsibility, and decision-making are framed differently
-5. The different ways collective and individual agency are expressed
-6. Notable cultural references and institutional frameworks that influence each version
-
-Do NOT structure your response with explicit categories or numbered sections. Instead, write a cohesive, narrative analysis that naturally flows between different aspects of comparison. Use specific examples and quotes from both texts to illustrate meaningful differences, but focus on broader patterns rather than individual words.
-
-Your analysis should be insightful and accessible, highlighting how language and culture shape the way similar ideas are expressed and received."""},
-                {"role": "user", "content": f"""Compare these two texts:
-
-                {english_label} Text:
-                {english_log}
-
-                {basque_label} Text:
-                {basque_log}
-
-                Provide a flowing narrative analysis that explores how these versions differ in their presentation and cultural framing."""}
-            ],
-            temperature=0.7,
-            max_tokens=3000
-        )
-        
-        return response.choices[0].message.content.strip()
-        
-    except Exception as e:
-        return f"Error in comparison: {str(e)}"
-
-def display_advanced_analysis(analysis_result, language, show_translation=True):
-    """Display the analysis results with visualizations."""
-    st.markdown(f"## {language} Text Analysis")
-    
-    # Check if there was an error
-    if isinstance(analysis_result, str) and analysis_result.startswith("Analysis error:"):
-        st.error(analysis_result)
-        return
-    
-    # Display narrative analysis
-    st.markdown("### Narrative Analysis")
-    st.markdown(analysis_result["narrative_analysis"])
-    
-    # Display structured data in expandable sections
-    st.markdown("### Detailed Examples and Metrics")
-    
-    structured_data = analysis_result["structured_data"]
-    
-    def format_item(item, language, show_translation):
-        """Format an item with translation if needed."""
-        if language == "Basque" and show_translation:
-            # Extract the term and context
-            term = item.split(" (context:")[0]
-            context = item.split(" (context:")[1] if " (context:" in item else ""
-            
-            try:
-                translation = translate_basque_to_english(term)
-                if translation and not translation.startswith("I'm sorry"):
-                    if context:
-                        return f"- {term} ({translation}) (context: {context}"
-                    else:
-                        return f"- {term} ({translation})"
-            except Exception as e:
-                st.warning(f"Translation failed for term: {term}")
-            
-            # If translation failed, just show the original term
-            if context:
-                return f"- {term} (context: {context}"
-            else:
-                return f"- {term}"
-        else:
-            return f"- {item}"
-    
-    # Agency Markers
-    with st.expander("Agency Markers"):
-        for category, items in structured_data["agency_markers"].items():
-            st.markdown(f"**{category.replace('_', ' ').title()}**")
-            if items:
-                for item in items:
-                    st.markdown(format_item(item, language, show_translation))
-            else:
-                st.info("No examples found")
-    
-    # Responsibility Markers
-    with st.expander("Responsibility Markers"):
-        for category, items in structured_data["responsibility_markers"].items():
-            st.markdown(f"**{category.replace('_', ' ').title()}**")
-            if items:
-                for item in items:
-                    st.markdown(format_item(item, language, show_translation))
-            else:
-                st.info("No examples found")
-    
-    # Cultural References
-    with st.expander("Cultural References"):
-        for category, items in structured_data["cultural_references"].items():
-            st.markdown(f"**{category.replace('_', ' ').title()}**")
-            if items:
-                for item in items:
-                    st.markdown(format_item(item, language, show_translation))
-            else:
-                st.info("No examples found")
-    
-    # Decision Patterns
-    with st.expander("Decision Patterns"):
-        for category, items in structured_data["decision_patterns"].items():
-            st.markdown(f"**{category.replace('_', ' ').title()}**")
-            if items:
-                for item in items:
-                    st.markdown(format_item(item, language, show_translation))
-            else:
-                st.info("No examples found")
-
-def analyze_tone(text):
-    """Analyze the tone of the text using LLM."""
-    try:
-        response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": "Analyze the overall tone of the following text. Provide a brief, 2-3 word description (e.g., 'Formal, cautionary', 'Optimistic, technical')."},
-                {"role": "user", "content": text}
-            ],
-            temperature=0.3,
-            max_tokens=20
-        )
-        return response.choices[0].message.content.strip()
-    except Exception as e:
-        st.warning(f"Tone analysis failed: {e}")
-        return "Analysis Error"
-
-def analyze_agent_focus(text, agent):
-    """Analyze the focus of a specific agent in the text using LLM."""
-    try:
-        response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": f"Identify the main focus or argument presented by Agent {agent} in the following text. Provide a concise summary (e.g., 'Prioritizes safety via control', 'Emphasizes community benefit')."},
-                {"role": "user", "content": text}
-            ],
-            temperature=0.3,
-            max_tokens=50
-        )
-        return response.choices[0].message.content.strip()
-    except Exception as e:
-        st.warning(f"Agent focus analysis failed: {e}")
-        return "Analysis Error"
-
-def analyze_risk_framing(text):
-    """Analyze how risks are framed in the text using LLM."""
-    try:
-        response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": "Analyze how risks are framed in the following text. Describe the primary type of risk emphasized (e.g., 'Social disruption', 'Technical failure', 'Ethical concerns')."},
-                {"role": "user", "content": text}
-            ],
-            temperature=0.3,
-            max_tokens=30
-        )
-        return response.choices[0].message.content.strip()
-    except Exception as e:
-        st.warning(f"Risk framing analysis failed: {e}")
-        return "Analysis Error"
-
-def analyze_governance_model(text):
-    """Analyze the governance model implied or described in the text using LLM."""
-    try:
-        response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": "Analyze the governance model implied or described in the following text. Provide a brief label for the model (e.g., 'Centralized control', 'Community-led', 'Hybrid approach')."},
-                {"role": "user", "content": text}
-            ],
-            temperature=0.3,
-            max_tokens=30
-        )
-        return response.choices[0].message.content.strip()
-    except Exception as e:
-        st.warning(f"Governance model analysis failed: {e}")
-        return "Analysis Error"
-
-def analyze_sentiment_categories(text, categories):
-    """Analyze sentiment values for each category."""
-    try:
-        response = client.chat.completions.create(
-            model="openai/gpt-4o",
-            messages=[
-                {"role": "system", "content": f"""Analyze the text and return a JSON array of values between 0 and 1 for each category.
-                Categories: {', '.join(categories)}.
-                Return format: [value1, value2, value3, value4, value5]"""},
-                {"role": "user", "content": text}
-            ],
-            temperature=0.3,
-            response_format={ "type": "json_object" }
-        )
-        return json.loads(response.choices[0].message.content.strip())
-    except Exception as e:
-        st.error(f"Error analyzing sentiment categories: {str(e)}")
-        return [0.5] * len(categories)
-
-def display_comparative_visual_analysis(english_log, basque_log):
-    """Display comparative visual analysis using text logs directly."""
-    # Remove the main header as requested
-    # st.markdown("## Comparative Visual Analysis") 
-    
-    try:
-        # Comparative Matrix
-        st.markdown("### Comparative Matrix: Structure and Emphasis")
-        fig_matrix = create_comparative_matrix(english_log, basque_log)
-        if fig_matrix:
-            st.plotly_chart(fig_matrix, use_container_width=True)
-    except Exception as e:
-        st.error(f"Error creating comparative visualization: {str(e)}")
-        
-def analyze_text(text_content, language, log_file, analysis_type="basic"):
-    """Unified analysis function for both basic and advanced analysis with caching.
-    
-    Parameters:
-    - text_content: The text to analyze
-    - language: The language of the text (English or Basque)
-    - log_file: Path to the source log file
-    - analysis_type: "basic" or "advanced"
-    
-    Returns:
-    - Dictionary with analysis results
-    """
-    # Generate cache filename based on analysis type
-    log_name = os.path.splitext(os.path.basename(log_file))[0]
-    if analysis_type == "basic":
-        analysis_file = os.path.join(JSON_DIR, f"llm_analysis_{language}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
-        cache_prefix = "llm_analysis"
-    else:
-        analysis_file = os.path.join(JSON_DIR, f"{log_name}_advanced_analysis.json")
-        cache_prefix = "advanced_analysis"
-    
-    # Check for cached analysis
-    cached_files = glob.glob(os.path.join(JSON_DIR, f"{cache_prefix}_{language}_*.json"))
-    cached_files.extend(glob.glob(os.path.join(JSON_DIR, f"{log_name}_{cache_prefix}.json")))
-    
-    for cached_file in cached_files:
-        try:
-            with open(cached_file, 'r', encoding='utf-8') as f:
-                saved_analysis = json.load(f)
-                if (saved_analysis["language"] == language and 
-                    saved_analysis["content_length"] == len(text_content) and 
-                    saved_analysis["content_preview"] == text_content[:100]):
-                    st.info(f"Using saved {analysis_type} analysis result")
-                    return saved_analysis["analysis"]
-        except Exception as e:
-            st.warning(f"Error reading saved analysis: {str(e)}")
-    
-    try:
-        result = {}
-        
-        # Basic analysis - common to both types
-        if analysis_type == "basic":
-            # Basic prompt for simpler analysis
-            basic_prompt = """You are an expert in linguistics, political theory, and public policy analysis. 
-            Your task is to analyze the text with attention to how it expresses agency, responsibility, values, and decision-making. 
-            Focus on deixis, institutional references, rhetorical structure, and cultural context.
-            
-            Structure your analysis in the following categories:
-
-            1. Structural Parallels and Divergences
-               - How do argument structures differ?
-               - What rhetorical strategies are employed in each?
-               - How does information flow and organization compare?
-
-            2. Conceptual Framing
-               - How are key concepts presented differently?
-               - What assumptions are implicit in each text?
-               - How do cultural contexts shape meaning?
-
-            3. Agency and Voice
-               - How is authority constructed?
-               - What role do institutional vs. individual actors play?
-               - How are responsibility and accountability framed?
-
-            4. Cultural and Political Implications
-               - What values are emphasized or assumed?
-               - How do governance models differ?
-               - What role do traditional vs. modern elements play?
-
-            5. Linguistic Patterns
-               - How do language-specific features affect meaning?
-               - What is lost or gained in translation?
-               - How do metaphors and idioms differ?
-            
-            Please quote or paraphrase key phrases in the original language, and explain their significance. 
-            Do not summarize the content; analyze its framing, expression, and underlying logic."""
-            
-            response = client.chat.completions.create(
-                model="openai/gpt-4o",
-                messages=[
-                    {"role": "system", "content": basic_prompt},
-                    {"role": "user", "content": f"Here is a text in {language}:\n\n{text_content}\n\nPlease analyze this text following the structure above."}
-                ],
-                temperature=0.7,
-                max_tokens=1500
-            )
-            
-            result = {"analysis": response.choices[0].message.content.strip()}
-            
-        else:  # Advanced analysis
-            # First, get a narrative analysis
-            narrative_prompt = """You are an expert in linguistics, political theory, and public policy analysis. 
-            Your task is to analyze the text with attention to how it expresses agency, responsibility, values, and decision-making. 
-            Focus on deixis, institutional references, rhetorical structure, and cultural context.
-            
-            Write a detailed narrative analysis that flows naturally between these aspects:
-            
-            1. Agency and Voice
-               - How is collective or institutional agency articulated?
-               - What pronouns and deixis markers are used?
-               - How is authority constructed and expressed?
-            
-            2. Responsibility and Accountability
-               - How is responsibility conceptualized?
-               - What forms of obligation or accountability appear?
-               - Who is positioned as answerable and how?
-            
-            3. Values and Cultural Context
-               - What ethical or social values are promoted?
-               - How do cultural references shape meaning?
-               - What metaphors or idioms reveal cultural context?
-            
-            4. Decision-Making and Power
-               - How are decisions represented and justified?
-               - What forms of participation or hierarchy appear?
-               - How is power distributed and exercised?
-            
-            Write in a flowing narrative style, connecting these aspects naturally. 
-            Quote key phrases in the original language and explain their significance.
-            Focus on how these elements work together to create meaning."""
-            
-            narrative_response = client.chat.completions.create(
-                model="openai/gpt-4o",
-                messages=[
-                    {"role": "system", "content": narrative_prompt},
-                    {"role": "user", "content": f"Here is a text in {language}:\n\n{text_content}\n\nPlease analyze this text following the structure above."}
-                ],
-                temperature=0.8,
-                max_tokens=2000
-            )
-            
-            # Then, get structured data
-            structured_prompt = """Extract specific examples and metrics from the text in JSON format.
-            IMPORTANT: Return ONLY the JSON object, with no additional text.
-            The JSON must follow this exact structure:
-            {
-                "agency_markers": {
-                    "collective_pronouns": [],
-                    "active_voice_verbs": [],
-                    "passive_constructions": []
-                },
-                "responsibility_markers": {
-                    "obligation_terms": [],
-                    "accountability_phrases": []
-                },
-                "cultural_references": {
-                    "institutions": [],
-                    "cultural_idioms": []
-                },
-                "decision_patterns": {
-                    "consensus_markers": [],
-                    "hierarchy_indicators": []
-                }
-            }
-            For each array, include actual examples from the text with their context.
-            Example format for each item: "term (context: 'sentence where it appears')"
-            If no examples are found, leave the array empty."""
-            
-            structured_response = client.chat.completions.create(
-                model="openai/gpt-4o",
-                messages=[
-                    {"role": "system", "content": structured_prompt},
-                    {"role": "user", "content": f"Extract specific examples from this {language} text:\n\n{text_content}"}
-                ],
-                temperature=0.3,
-                response_format={ "type": "json_object" }
-            )
-            
-            # Extract the structured data
-            structured_text = structured_response.choices[0].message.content.strip()
-            try:
-                # Try to parse the JSON
-                structured_data = json.loads(structured_text)
-                
-                # Validate the structure (simplified validation)
-                required_keys = ["agency_markers", "responsibility_markers", "cultural_references", "decision_patterns"]
-                for key in required_keys:
-                    if key not in structured_data:
-                        structured_data[key] = {}
-            
-            except json.JSONDecodeError as e:
-                st.error(f"Error parsing structured data: {str(e)}")
-                # Provide a valid empty structure
-                structured_data = {
-                    "agency_markers": {
-                        "collective_pronouns": [],
-                        "active_voice_verbs": [],
-                        "passive_constructions": []
-                    },
-                    "responsibility_markers": {
-                        "obligation_terms": [],
-                        "accountability_phrases": []
-                    },
-                    "cultural_references": {
-                        "institutions": [],
-                        "cultural_idioms": []
-                    },
-                    "decision_patterns": {
-                        "consensus_markers": [],
-                        "hierarchy_indicators": []
-                    }
-                }
-            
-            result = {
-                "narrative_analysis": narrative_response.choices[0].message.content.strip(),
-                "structured_data": structured_data
-            }
-        
-        # Save analysis to file
-        save_data = {
-            "language": language,
-            "timestamp": datetime.now().strftime("%Y%m%d_%H%M%S"),
-            "log_file": log_file,
-            "content_length": len(text_content),
-            "content_preview": text_content[:100],
-            "analysis": result
-        }
-        
-        with open(analysis_file, 'w', encoding='utf-8') as f:
-            json.dump(save_data, f, indent=2)
-        
-        st.success(f"{analysis_type.capitalize()} analysis completed and saved")
-        return result
-        
-    except Exception as e:
-        error_msg = f"Analysis error: {str(e)}"
-        st.error(error_msg)
-        return {"error": error_msg}
-
-def extract_section(formatted_analysis, section_title):
-    """Extract a specific section from the formatted analysis text."""
-    try:
-        # Split the analysis into sections
-        sections = formatted_analysis.split("###")
-        
-        # Find the requested section
-        for section in sections:
-            if section.strip().startswith(section_title):
-                return section.strip()
-        
-        return f"Section '{section_title}' not found in the analysis."
-    except Exception as e:
-        return f"Error extracting section: {str(e)}"
-
-def load_analysis_files():
-    """Load all analysis JSON files."""
-    ensure_dirs_exist()
-    try:
-        pattern = os.path.join(JSON_DIR, "analysis_*.json")
-        files = glob.glob(pattern)
-        analyses = []
-        for file in files:
-            try:
-                if not os.access(file, os.R_OK):
-                    st.error(f"Permission denied: {file}")
-                    continue
-                    
-                with open(file, 'r', encoding='utf-8') as f:
-                    analysis = json.load(f)
-                    if "language" in analysis and "analysis" in analysis:
-                        # Ensure log_file path is correct
-                        if "log_file" in analysis:
-                            if not os.path.dirname(analysis["log_file"]):
-                                analysis["log_file"] = os.path.join(LOGS_DIR, analysis["log_file"])
-                        analyses.append(analysis)
-                    else:
-                        st.warning(f"Invalid analysis file format in {file}")
-            except Exception as e:
-                st.error(f"Error loading {file}: {str(e)}")
-        return analyses
-    except Exception as e:
-        st.error(f"Error accessing analysis files: {str(e)}")
-        return []
-
-def handle_new_logs():
-    """Handle newly uploaded log files and generate initial analyses."""
-    try:
-        # Check for log files in the logs directory
-        log_files = glob.glob(os.path.join(LOGS_DIR, "*.txt"))
-        
-        # Track which files have been analyzed
-        analyzed_files = set()
-        
-        # Load existing analyses to check what's already been done
-        existing_analyses = load_analysis_files()
-        advanced_analyses = load_advanced_analysis_files()
-        comparative_analyses = load_comparative_analysis_files()
-        
-        for analysis in existing_analyses:
-            if "log_file" in analysis:
-                analyzed_files.add(os.path.basename(analysis["log_file"]))
-        
-        for analysis in advanced_analyses:
-            if "log_file" in analysis:
-                analyzed_files.add(os.path.basename(analysis["log_file"]))
-        
-        # Process new log files
-        new_analyses = []
-        for log_file in log_files:
-            log_file_basename = os.path.basename(log_file)
-            
-            # Check if JSON file already exists for this log
-            json_filename = f"{os.path.splitext(log_file_basename)[0]}_advanced_analysis.json"
-            json_filepath = os.path.join(JSON_DIR, json_filename)
-            if os.path.exists(json_filepath):
-                st.info(f"Analysis already exists for {log_file_basename}, skipping generation.")
-                continue
-            
-            if log_file_basename not in analyzed_files:
-                st.info(f"Processing new log file: {log_file_basename}")
-                
-                # Determine language based on filename
-                language = "english" if "english" in log_file.lower() else "basque"
-                
-                # Read log content
-                log_content = read_log_file(log_file)
-                if log_content:
-                    # Generate basic analysis
-                    basic_result = analyze_text(log_content, language, log_file, "basic")
-                    if basic_result:
-                        new_analyses.append({
-                            "language": language,
-                            "log_file": log_file,
-                            "analysis": basic_result
-                        })
-                    
-                    # Generate advanced analysis
-                    advanced_result = analyze_text(log_content, language, log_file, "advanced")
-                    
-        # Generate comparative analysis if we have both English and Basque logs
-        english_logs = [f for f in log_files if "english" in f.lower()]
-        basque_logs = [f for f in log_files if "basque" in f.lower()]
-        
-        if english_logs and basque_logs:
-            for english_log in english_logs:
-                for basque_log in basque_logs:
-                    # Check if comparison already exists
-                    comparison_exists = False
-                    for analysis in comparative_analyses:
-                        if (os.path.basename(analysis.get("english_log", "")) == os.path.basename(english_log) and 
-                            os.path.basename(analysis.get("basque_log", "")) == os.path.basename(basque_log)):
-                            comparison_exists = True
-                            break
-                    
-                    if not comparison_exists:
-                        st.info(f"Generating comparison for {os.path.basename(english_log)} and {os.path.basename(basque_log)}")
-                        comparison_result = compare_texts_with_cultural_analysis(
-                            english_log, basque_log, "English", "Basque"
-                        )
-                        if comparison_result:
-                            save_comparative_analysis(comparison_result, english_log, basque_log)
-        
-        return new_analyses
-    except Exception as e:
-        st.error(f"Error handling new logs: {str(e)}")
-        return []
-
-def export_analysis_to_pdf(analyses, comparative_analysis=None):
-    """Export the analyses to a PDF file.
-    
-    Parameters:
-    - analyses: List of analysis dictionaries
-    - comparative_analysis: Optional comparative analysis text
-    
-    Returns:
-    - Path to the generated PDF file
-    """
-    try:
-        # Create a temporary file for the PDF
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_path = os.path.join(LOGS_DIR, f"analysis_export_{timestamp}.pdf")
-        
-        # Create the PDF document
-        doc = SimpleDocTemplate(output_path, pagesize=letter)
-        styles = getSampleStyleSheet()
-        
-        # Create custom styles for headers
-        header1 = ParagraphStyle(
-            'Header1',
-            parent=styles['Heading1'],
-            fontSize=16,
-            spaceAfter=12
-        )
-        
-        header2 = ParagraphStyle(
-            'Header2',
-            parent=styles['Heading2'],
-            fontSize=14,
-            spaceAfter=10
-        )
-        
-        # Prepare the content
-        content = []
-        
-        # Add title
-        content.append(Paragraph("LLM-based Agent Simulation Analysis", styles['Title']))
-        content.append(Spacer(1, 0.25*inch))
-        
-        # Add generation info
-        content.append(Paragraph(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", styles['Normal']))
-        content.append(Spacer(1, 0.5*inch))
-        
-        # Add comparative analysis if available
-        if comparative_analysis:
-            content.append(Paragraph("Comparative Analysis", header1))
-            content.append(Spacer(1, 0.1*inch))
-            
-            # Format comparative analysis text for PDF
-            # Split into paragraphs for better formatting
-            paragraphs = comparative_analysis.split("\n\n")
-            for para in paragraphs:
-                if para.strip():
-                    content.append(Paragraph(para, styles['Normal']))
-                    content.append(Spacer(1, 0.1*inch))
-            
-            content.append(Spacer(1, 0.3*inch))
-        
-        # Add individual language analyses
-        english_analysis = next((a for a in analyses if a["language"] == "english"), None)
-        basque_analysis = next((a for a in analyses if a["language"] == "basque"), None)
-        
-        # Add English analysis
-        if english_analysis:
-            content.append(Paragraph("English Analysis", header1))
-            content.append(Spacer(1, 0.1*inch))
-            
-            # Add basic analysis
-            if isinstance(english_analysis["analysis"], dict) and "analysis" in english_analysis["analysis"]:
-                content.append(Paragraph("Basic Analysis", header2))
-                content.append(Spacer(1, 0.1*inch))
-                
-                # Format the analysis text
-                analysis_text = english_analysis["analysis"]["analysis"]
-                paragraphs = analysis_text.split("\n\n")
-                for para in paragraphs:
-                    if para.strip():
-                        content.append(Paragraph(para, styles['Normal']))
-                        content.append(Spacer(1, 0.1*inch))
-                
-                content.append(Spacer(1, 0.2*inch))
-        
-        # Add Basque analysis
-        if basque_analysis:
-            content.append(Paragraph("Basque Analysis", header1))
-            content.append(Spacer(1, 0.1*inch))
-            
-            # Add basic analysis
-            if isinstance(basque_analysis["analysis"], dict) and "analysis" in basque_analysis["analysis"]:
-                content.append(Paragraph("Basic Analysis", header2))
-                content.append(Spacer(1, 0.1*inch))
-                
-                # Format the analysis text
-                analysis_text = basque_analysis["analysis"]["analysis"]
-                paragraphs = analysis_text.split("\n\n")
-                for para in paragraphs:
-                    if para.strip():
-                        content.append(Paragraph(para, styles['Normal']))
-                        content.append(Spacer(1, 0.1*inch))
-                
-                content.append(Spacer(1, 0.2*inch))
-        
-        # Add advanced analyses if available
-        advanced_analyses = load_advanced_analysis_files()
-        
-        english_advanced = next((a for a in advanced_analyses if a['language'].lower() == 'english'), None)
-        if english_advanced:
-            content.append(Paragraph("Advanced English Analysis", header1))
-            content.append(Spacer(1, 0.1*inch))
-            
-            # Format the narrative analysis
-            narrative = english_advanced["analysis"]["narrative_analysis"]
-            paragraphs = narrative.split("\n\n")
-            for para in paragraphs:
-                if para.strip():
-                    content.append(Paragraph(para, styles['Normal']))
-                    content.append(Spacer(1, 0.1*inch))
-            
-            content.append(Spacer(1, 0.2*inch))
-        
-        basque_advanced = next((a for a in advanced_analyses if a['language'].lower() == 'basque'), None)
-        if basque_advanced:
-            content.append(Paragraph("Advanced Basque Analysis", header1))
-            content.append(Spacer(1, 0.1*inch))
-            
-            # Format the narrative analysis
-            narrative = basque_advanced["analysis"]["narrative_analysis"]
-            paragraphs = narrative.split("\n\n")
-            for para in paragraphs:
-                if para.strip():
-                    content.append(Paragraph(para, styles['Normal']))
-                    content.append(Spacer(1, 0.1*inch))
-            
-            content.append(Spacer(1, 0.2*inch))
-        
-        # Build the PDF
-        doc.build(content)
-        
-        st.success(f"PDF exported successfully to: {output_path}")
-        return output_path
-    
-    except Exception as e:
-        st.error(f"Error creating PDF: {str(e)}")
-        return None
-
-def get_binary_file_downloader_html(bin_file, file_label='File'):
-    """Create a download link for a binary file."""
-    try:
-        with open(bin_file, 'rb') as f:
-            data = f.read()
-        b64 = base64.b64encode(data).decode()
-        href = f'<a href="data:application/octet-stream;base64,{b64}" download="{os.path.basename(bin_file)}">{file_label}</a>'
-        return href
-    except Exception as e:
-        st.error(f"Error creating download link: {str(e)}")
-        return None
-
-def main():
-    st.title("LLM-based Agent Simulation Analysis")
-    
-    # Add folder information at the top
-    st.info(f"🗂️ All log files are located in the '{LOGS_DIR}/' folder and analysis files in '{JSON_DIR}/'")
-    
-    # Ensure directories exist
-    ensure_dirs_exist()
-    
-    # Handle any new log files first
-    new_analyses = handle_new_logs()
-    
-    # Load all analyses
-    analyses = load_analysis_files()
-    if new_analyses:
-        analyses.extend(new_analyses)
-    
-    # Add sidebar controls
-    with st.sidebar:
-        st.header("Controls")
-        show_translation = st.checkbox("Show translations", value=True)
-        
-        # Add export section
-        st.header("Export")
-        if st.button("Export Analysis to PDF"):
-            with st.spinner("Generating PDF export..."):
-                # Get comparative analysis if available
-                comparative_analysis = None
-                if 'summary_analysis' in st.session_state and st.session_state.summary_analysis:
-                    comparative_analysis = st.session_state.summary_analysis
-                
-                # Generate the PDF
-                pdf_path = export_analysis_to_pdf(analyses, comparative_analysis)
-                
-                if pdf_path and os.path.exists(pdf_path):
-                    # Create a download link
-                    download_link = get_binary_file_downloader_html(pdf_path, 'Download PDF Analysis')
-                    st.markdown(download_link, unsafe_allow_html=True)
-                    st.success("PDF generated successfully. Click the link above to download.")
-        
-        # Add data location information
-        st.header("Data Locations")
-        st.markdown(f"""
-        - **Log Files**: `{LOGS_DIR}/*.txt`
-        - **Analysis Files**: `{JSON_DIR}/*.json`
-        """)
-    
-    # Create tabs
-    tab_names = ["Language Analysis", "Cross-Language Comparison", "LLM Analysis", "Visual Analysis", "Summary"]
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(tab_names)
-    
-    with tab1:
-        st.header("Language Analysis")
-        
-        # Get latest analyses for both languages
-        english_analysis = next((a for a in analyses if a["language"] == "english"), None)
-        basque_analysis = next((a for a in analyses if a["language"] == "basque"), None)
-        
-        if english_analysis and basque_analysis:
-            # Create two columns for side-by-side analysis
-            col1, col2 = st.columns(2)
-            
-            # Get log files
-            english_log_path = english_analysis.get("log_file", "")
-            if not english_log_path or not os.path.exists(english_log_path):
-                english_log_path = os.path.join(LOGS_DIR, "debate_english_20250329_173609.txt")
-            
-            basque_log_path = basque_analysis.get("log_file", "")
-            if not basque_log_path or not os.path.exists(basque_log_path):
-                basque_log_path = os.path.join(LOGS_DIR, "eztabaida_20250329_173741.txt")
-            
-            english_log = read_log_file(english_log_path)
-            basque_log = read_log_file(basque_log_path)
-            
-            # Display side-by-side frequency analysis
-            with col1:
-                st.subheader("English")
-                if english_log:
-                    # Display frequency analysis
-                    display_frequency_analysis(english_analysis, english_log, show_translation)
-                else:
-                    st.error("Could not read English log file")
-            
-            with col2:
-                st.subheader("Basque")
-                if basque_log:
-                    # Display frequency analysis
-                    display_frequency_analysis(basque_analysis, basque_log, show_translation)
-                else:
-                    st.error("Could not read Basque log file")
-            
-            # Add log content view after the analysis
-            st.subheader("Log Content")
-            log_tab1, log_tab2 = st.tabs(["English Log", "Basque Log"])
-            
-            with log_tab1:
-                if english_log:
-                    # Add search functionality
-                    search_term = st.text_input("Search in English log", key="search_english")
-                    
-                    # Filter content based on search
-                    if search_term:
-                        filtered_lines = [line for line in english_log.split('\n') 
-                                        if search_term.lower() in line.lower()]
-                        display_log = '\n'.join(filtered_lines)
-                    else:
-                        display_log = english_log
-                    
-                    st.text_area("Log Content", display_log, height=300, 
-                                key="log_english", 
-                                label_visibility="collapsed")
-                else:
-                    st.error("Could not read English log file")
-            
-            with log_tab2:
-                if basque_log:
-                    # Add search functionality
-                    search_term = st.text_input("Search in Basque log", key="search_basque")
-                    
-                    # Filter content based on search
-                    if search_term:
-                        filtered_lines = [line for line in basque_log.split('\n') 
-                                        if search_term.lower() in line.lower()]
-                        display_log = '\n'.join(filtered_lines)
-                    else:
-                        display_log = basque_log
-                    
-                    st.text_area("Log Content", display_log, height=300, 
-                                key="log_basque", 
-                                label_visibility="collapsed")
-                else:
-                    st.error("Could not read Basque log file")
-        else:
-            st.warning("Analysis files for both languages not found.")
-    
-    with tab2:
-        st.header("Cross-Language Comparison")
-        # Get latest analyses for both languages
-        english_analysis = next((a for a in analyses if a["language"] == "english"), None)
-        basque_analysis = next((a for a in analyses if a["language"] == "basque"), None)
-        
-        if english_analysis and basque_analysis:
-            # Compare logs
-            english_log_path = english_analysis.get("log_file", "")
-            if not english_log_path or not os.path.exists(english_log_path):
-                english_log_path = os.path.join(LOGS_DIR, "debate_english_20250329_173609.txt")
-            
-            basque_log_path = basque_analysis.get("log_file", "")
-            if not basque_log_path or not os.path.exists(basque_log_path):
-                basque_log_path = os.path.join(LOGS_DIR, "eztabaida_20250329_173741.txt")
-            
-            english_log = read_log_file(english_log_path)
-            basque_log = read_log_file(basque_log_path)
-            
-            if english_log and basque_log:
-                # Display frequency comparison charts
-                st.subheader("Frequency Comparisons")
-                
-                # Pronouns comparison
-                english_pronouns = analyze_frequency(english_log, english_analysis["analysis"]["collective_pronouns"])
-                basque_pronouns = analyze_frequency(basque_log, basque_analysis["analysis"]["collective_pronouns"])
-                fig_pronouns = plot_frequency_comparison(english_pronouns, basque_pronouns, "Collective Pronouns", show_translation)
-                st.plotly_chart(fig_pronouns)
-                
-                # Verbs comparison
-                english_verbs = analyze_frequency(english_log, english_analysis["analysis"]["agency_verbs"])
-                basque_verbs = analyze_frequency(basque_log, basque_analysis["analysis"]["agency_verbs"])
-                fig_verbs = plot_frequency_comparison(english_verbs, basque_verbs, "Agency Verbs", show_translation)
-                st.plotly_chart(fig_verbs)
-            else:
-                st.warning("Could not read log files for comparison")
-        else:
-            st.warning("Analysis files for both languages not found.")
-    
-    with tab3:
-        st.header("LLM Analysis")
-        
-        # Display saved advanced analyses in columns
-        st.subheader("Saved Advanced Analyses")
-        saved_advanced_analyses = load_advanced_analysis_files()
-        if saved_advanced_analyses:
-            # Separate analyses by language
-            english_advanced = [a for a in saved_advanced_analyses if a['language'].lower() == 'english']
-            basque_advanced = [a for a in saved_advanced_analyses if a['language'].lower() == 'basque']
-            
-            # Display in columns
-            adv_col1, adv_col2 = st.columns(2)
-            
-            with adv_col1:
-                st.markdown("### Advanced English Analyses")
-                for analysis in english_advanced:
-                    with st.expander(f"English - {analysis['timestamp']}"):
-                        if 'log_file' in analysis:
-                            st.markdown(f"**Log File:** {analysis['log_file']}")
-                        st.markdown("**Narrative Analysis:**")
-                        st.markdown(analysis["analysis"]["narrative_analysis"])
-            
-            with adv_col2:
-                st.markdown("### Advanced Basque Analyses")
-                for analysis in basque_advanced:
-                    with st.expander(f"Basque - {analysis['timestamp']}"):
-                        if 'log_file' in analysis:
-                            st.markdown(f"**Log File:** {analysis['log_file']}")
-                        st.markdown("**Narrative Analysis:**")
-                        st.markdown(analysis["analysis"]["narrative_analysis"])
-        else:
-            st.info("No saved advanced analyses found")
-        
-        if english_analysis and basque_analysis:
-            # Create two columns for side-by-side analysis
-            st.subheader("Run New Analysis")
-            
-            # Initialize session state for advanced analysis results if not exists
-            if 'english_advanced_analysis' not in st.session_state:
-                st.session_state.english_advanced_analysis = None
-            if 'basque_advanced_analysis' not in st.session_state:
-                st.session_state.basque_advanced_analysis = None
-            
-            # Controls section
-            control_col1, control_col2 = st.columns(2)
-            
-            with control_col1:
-                st.markdown("### English Advanced Analysis")
-                # Use hardcoded path if log_file is empty or not found
-                english_log_path = english_analysis.get("log_file", "")
-                if not english_log_path or not os.path.exists(english_log_path):
-                    english_log_path = os.path.join(LOGS_DIR, "debate_english_20250329_173609.txt")
-                
-                english_log = read_log_file(english_log_path)
-                if english_log:
-                    if st.button("Run English Advanced Analysis"):
-                        with st.spinner("Performing advanced analysis of English text..."):
-                            st.session_state.english_advanced_analysis = analyze_text(
-                                english_log, "English", english_log_path, "advanced"
-                            )
-                    
-                    # Display English results
-                    if st.session_state.english_advanced_analysis:
-                        display_advanced_analysis(st.session_state.english_advanced_analysis, "English", show_translation)
-                else:
-                    st.warning("Could not read English log file")
-            
-            with control_col2:
-                st.markdown("### Basque Advanced Analysis")
-                # Use hardcoded path if log_file is empty or not found
-                basque_log_path = basque_analysis.get("log_file", "")
-                if not basque_log_path or not os.path.exists(basque_log_path):
-                    basque_log_path = os.path.join(LOGS_DIR, "eztabaida_20250329_173741.txt")
-                
-                basque_log = read_log_file(basque_log_path)
-                if basque_log:
-                    if st.button("Run Basque Advanced Analysis"):
-                        with st.spinner("Performing advanced analysis of Basque text..."):
-                            st.session_state.basque_advanced_analysis = analyze_text(
-                                basque_log, "Basque", basque_log_path, "advanced"
-                            )
-                    
-                    # Display Basque results
-                    if st.session_state.basque_advanced_analysis:
-                        display_advanced_analysis(st.session_state.basque_advanced_analysis, "Basque", show_translation)
-                else:
-                    st.warning("Could not read Basque log file")
-        else:
-            st.warning("Analysis files for both languages not found.")
-    
-    with tab4:
-        st.header("Visual Analysis")
-        
-        # --- Comparative Matrix --- 
-        st.markdown("### Comparative Matrix: Structure and Emphasis")
-        
-        # Get latest analyses for paths, falling back to defaults
-        english_analysis = next((a for a in analyses if a["language"] == "english"), None)
-        basque_analysis = next((a for a in analyses if a["language"] == "basque"), None)
-        
-        # Use hardcoded paths if analysis or log_file is missing/invalid
-        english_log_path = english_analysis.get("log_file", "") if english_analysis else ""
-        if not english_log_path or not os.path.exists(english_log_path):
-            english_log_path = os.path.join(LOGS_DIR, "debate_english_20250329_173609.txt")
-        
-        basque_log_path = basque_analysis.get("log_file", "") if basque_analysis else ""
-        if not basque_log_path or not os.path.exists(basque_log_path):
-            basque_log_path = os.path.join(LOGS_DIR, "eztabaida_20250329_173741.txt")
-        
-        # Read the log files
-        english_log = read_log_file(english_log_path)
-        basque_log = read_log_file(basque_log_path)
-        
-        if english_log and basque_log:
-            # Create and display the comparative matrix
-            fig_matrix = create_comparative_matrix(english_log, basque_log)
-            if fig_matrix:
-                st.plotly_chart(fig_matrix, use_container_width=True)
-            else:
-                st.warning("Could not generate Comparative Matrix.")
-        else:
-            st.warning("Could not read both English and Basque log files required for the visualizations.")
-    
-    with tab5:
-        st.header("Summary")
-        
-        # Get the log file paths
-        english_log_path = os.path.join(LOGS_DIR, "debate_english_20250329_173609.txt")
-        basque_log_path = os.path.join(LOGS_DIR, "eztabaida_20250329_173741.txt")
-        
-        # Verify files exist
-        if not os.path.exists(english_log_path) or not os.path.exists(basque_log_path):
-            st.error("Could not find required log files")
-            return
-            
-        # Initialize session state for summary analysis if not exists
-        if 'summary_analysis' not in st.session_state:
-            st.session_state.summary_analysis = None
-        
-        # Check for existing summary analysis
-        saved_analyses = load_comparative_analysis_files()
-        matching_analysis = None
-        
-        for analysis in saved_analyses:
-            eng_log = analysis.get("english_log", "")
-            bas_log = analysis.get("basque_log", "")
-            
-            # Normalize paths for comparison
-            if eng_log and bas_log:
-                eng_log = os.path.normpath(os.path.abspath(eng_log))
-                bas_log = os.path.normpath(os.path.abspath(bas_log))
-                
-                if (os.path.basename(eng_log) == os.path.basename(english_log_path) and 
-                    os.path.basename(bas_log) == os.path.basename(basque_log_path)):
-                    matching_analysis = analysis
-                    break
-        
-        if matching_analysis:
-            st.info("Using saved summary analysis")
-            st.session_state.summary_analysis = matching_analysis["analysis"]
-        else:
-            st.info("No saved summary analysis found")
-        
-        if st.button("Generate Comparative Analysis"):
-            with st.spinner("Analyzing both texts..."):
-                analysis_result = compare_texts_with_cultural_analysis(
-                    english_log_path,
-                    basque_log_path,
-                    "English", "Basque"
+                # Save parsed data
+                save_msg = save_parsed_transcript(
+                    basque_parsed,
+                    ANALYSIS_RESULTS_DIR,
+                    f"basque_parsed_{basque_log_file.replace('.jsonl', '.json')}"
                 )
-                st.session_state.summary_analysis = analysis_result
-                
-                # Save the analysis
-                if analysis_result and not analysis_result.startswith("Error"):
-                    save_comparative_analysis(
-                        analysis_result,
-                        english_log_path,
-                        basque_log_path
-                    )
+                st.success(save_msg)
         
-        # Display summary if available
-        if st.session_state.summary_analysis:
-            st.markdown("### Comparative Analysis")
-            st.markdown(st.session_state.summary_analysis)
-        else:
-            st.info("Click 'Generate Comparative Analysis' to analyze both texts")
-
-def create_comparative_matrix(english_log, basque_log):
-    """Create a qualitative comparative matrix visualization based on LLM analysis."""
-    try:
-        dimensions = {
-            "Tone": analyze_tone,
-            "Agent A Focus": lambda text: analyze_agent_focus(text, "A"),
-            "Agent B Focus": lambda text: analyze_agent_focus(text, "B"),
-            "Risk Framing": analyze_risk_framing,
-            "Governance Model": analyze_governance_model
-        }
-        
-        # Analyze each dimension for both logs
-        data = []
-        with st.spinner("Generating comparative matrix data..."):
-            for dimension, analysis_func in dimensions.items():
-                english_analysis = analysis_func(english_log)
-                basque_analysis = analysis_func(basque_log)
-                data.append({
-                    "Dimension": dimension,
-                    "English Simulation": english_analysis,
-                    "Basque Simulation": basque_analysis
-                })
-        
-        df = pd.DataFrame(data)
-        
-        # Create table for display
-        fig = go.Figure(data=[go.Table(
-            header=dict(
-                values=list(df.columns),
-                fill_color='paleturquoise',
-                align='left',
-                font=dict(size=14)
-            ),
-            cells=dict(
-                values=[df.Dimension, df["English Simulation"], df["Basque Simulation"]],
-                fill_color='lavender',
-                align='left',
-                font=dict(size=12)
+        if 'basque_parsed' in st.session_state:
+            parsed = st.session_state['basque_parsed']
+            
+            st.markdown(f"**Parser Used:** {parsed.parser_type}")
+            st.markdown(f"**Total Tokens:** {len(parsed.tokens)}")
+            
+            st.markdown("---")
+            
+            # Ergative-Absolutive Alignment
+            st.markdown("### Ergative-Absolutive Alignment")
+            ratios = parsed.get_alignment_ratios()
+            
+            col_a, col_b = st.columns(2)
+            with col_a:
+                st.metric(
+                    "Ergative Ratio", 
+                    f"{ratios['ergative_ratio']:.1%}",
+                    help="Proportion of ergative-marked arguments (agents of transitive verbs)"
+                )
+            with col_b:
+                st.metric(
+                    "Absolutive Ratio",
+                    f"{ratios['absolutive_ratio']:.1%}",
+                    help="Proportion of absolutive-marked arguments (subjects of intransitive, objects of transitive)"
+                )
+            
+            # Agentive Marking Patterns
+            st.markdown("### Agentive Marking Patterns")
+            agentive = parsed.identify_agentive_marking_patterns()
+            
+            pattern = agentive.get('pattern', 'normal')
+            if pattern == 'overuse':
+                st.warning(f"⚠️ **Overuse** of ergative (agentive) marking detected ({agentive['deviation_from_baseline']:+.2%} above baseline)")
+            elif pattern == 'underuse':
+                st.info(f"ℹ️ **Underuse** of ergative (agentive) marking detected ({agentive['deviation_from_baseline']:+.2%} below baseline)")
+            else:
+                st.success(f"✓ Normal ergative marking pattern (within ±10% of baseline)")
+            
+            with st.expander("View Detailed Metrics"):
+                st.json(agentive)
+            
+            # Case Distribution
+            st.markdown("### Case Distribution")
+            case_dist = parsed.get_case_distribution()
+            if 'note' not in case_dist:
+                case_df = pd.DataFrame.from_dict(case_dist, orient='index', columns=['Count'])
+                st.bar_chart(case_df)
+                with st.expander("View Case Distribution Data"):
+                    st.json(case_dist)
+            
+            # Responsibility Term Analysis
+            st.markdown("### Responsibility Terms & Case Co-occurrence")
+            
+            responsibility_terms_basque = st.multiselect(
+                "Select Basque responsibility terms to track:",
+                options=['erantzukizun', 'kontrolatu', 'gardentasun', 'ikuskapena', 'babestu', 
+                         'arauak', 'eskubideak', 'arriskua', 'kudeaketa', 'zentzura'],
+                default=['erantzukizun', 'kontrolatu', 'gardentasun']
             )
-        )])
-        
-        fig.update_layout(
-            title="Comparative Matrix: Structure and Emphasis",
-            height=400  # Adjust height as needed
-        )
-        
-        return fig
-    except Exception as e:
-        st.error(f"Error creating comparative matrix: {str(e)}")
-        return None
+            
+            if responsibility_terms_basque and st.button("Analyze Co-occurrence", key="cooccur_basque"):
+                cooccur = parsed.track_term_case_cooccurrence(responsibility_terms_basque, window=5)
+                st.markdown("**How responsibility terms co-occur with case marking:**")
+                st.json(cooccur)
+                
+                # Visualize as heatmap if data available
+                if cooccur and 'note' not in cooccur:
+                    # Convert to DataFrame for heatmap
+                    cooccur_data = []
+                    for term, cases in cooccur.items():
+                        for case, count in cases.items():
+                            cooccur_data.append({
+                                'Term': term,
+                                'Case': case,
+                                'Count': count
+                            })
+                    
+                    if cooccur_data:
+                        cooccur_df = pd.DataFrame(cooccur_data)
+                        pivot = cooccur_df.pivot(index='Term', columns='Case', values='Count').fillna(0)
+                        
+                        fig = px.imshow(
+                            pivot,
+                            labels=dict(x="Case Marking", y="Responsibility Term", color="Co-occurrence Count"),
+                            title="Responsibility Terms × Case Marking Co-occurrence",
+                            color_continuous_scale='Blues'
+                        )
+                        st.plotly_chart(fig, use_container_width=True)
+            
+            # Token Table Sample
+            with st.expander("View Parsed Tokens (Sample)"):
+                token_table = parsed.to_table(max_rows=100)
+                st.dataframe(pd.DataFrame(token_table))
+    else:
+        st.info("💡 Select a Basque log file from the sidebar to begin morphological analysis")
 
-if __name__ == "__main__":
-    main() 
+# --- English Syntactic Analysis Tab ---
+with tab_english_analysis:
+    st.header("English Syntactic Analysis: Nominative-Accusative Alignment")
+    st.markdown("""
+    **Deep grammatical structure analysis** using spaCy dependency parsing:
+    - Subject/Object role extraction (nominative/accusative case)
+    - Agent/Patient alignment patterns
+    - Active/Passive voice distribution
+    - Syntactic dependency patterns
+    
+    Provides **parallel depth** to Basque morphological analysis for cross-linguistic comparison.
+    """)
+    
+    if english_log_file:
+        english_log_path = os.path.join(LOGS_DIR, english_log_file)
+        english_log_data = load_jsonl_log(english_log_path)
+        
+        if st.button("🔬 Analyze English Syntax", key="run_syntax_eng", type="primary"):
+            with st.spinner("Parsing English syntax with spaCy dependency parser..."):
+                try:
+                    syntax_results = analyze_english_syntax(english_log_data)
+                    st.session_state.syntax_results_eng = syntax_results
+                    
+                    # Save results
+                    if syntax_results and 'error' not in syntax_results:
+                        timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        original_log_name = os.path.splitext(english_log_file)[0]
+                        save_filename = f"english_syntax_analysis_{original_log_name}_{timestamp_str}.json"
+                        save_path = os.path.join(ANALYSIS_RESULTS_DIR, save_filename)
+                        
+                        if not os.path.exists(ANALYSIS_RESULTS_DIR):
+                            os.makedirs(ANALYSIS_RESULTS_DIR)
+                        
+                        with open(save_path, 'w', encoding='utf-8') as f:
+                            json.dump(syntax_results, f, indent=4)
+                        
+                        st.session_state.syntax_eng_status = {
+                            'message': f"✓ English syntactic analysis complete. Saved to {save_filename}",
+                            'type': 'success'
+                        }
+                    else:
+                        st.session_state.syntax_eng_status = {
+                            'message': f"⚠ Analysis completed with warnings: {syntax_results.get('error', 'Unknown')}",
+                            'type': 'warning'
+                        }
+                except Exception as e:
+                    st.session_state.syntax_eng_status = {
+                        'message': f"✗ Syntactic analysis failed: {str(e)}",
+                        'type': 'error'
+                    }
+        
+        # Display syntax status
+        status_info_syntax = st.session_state.get('syntax_eng_status')
+        if status_info_syntax:
+            if status_info_syntax['type'] == 'success':
+                st.success(status_info_syntax['message'])
+            elif status_info_syntax['type'] == 'warning':
+                st.warning(status_info_syntax['message'])
+            elif status_info_syntax['type'] == 'error':
+                st.error(status_info_syntax['message'])
+        
+        # Display syntax results
+        if st.session_state.get('syntax_results_eng'):
+            results = st.session_state.syntax_results_eng
+            
+            if 'error' not in results:
+                st.markdown("---")
+                # Summary metrics
+                if 'summary' in results:
+                    st.markdown("### Analysis Summary")
+                    summary = results['summary']
+                    col_s1, col_s2 = st.columns(2)
+                    with col_s1:
+                        st.metric("Case Distribution", summary.get('nominative_accusative_ratio', 'N/A'))
+                        st.metric("Voice Distribution", summary.get('active_passive_ratio', 'N/A'))
+                    with col_s2:
+                        st.metric("Agent-Subject Alignment", summary.get('agent_subject_alignment', 'N/A'))
+                        st.info(f"**Pattern**: {summary.get('primary_pattern', 'Unknown')}")
+                
+                # Detailed results in expandable sections
+                with st.expander("📊 Case Distribution (Nominative vs Accusative)"):
+                    if 'case_distribution' in results:
+                        case_dist = results['case_distribution']
+                        st.json(case_dist)
+                        
+                        # Visualize case distribution
+                        if case_dist.get('nominative_count', 0) + case_dist.get('accusative_count', 0) > 0:
+                            case_df = pd.DataFrame({
+                                'Case': ['Nominative', 'Accusative'],
+                                'Count': [case_dist.get('nominative_count', 0), case_dist.get('accusative_count', 0)]
+                            })
+                            chart_case = alt.Chart(case_df).mark_bar().encode(
+                                x=alt.X('Case:N', title='Grammatical Case'),
+                                y=alt.Y('Count:Q', title='Frequency'),
+                                color='Case:N'
+                            )
+                            st.altair_chart(chart_case, use_container_width=True)
+                
+                with st.expander("🎭 Voice Distribution (Active vs Passive)"):
+                    if 'voice_distribution' in results:
+                        st.json(results['voice_distribution'])
+                
+                with st.expander("🎯 Agent-Patient Alignment"):
+                    if 'agent_patient_alignment' in results:
+                        st.json(results['agent_patient_alignment'])
+                
+                with st.expander("🔗 Dependency Patterns"):
+                    if 'dependency_patterns' in results:
+                        st.json(results['dependency_patterns'])
+                
+                # Full JSON (collapsed)
+                with st.expander("📄 Full Analysis Results (JSON)"):
+                    st.json(results, expanded=False)
+            else:
+                st.warning(f"Syntactic analysis encountered an error: {results.get('error')}")
+        elif english_log_file and english_log_data:
+            st.info("💡 Click 'Analyze English Syntax' above to parse grammatical structure with spaCy")
+    else:
+        st.info("💡 Select an English log file from the sidebar to begin syntactic analysis")
+
+# To run: streamlit run simplified_viewer.py 

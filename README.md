@@ -1,141 +1,132 @@
-# AItoAIlang - Cross-Language AI Simulation Analysis
+# ErgativeAgentsSims2025 - Cross-Language AI Simulation Analysis
 
-A specialized tool for analyzing and comparing language patterns and cultural factors in AI simulations across English and Basque languages.
+A specialized tool for analyzing and comparing language patterns and cultural factors in AI debates across English and Basque languages.
 
 ## Overview
 
-AItoAIlang provides a suite of analytical tools to examine how language and cultural factors influence AI-to-AI conversations. The project focuses on comparing debates conducted in English and Basque, offering insights into:
+This project provides analytical tools to examine how language and cultural factors influence AI-to-AI conversations. It focuses on comparing debates conducted in English and Basque, offering insights into:
 
 - Cultural framing and linguistic patterns
 - Rhetorical strategies and emphasis variations
 - Agency expression and responsibility attribution
-- Comparative visualization of sentiment and rhetorical dimensions
+- Ergative-absolutive (Basque) vs nominative-accusative (English) grammatical alignment
 
-## Features
+## Quick Start
 
-- **Log Analysis**: Processes conversation logs to extract key linguistic markers
-- **Cross-Language Comparison**: Side-by-side analysis of English and Basque conversations
-- **Advanced LLM Analysis**: Uses AI models to extract deeper cultural and rhetorical patterns
-- **Summary Analysis**: Generates comprehensive comparative reports on language differences
+```bash
+# 1. Clone and setup
+git clone https://github.com/yourusername/ErgativeAgentsSims2025.git
+cd ErgativeAgentsSims2025
+python -m venv venv
+.\venv\Scripts\Activate.ps1  # Windows
+pip install -r requirements.txt
 
-## Getting Started
+# 2. Configure API key
+echo "OPENAI_API_KEY=your_key_here" > .env
 
-### Prerequisites
-
-- Python 3.8+
-- OpenAI API key or OpenRouter API key
-
-### Installation
-
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/AItoAIlang.git
-   cd AItoAIlang
-   ```
-
-2. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-
-3. Create a `.env` file with your API keys:
-   ```
-   OPENAI_API_KEY=your_key_here
-   # or
-   OPENROUTER_API_KEY=your_key_here
-   ```
-
-## Generating Debate Logs
-
-The project includes two scripts to generate AI debates in English and Basque:
-
-1. **Generate English debate logs**:
-   ```bash
-   python english.py
-   ```
-
-2. **Generate Basque debate logs**:
-   ```bash
-   python basque.py
-   ```
-
-These scripts will:
-- Connect to the OpenRouter API using your API key
-- Generate a simulated debate between two AI models (both using Google's Gemini Pro)
-- Save the debate transcripts to the `logs/` directory with timestamped filenames:
-  - English: `debate_english_YYYYMMDD_HHMMSS.txt`
-  - Basque: `eztabaida_YYYYMMDD_HHMMSS.txt`
-  
-Each script runs 4 rounds of debate between two Gemini models on the topic of whether AI should be open infrastructure or controlled by corporations. The resulting logs become the input for the analysis application.
-
-> **Note**: The generated logs explore how AI language models conceptualize and express important topics like agency, responsibility, and governance differently in English versus Basque. This offers unique insights into how language influences AI thinking patterns.
-
-### Default Log Files
-
-The analysis application is pre-configured to work with these included log files:
-- `logs/debate_english_20250329_173609.txt` - English debate log
-- `logs/eztabaida_20250329_173741.txt` - Basque debate log
-
-If you generate new logs using the scripts, the application will automatically detect and process them, or you can point to specific files using the interface.
-
-### Running the Analysis Application
-
-Launch the Streamlit interface:
-```
+# 3. Run the viewer
 streamlit run simplified_viewer.py
 ```
 
-The application will be available at http://localhost:8502 in your browser.
+See [docs/SETUP.md](docs/SETUP.md) for detailed installation instructions.
 
-## Usage
+## Generating Debates
 
-Once the application is running, you can navigate through these tabs:
+Run AI debates using the unified debate script:
 
-1. **Language Analysis**: Examine the frequency of collective pronouns, agency verbs, and cultural references in both languages. This tab provides side-by-side analysis of key linguistic elements.
+```bash
+# English debate (10 rounds)
+python debate.py --language english --rounds 10
 
-2. **Cross-Language Comparison**: Compare frequency distributions between languages with integrated translations. This helps identify how similar concepts are expressed differently.
+# Basque debate with proposal phase (15 rounds)
+python debate.py --language basque --rounds 15 --with-proposal
 
-3. **LLM Analysis**: Access deeper AI-powered analysis of each language log, including narrative patterns, responsibility framing, and cultural context.
+# Custom question
+python debate.py --language english --question "Your custom question here"
+```
 
-4. **Summary**: Generate comprehensive comparative analyses that identify cultural patterns and linguistic differences across the simulations. This analysis is saved for future reference.
+Debate logs are saved to `logs2025/` in JSONL format.
 
-The sidebar provides additional options:
-- Toggle translations on/off
-- Export analysis to PDF
-- View data file locations
+## Using the Analysis Viewer
 
-## Troubleshooting
+Launch the Streamlit interface:
+```bash
+streamlit run simplified_viewer.py
+```
 
-- **Permission Issues**: If you encounter permission errors when accessing logs, ensure your user account has read/write access to the project directory.
-- **File Not Found**: The application expects log files in the `logs/` directory. If you place them elsewhere, update the paths in the application.
-- **API Errors**: If analyses fail, check your API key in the `.env` file and ensure you have sufficient credit with your API provider.
+Navigate through these analysis tabs:
+1. **Language Analysis** - Frequency of pronouns, agency verbs, cultural references
+2. **Cross-Language Comparison** - Side-by-side frequency distributions
+3. **LLM Analysis** - AI-powered cultural and rhetorical pattern analysis
+4. **Morphological Analysis** - Case marking and grammatical alignment
+5. **Summary** - Comprehensive comparative reports
+
+## Features
+
+- **Log Analysis**: Processes conversation logs to extract linguistic markers
+- **Cross-Language Comparison**: Side-by-side English/Basque analysis
+- **Advanced LLM Analysis**: Extracts cultural and rhetorical patterns
+- **Morphological Analysis**: 
+  - Basque: Ergative/absolutive/dative case marking
+  - English: Nominative/accusative dependency parsing
+- **Responsibility Attribution**: Analyzes how responsibility is expressed across languages
 
 ## Project Structure
 
-- `/logs`: Contains the debate logs in different languages
-  - `/logs/JSONs`: Stores analysis results in JSON format
-- `simplified_viewer.py`: Main application file with Streamlit interface
-- `english.py` & `basque.py`: Language-specific processing modules for generating debates
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgements
-
-- This project utilizes OpenAI models via the OpenRouter API for analysis
-- Streamlit for the interactive web interface
-- The open-source community for various visualization and NLP tools 
+```
+ErgativeAgentsSims2025/
+├── debate.py                    # Unified debate generation script
+├── simplified_viewer.py         # Main Streamlit analysis application
+├── advanced_viewer.py           # Advanced analysis interface
+├── requirements.txt             # Python dependencies
+├── .gitignore                   # Git ignore patterns
+│
+├── Analyzers:
+│   ├── nlp_analyzer.py          # Basic NLP metrics
+│   ├── llm_analyzer.py          # LLM-based analysis
+│   ├── advanced_analyzer.py     # Cultural/rhetorical analysis
+│   ├── morphological_analyzer.py # Case marking analysis (Basque)
+│   ├── syntactic_analyzer.py    # Dependency parsing (English)
+│   ├── responsibility_analyzer.py # Responsibility attribution
+│   └── cross_linguistic_interpreter.py # Cross-language interpretation
+│
+├── Utilities:
+│   ├── utils.py                 # Helper functions
+│   └── parsing_pipeline.py      # Log parsing utilities
+│
+├── Data:                        # See docs/LOGGING_SCHEMA.md for formats
+│   ├── logs2025/                # Debate logs (JSONL format)
+│   ├── analysis_results/        # Analysis output (JSON, MD)
+│   └── advanced_analysis_results/ # Advanced analysis output
+│
+├── Config:
+│   └── advancedprompt.yaml      # Analysis prompt templates
+│
+├── docs/                        # Documentation
+│   ├── SETUP.md                 # Installation guide
+│   ├── LOGGING_SCHEMA.md        # Data formats & file structure
+│   ├── METHODOLOGICAL_DOCUMENTATION.md
+│   └── [other docs]
+│
+└── archived_scripts/            # Deprecated/legacy scripts
+```
 
 ## Research Motivation
 
-This project emerged from an interest in how ergative languages like Basque, when compared to nominative-accusative Indo-European languages like English, might reveal different understandings of values, responsibility, and agency in LLM simulations. 
+This project explores how ergative languages like Basque, compared to nominative-accusative languages like English, might reveal different understandings of values, responsibility, and agency in LLM simulations.
 
-Ergative languages structure sentences differently, with unique grammatical treatment of subjects and objects that can fundamentally alter how concepts of action, causation, and responsibility are expressed. By running parallel simulations across these linguistic structures, this research aims to:
+Key research questions:
+1. How do grammatical structures influence AI reasoning about ethical questions?
+2. Do LLMs exhibit different conceptions of agency in ergative vs nominative frameworks?
+3. How do cultural values embedded in language affect AI decision-making?
+4. Could linguistic differences lead to different AI alignment outcomes?
 
-1. Identify how grammatical structures might influence AI reasoning about ethical questions
-2. Explore whether LLMs exhibit different conceptions of agency in ergative vs. nominative language frameworks
-3. Examine if cultural values embedded in language affect AI decision-making processes
-4. Determine whether these linguistic differences could lead to substantively different AI alignment outcomes
+## License
 
-The hypothesis driving this work is that the grammatical structure of a language may shape how AI systems conceptualize and articulate complex value-laden topics, potentially offering insights for more culturally-informed AI development. 
+MIT License - see LICENSE file for details.
+
+## Acknowledgements
+
+- OpenAI/OpenRouter for LLM APIs
+- Streamlit for the web interface
+- spaCy and Stanza for NLP processing
